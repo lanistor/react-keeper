@@ -1,0 +1,26 @@
+{
+  "name": "react-control",
+  "version": "0.1",
+  "description": "More than router of React",
+  "homepage": "",
+  "bug": "",
+  "scripts": {
+    "start": "",
+    "build": "",
+    "test": ""
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    
+  },
+  "keywords": [
+    "react",
+    "route",
+    "router",
+    "react-router",
+    "control",
+    "filter"
+  ]
+}
