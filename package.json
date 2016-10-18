@@ -14,7 +14,8 @@
   },
   "devDependencies": {
     
-  },
+  }
+  /*,
   "keywords": [
     "react",
     "route",
@@ -22,5 +23,5 @@
     "react-router",
     "control",
     "filter"
-  ]
+  ]*/
 }

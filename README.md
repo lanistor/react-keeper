@@ -14,8 +14,8 @@ He needs router, he needs filter, if in mobile environment, he will needs suppor
   * Filter queue before mount a component.
   * Filter queue before unmount a component.
 * Small Component Use in React
-  * Which leads React to Fit Flexible Projects.
+  * Which leads React to fit flexible projects.
 * Else
-  * Animation to Initialize a page.
+  * Animation to initialize a page.
   * Render in server side.
   
