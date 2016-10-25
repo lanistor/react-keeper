@@ -6,7 +6,7 @@
   "bug": "",
   "scripts": {
     "exam": "node example/serve",
-    "test": "",
+    "test": "cross-env NODE_ENV=test karma start",
     "start": "",
     "build": ""
   },
