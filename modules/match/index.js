@@ -31,7 +31,7 @@ export default function match(config, path) {
     for(let pattern in tempConfig) {
 
       matcher = matchPath(matchLastIndex>0? path.substring(matchLastIndex) : path, pattern)
-      if(!matcher.match){
+      if(!matcher.match) {
         continue
       }
 

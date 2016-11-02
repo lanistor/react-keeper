@@ -1,6 +1,5 @@
 import match from './match'
-import Route from './Route'
-import React,{ ReactDOMComponent } from 'react'
+import React from 'react'
 import './util'
 
 class RouteControl {
@@ -21,12 +20,10 @@ class RouteControl {
    *    }
    * ]
    */
-  historyChange = (location, action)=> {
+  historyChange = (location)=> {
 
     let matchResult = match(this.routeConfig, location.pathname)
     let nextPages = matchResult
-    //Object.assign({}, this.pages, matchResult)
-
 
     if(matchResult.length <= 0) {
       return
@@ -78,7 +75,7 @@ class RouteControl {
     }
     return React.createElement(item.type, Object.assign({}, item.props, match.params), 
           Object.size(match.children)==0? null :
-            Object.keys(match.children || {}).map((pattern, index) => {
+            Object.keys(match.children || {}).map((pattern) => {
               return this.createElement(item.children[ pattern ], match.children[ pattern ])
             })
       )

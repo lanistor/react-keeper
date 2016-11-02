@@ -1,5 +1,4 @@
 import React from 'react'
-import { addRoute } from './routeControl'
 
 export default class Route extends React.Component {
   
@@ -10,5 +9,8 @@ export default class Route extends React.Component {
 }
 
 Route.propTypes = {
-  component: React.PropTypes.any
+  component: React.PropTypes.any,
+  enterFilter: React.PropTypes.array,
+  leaveFilter: React.PropTypes.array,
+  path: React.PropTypes.array
 }

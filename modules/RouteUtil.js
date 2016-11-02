@@ -1,6 +1,5 @@
 import React from 'react'
 import extend from 'extend'
-import Route from './Route'
 import { hashCode } from './util'
 
 /**
@@ -13,24 +12,22 @@ export function createRouteConfigByJSX(elements, srcConfig, mergeConfig) {
     return srcConfig
   }
   React.Children.forEach(elements, (element) => {
+
     if(React.isValidElement(element)) {
+
       let { path, children, component, rcIndex, enterFilter, leaveFilter, key, ...props } = extend({}, mergeConfig, element.props)
-      let type = component || element.type || undefined
+      path = resetPath(path)
+
       /** normal route */
       if(path) {
-        if(path.charAt(0) !== '/'){
-          path = `/${path}`
-        }
-        if(path.charAt(path.length-1) === '/'){
-          path = path.substring(0, path.length-1)
-        }
-
         let _hashCode = hashCode()
+
         srcConfig[ path ] = extend(
             { type: component || element.type || undefined, hashCode: _hashCode },
             enterFilter? { enterFilter } : null, leaveFilter? { leaveFilter } : null,
             rcIndex? { rcIndex } : null)
-        srcConfig[ path ].props = Object.assign({ key: key || _hashCode}, props)
+
+        srcConfig[ path ].props = Object.assign({ key: key || _hashCode }, props)
 
         if(children) {
           srcConfig[ path ].children = createRouteConfigByJSX(children, {}, null)
@@ -51,3 +48,18 @@ export function createRouteConfigByUserConfig(userConfig) {
   return userConfig
 }
 
+/**
+ * get correct path
+ * @method resetPath
+ */
+function resetPath(path) {
+  if(!path) {
+    return null
+  }
+  if(path.charAt(0) !== '/') {
+    path = `/${path}`
+  }
+  if(path.charAt(path.length-1) === '/') {
+    path = path.substring(0, path.length-1)
+  }
+}

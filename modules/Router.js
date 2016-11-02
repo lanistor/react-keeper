@@ -13,23 +13,21 @@ export default class Router extends React.Component {
     }
   }
 
+  /**
+   * set pages to render
+   */
   setPages(pages) {
     this.setState({ pages })
   }
 
-  componentWillMount() {
-
-  }
-
   componentDidMount() {
-    let history = this.props.history || history()
+
+    /** init history listener & get config by jsx */
     let routeConfig = createRouteConfigByJSX(this.props.children)
-    routeControl.init(this, history, routeConfig)
+    routeControl.init(this, this.props.history || history(), routeConfig)
   }
 
   render() {
-    console.log('---state---', this.state)
-    // return React.createElement('div', { className : this.props.className}, ...this.state.pages, this.state.components)
     return (
       <div className={this.props.className}>
         {this.state.pages}
@@ -40,6 +38,7 @@ export default class Router extends React.Component {
 }
 
 Router.propTypes = {
-  history: React.PropTypes.object.isRequired,
-  children: React.PropTypes.array
+  history: React.PropTypes.object,
+  children: React.PropTypes.arrayOf(React.PropTypes.element),
+  className: React.PropTypes.string
 }

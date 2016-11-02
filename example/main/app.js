@@ -17,9 +17,6 @@ class Home extends React.Component {
 class About extends React.Component {
   constructor(...args) {
     super(...args)
-    this.checkA = function() {
-      alert(2)
-    }
   }
   check() {
     alert(1)
@@ -31,6 +28,10 @@ class About extends React.Component {
     </div>)
   }
 }
+About.propTypes = {
+  children: React.PropoTypes.arrayOf(React.PropoTypes.element)
+}
+
 class AboutA extends React.Component {
   render() {
     return (<div>
@@ -39,6 +40,10 @@ class AboutA extends React.Component {
     </div>)
   }
 }
+AboutA.propTypes = {
+  children: React.PropoTypes.arrayOf(React.PropoTypes.element)
+}
+
 class AboutB extends React.Component {
   render() {
     return (<div>
@@ -47,6 +52,10 @@ class AboutB extends React.Component {
     </div>)
   }
 }
+AboutB.propTypes = {
+  children: React.PropoTypes.arrayOf(React.PropoTypes.element)
+}
+
 class AboutC extends React.Component {
   render() {
     return (<div>
@@ -55,6 +64,10 @@ class AboutC extends React.Component {
     </div>)
   }
 }
+AboutC.propTypes = {
+  children: React.PropoTypes.arrayOf(React.PropoTypes.element)
+}
+
 class AboutD extends React.Component {
   render() {
     return (<div>
@@ -63,40 +76,20 @@ class AboutD extends React.Component {
     </div>)
   }
 }
-
+AboutD.propTypes = {
+  children: React.PropoTypes.arrayOf(React.PropoTypes.element)
+}
 
 class App extends React.Component {
   constructor(...args) {
     super(...args)
   }
 
-  getName() {
-    return "App"
-  }
-
-  componentDidMount() {
-    // console.log('--refs--', this.refs)
-  }
-
   render() {
-    // return (
-    //   <Router history={history()}>
-    //     <Home/>
-    //     <Route enterFilter={[ 'filterA', 'filterB' ]} leaveFilter={[ ]}>
-    //       <Route path="/abouta" component={About}/>
-    //       <Route path="/aboutb" component={AboutB}/>
-    //     </Route>
-    //     <Route path="/about" component={About}>
-    //       <Route path="/a" component={AboutA}>
-    //         <Route path="/c" component={AboutA}/>
-    //       </Route>
-    //       <Route path="/b" component={AboutB}/>
-    //     </Route>
-    //   </Router>
-    // )
     return (
       <Router history={history()}>
-        <Home/>
+        
+        <Home path="/"/>
 
         <Route enterFilter={[ 'filterA', 'filterB' ]} leaveFilter={[ 'filterA' ]}>
           <AboutA path="/abouta" name="a"/>
