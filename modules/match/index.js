@@ -7,29 +7,48 @@ import matchPath from './matchPath'
  * @param {object} rules     - the rules created by the path patterns
  * @param {string} path      - the path of the location
  * 
- * @return 
+ * @return {
+ *   '/about' : {
+ *     params : {}
+ *     children : {
+ * 
+ *     }
+ *   }
+ * }
  */
 export default function match(config, path) {
 
-  let result = []
+  let result = {}
+  let tempResult = result
   let matcher
   let tempConfig = config
   let matched
-  while( tempConfig && Object.keys(tempConfig).length > 0) {
+  let matchLastIndex = 0
+  while( tempConfig && Object.size(tempConfig) > 0) {
 
     matched = false
 
     for(let pattern in tempConfig) {
 
-      matcher = matchPath(path, pattern)
-      if(!matcher.match)
+      matcher = matchPath(matchLastIndex>0? path.substring(matchLastIndex) : path, pattern)
+      if(!matcher.match){
         continue
-      
+      }
+
       matched = true
-      result.push(matcher)
-      tempConfig = tempConfig[pattern].children
+      let { children } = tempConfig[pattern]
+      tempResult[ matcher.pattern ] = {}
+      tempResult[ matcher.pattern ].params = matcher.params
+      tempConfig = children
+
+      if(tempConfig && Object.size(tempConfig)>0) {
+        tempResult = tempResult[ matcher.pattern ].children = {}
+      }
+      
       break
     }
+
+    matchLastIndex = matchLastIndex + matcher.lastIndex
 
     if(!matched) {
       tempConfig = null

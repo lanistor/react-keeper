@@ -15,13 +15,14 @@ import compilePattern from './compilePattern'
  *   }
  */
 export default function matchPath(path, pattern) {
-  
   if(!patterns[pattern]) {
     patterns[pattern] = compilePattern(pattern)
   }
 
   let patternCompile = patterns[pattern]
-  let match = new RegExp(patternCompile.regular, 'g').exec(path)
+  let regular = new RegExp(patternCompile.regular, 'g')
+
+  let match = regular.exec(path)
   if(!match) {
     return { match : false }
   }
@@ -37,7 +38,8 @@ export default function matchPath(path, pattern) {
   return {
     pattern,
     match: true,
-    params
+    params,
+    lastIndex: regular.lastIndex
   }
 }
 

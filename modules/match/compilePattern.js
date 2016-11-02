@@ -49,6 +49,8 @@ export default function compilePattern(pattern) {
     regular.push(pattern.substring(_lastIndex, pattern.length))
   }
 
+  /** followed by `/` or none */
+  regular.push('(?=/|$)')
   return {
     regular: regular.join(''),
     params,
