@@ -14,10 +14,9 @@ export function createRouteConfigByJSX(elements, srcConfig, mergeConfig) {
   React.Children.forEach(elements, (element) => {
 
     if(React.isValidElement(element)) {
-
       let { path, children, component, rcIndex, enterFilter, leaveFilter, key, ...props } = extend({}, mergeConfig, element.props)
       path = resetPath(path)
-
+      
       /** normal route */
       if(path) {
         let _hashCode = hashCode()
@@ -59,7 +58,8 @@ function resetPath(path) {
   if(path.charAt(0) !== '/') {
     path = `/${path}`
   }
-  if(path.charAt(path.length-1) === '/') {
+  if(path.length>1 && path.charAt(path.length-1) === '/') {
     path = path.substring(0, path.length-1)
   }
+  return path
 }

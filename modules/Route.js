@@ -12,5 +12,5 @@ Route.propTypes = {
   component: React.PropTypes.any,
   enterFilter: React.PropTypes.array,
   leaveFilter: React.PropTypes.array,
-  path: React.PropTypes.array
+  path: React.PropTypes.string
 }

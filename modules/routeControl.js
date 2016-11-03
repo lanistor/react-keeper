@@ -91,6 +91,13 @@ class RouteControl {
     this.controlTarget.setState({ pages: pages }, callback)
   }
 
+  /**
+   * initialize the config
+   * @method init
+   * @param { ReactElement } controlTarget  - the Router Component to control
+   * @param { Object } history              - the history object
+   * @param { Object } routeConfig          - the config of route
+   */
   init = (controlTarget, history, routeConfig)=> {
     this.controlTarget = controlTarget
     this.history = history
