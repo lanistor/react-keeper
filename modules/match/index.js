@@ -1,4 +1,5 @@
 import matchPath from './matchPath'
+import { resetPath } from '../util'
 
 /**
  * The entry, match patterns with path
@@ -17,6 +18,8 @@ import matchPath from './matchPath'
  * }
  */
 export default function match(config, path) {
+  
+  path = resetPath(path)
 
   let result = {}
   let tempResult = result

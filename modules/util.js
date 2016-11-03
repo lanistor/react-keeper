@@ -27,3 +27,20 @@ export function hashCode() {
   }
   return res + new Date().getTime()
 }
+
+/**
+ * get correct path
+ * @method resetPath
+ */
+export function resetPath(path) {
+  if(!path) {
+    return null
+  }
+  if(path.charAt(0) !== '/') {
+    path = `/${path}`
+  }
+  if(path.length>1 && path.charAt(path.length-1) === '/') {
+    path = path.substring(0, path.length-1)
+  }
+  return path.replace(/\/{2,}/g, '/')
+}

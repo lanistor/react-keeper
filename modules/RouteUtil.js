@@ -1,6 +1,6 @@
 import React from 'react'
 import extend from 'extend'
-import { hashCode } from './util'
+import { hashCode, resetPath } from './util'
 
 /**
  * @description : create route config by the JSX config 
@@ -45,21 +45,4 @@ export function createRouteConfigByJSX(elements, srcConfig, mergeConfig) {
  */
 export function createRouteConfigByUserConfig(userConfig) {
   return userConfig
-}
-
-/**
- * get correct path
- * @method resetPath
- */
-function resetPath(path) {
-  if(!path) {
-    return null
-  }
-  if(path.charAt(0) !== '/') {
-    path = `/${path}`
-  }
-  if(path.length>1 && path.charAt(path.length-1) === '/') {
-    path = path.substring(0, path.length-1)
-  }
-  return path
 }

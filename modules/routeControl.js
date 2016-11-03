@@ -21,6 +21,8 @@ class RouteControl {
    * ]
    */
   historyChange = (location)=> {
+    
+    // console.log(location)
 
     let matchResult = match(this.routeConfig, location.pathname)
     let nextPages = matchResult
@@ -104,6 +106,8 @@ class RouteControl {
     this.routeConfig = routeConfig
 
     this.history.listen(this.historyChange)
+    this.historyChange(this.history.location, this.history.action)
+
     this.hrefClickListner()
   }
 
