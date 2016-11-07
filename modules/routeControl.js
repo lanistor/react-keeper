@@ -5,6 +5,20 @@ import './util'
 class RouteControl {
   constructor() {
     this.pages = {}
+    this.components = []
+  }
+  
+  /**
+   * add small component to DOM
+   * @method addComponent
+   */
+  addComponent = (component, callback)=> {
+    if(!component) {
+      return
+    }
+
+    this.components.push(component)
+    this.controlTarget.setState({ components: this.components }, callback)
   }
 
   /**

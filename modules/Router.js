@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRouteConfigByJSX } from './RouteUtil'
-import routeControl from './routeControl'
 import history from './history'
+import routeControl from './routeControl'
 
 export default class Router extends React.Component {
   constructor(...args) {

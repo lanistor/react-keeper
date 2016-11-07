@@ -12,8 +12,12 @@ module.exports = {
   devtool: 'inline-source-map',
 
   entry: fs.readdirSync(__dirname).reduce(function (entries, dir) {
+      // console.log('--dirname---', __dirname)
+    if(dir === 'common' || dir === 'plugins'){
+      return entries
+    }
     if (fs.statSync(path.join(__dirname, dir)).isDirectory()){
-      entries[dir] = path.join(__dirname, dir, 'app.js')
+      entries[dir] = path.join(__dirname, dir, 'App.js')
     }
     return entries
   }, {}),
