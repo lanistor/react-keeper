@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-control'
 import './com.css'
 
 export default class Header extends React.Component {
@@ -7,16 +8,16 @@ export default class Header extends React.Component {
       <header className="navbar navbar-static-top navbar-inverse bs-docs-nav" id="top" role="banner">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a href="#/" className="navbar-brand">React-Control</a>
+            <Link to="#/" className="navbar-brand">React-Control</Link>
           </div>
           <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul className="nav navbar-nav">
-              <li><a href="#/">Home</a></li>
-              <li><a href="#/products">Products</a></li>
-              <li><a href="#/aboutus">AboutUs</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/products">Products</Link></li>
+              <li><Link to="/aboutus">AboutUs</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#/host">User</a></li>
+              <li><Link to="/host">User</Link></li>
             </ul>
           </nav>
         </div>

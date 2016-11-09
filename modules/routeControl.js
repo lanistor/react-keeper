@@ -18,7 +18,7 @@ class RouteControl {
     }
 
     this.components.push(component)
-    this.controlTarget.setState({ components: this.components }, callback)
+    this.rootRouter.setState({ components: this.components }, callback)
   }
 
   /**
@@ -36,7 +36,7 @@ class RouteControl {
    */
   historyChange = (location)=> {
     
-    // console.log(location)
+    console.log('historyChange', location)
 
     let matchResult = match(this.routeConfig, location.pathname)
     let nextPages = matchResult
@@ -104,18 +104,18 @@ class RouteControl {
    * @param {function} callback
    */
   updatePages(pages, callback) {
-    this.controlTarget.setState({ pages: pages }, callback)
+    this.rootRouter.setState({ pages: pages }, callback)
   }
 
   /**
    * initialize the config
    * @method init
-   * @param { ReactElement } controlTarget  - the Router Component to control
+   * @param { ReactElement } rootRouter  - the Router Component to control
    * @param { Object } history              - the history object
    * @param { Object } routeConfig          - the config of route
    */
-  init = (controlTarget, history, routeConfig)=> {
-    this.controlTarget = controlTarget
+  init = (rootRouter, history, routeConfig)=> {
+    this.rootRouter = rootRouter
     this.history = history
     this.routeConfig = routeConfig
 

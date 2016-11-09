@@ -14,6 +14,11 @@ import HostInfo from './pages/host/HostInfo'
 import Concerns from './pages/host/Concerns'
 import Edit from './pages/host/Edit'
 
+const historyConfig = {
+  type: 'hash',
+  basename: ''
+}
+
 class App extends React.Component {
   constructor(...args) {
     super(...args)
@@ -21,7 +26,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router history={history()}>
+      <Router history={ history(historyConfig) }>
         
         <Home path="/"/>
 

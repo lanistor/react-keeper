@@ -1,4 +1,5 @@
 export Router from './Router'
-export Route from './Route'
 export history from './history'
+export Link from './Link'
+export Route from './Route'
 export Control from './outerControl'
