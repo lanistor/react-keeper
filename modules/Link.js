@@ -11,15 +11,18 @@ export default class Link extends React.Component {
     super(...args)
   }
 
-  handleClick= (to)=> {
-    history.getHistory().push(to)
-    history.getHistory().goForward()
-  }
+  handleClick= ()=> {
 
-  render() {
-    let { to, href, ...props } = this.props
-    if(!to){
+    if(this.props.onClick && (typeof this.props.onClick === 'function')) {
+      this.props.onClick()
+    }
+
+    let { to, href } = this.props
+    if(!to) {
       to = href
+    }
+    if(typeof to === 'undefined' || to === null) {
+      return
     }
     if(!to) {
       to = '/'
@@ -30,13 +33,22 @@ export default class Link extends React.Component {
     if(to.indexOf('/') !== 0) {
       to = `/${to}`
     }
-    let toDo = { onClick: ()=>this.handleClick(to) }
-    return <a {...toDo} {...props}>{this.props.children}</a>
+    if(history.getHistory().location.pathname === to) {
+      return
+    }
+    history.getHistory().push(to)
+    history.getHistory().goForward()
+  }
+
+  render() {
+    let { to:to, href:href, ...props } = this.props
+    return <a onClick={this.handleClick} {...props}>{this.props.children}</a>
   }
 }
 
 Link.propTypes = {
   to: React.PropTypes.string,
   href: React.PropTypes.string,
-  children: React.PropTypes.any.isRequired
+  children: React.PropTypes.any.isRequired,
+  onClick: React.PropTypes.any
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import extend from 'extend'
-import { hashCode, resetPath } from './util'
+import { hashCode, resetPath } from './Util'
 
 /**
  * @description : create route config by the JSX config 

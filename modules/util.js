@@ -1,5 +1,17 @@
 
 /**
+ * Object.defineProperty
+ * @method defineProperty
+ */
+export const defineProperty = (ob, property, description) => {
+  try {
+    Object.defineProperty(ob, property, description)
+  }catch(e) {
+    // console.log(e)
+  }
+}
+
+/**
  * get the size of an object
  * 
  * @method size
@@ -13,8 +25,6 @@ Object.size = (ob)=> {
     return 0
   return Object.keys(ob).length
 }
-
-const chars = [ '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' ]
 
 /**
  * get unique hashCode
@@ -44,3 +54,5 @@ export function resetPath(path) {
   }
   return path.replace(/\/{2,}/g, '/')
 }
+
+const chars = [ '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' ]

@@ -11,6 +11,10 @@ export default class Router extends React.Component {
       pages: [],
       components: []
     }
+
+    /** get config by jsx & init history listener */
+    let routeConfig = createRouteConfigByJSX(this.props.children)
+    routeControl.init(this, this.props.history || history(), routeConfig)
   }
 
   /**
@@ -21,10 +25,13 @@ export default class Router extends React.Component {
   }
 
   componentDidMount() {
+    routeControl.triggerHistory()
+  }
 
-    /** init history listener & get config by jsx */
-    let routeConfig = createRouteConfigByJSX(this.props.children)
-    routeControl.init(this, this.props.history || history(), routeConfig)
+  getChildContext() {
+    return {
+      history: this.props.history
+    }
   }
 
   render() {
@@ -41,4 +48,8 @@ Router.propTypes = {
   history: React.PropTypes.object,
   children: React.PropTypes.arrayOf(React.PropTypes.element),
   className: React.PropTypes.string
+}
+
+Router.childContextTypes = {
+  history: React.PropTypes.object
 }

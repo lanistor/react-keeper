@@ -1,6 +1,9 @@
 import match from './match'
 import React from 'react'
-import './util'
+import { 
+    set as ControlSet,
+    historyChangeSucceed as ControlHistoryChangeSucceed
+  }from './OuterControl'
 
 class RouteControl {
   constructor() {
@@ -35,8 +38,6 @@ class RouteControl {
    * ]
    */
   historyChange = (location)=> {
-    
-    console.log('historyChange', location)
 
     let matchResult = match(this.routeConfig, location.pathname)
     let nextPages = matchResult
@@ -55,6 +56,8 @@ class RouteControl {
     // console.log('--result--', matchResult)
     // console.log('--config--', this.routeConfig)
     // console.log('--elements--', elements)
+
+    ControlHistoryChangeSucceed()
 
     this.updatePages(elements, ()=>{
       this.pages = nextPages
@@ -89,6 +92,7 @@ class RouteControl {
     if(!match) {
       return null
     }
+    
     return React.createElement(item.type, Object.assign({}, item.props, match.params), 
           Object.size(match.children)==0? null :
             Object.keys(match.children || {}).map((pattern) => {
@@ -119,10 +123,20 @@ class RouteControl {
     this.history = history
     this.routeConfig = routeConfig
 
+    ControlSet('addComponent', this.addComponent)
+    ControlSet('history', this.history)
+
     this.history.listen(this.historyChange)
-    this.historyChange(this.history.location, this.history.action)
 
     this.hrefClickListner()
+  }
+
+  /**
+   * trigger history action
+   * @method triggerHistory
+   */
+  triggerHistory() {
+    this.historyChange(this.history.location, this.history.action)
   }
 
   /** href click listener */

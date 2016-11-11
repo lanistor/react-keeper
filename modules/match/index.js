@@ -1,5 +1,5 @@
 import matchPath from './matchPath'
-import { resetPath } from '../util'
+import { resetPath } from '../Util'
 
 /**
  * The entry, match patterns with path

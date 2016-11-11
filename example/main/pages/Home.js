@@ -3,6 +3,7 @@ import Footer from '../../common/Footer'
 import React from 'react'
 
 export default function Home() {
+  
   return (
     <div className="page">
       <Header/>

@@ -24,6 +24,10 @@ class App extends React.Component {
     super(...args)
   }
 
+  componentDidMount() {
+    
+  }
+
   render() {
     return (
       <Router history={ history(historyConfig) }>

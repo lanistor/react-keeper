@@ -15,7 +15,7 @@ let historyType = null
  * }
  */
 export default function createHistory(config) {
-  console.log(config)
+
   config = Object.assign({ type: 'hash' }, config)
   const { type, ...props } = config
   historyType = type || 'hash'
@@ -31,7 +31,6 @@ export default function createHistory(config) {
       history = createHashHistory(props)
       break
   }
-  console.log(historyType, history)
   return history
 }
 
