@@ -21,8 +21,8 @@ export default function matchPath(path, pattern) {
 
   let patternCompile = patterns[pattern]
   let regular = new RegExp(patternCompile.regular, 'g')
-
   let match = regular.exec(path)
+  
   if(!match) {
     return { match : false }
   }

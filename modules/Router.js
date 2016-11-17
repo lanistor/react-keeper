@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRouteConfigByJSX } from './RouteUtil'
 import history from './history'
-import routeControl from './routeControl'
+import { clearMatch } from './RouteControl'
 
 export default class Router extends React.Component {
   constructor(...args) {
@@ -9,12 +9,19 @@ export default class Router extends React.Component {
     this.state = {
       status: 0,
       pages: [],
-      components: []
+      components: [],
+      history
     }
 
+
+    this.props.history.listen((location, action)=>{
+      clearMatch()
+      this.forceUpdate()
+    })
+
     /** get config by jsx & init history listener */
-    let routeConfig = createRouteConfigByJSX(this.props.children)
-    routeControl.init(this, this.props.history || history(), routeConfig)
+    // let routeConfig = createRouteConfigByJSX(this.props.children)
+    // routeControl.init(this, this.props.history || history(), routeConfig)
   }
 
   /**
@@ -25,28 +32,23 @@ export default class Router extends React.Component {
   }
 
   componentDidMount() {
-    routeControl.triggerHistory()
+    // routeControl.triggerHistory()
   }
 
-  getChildContext() {
+  getChildContext= ()=> {
     return {
       history: this.props.history
     }
   }
 
   render() {
-    return (
-      <div className={this.props.className}>
-        {this.state.pages}
-        {this.state.components}
-      </div>
-    )
+    return React.Children.only(this.props.children)
   }
 }
 
 Router.propTypes = {
   history: React.PropTypes.object,
-  children: React.PropTypes.arrayOf(React.PropTypes.element),
+  children: React.PropTypes.any,
   className: React.PropTypes.string
 }
 
