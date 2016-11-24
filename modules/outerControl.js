@@ -34,9 +34,8 @@ export function historyChangeSucceed() {
  * export Control Object to outer' using
  */
 const Control = {
-  history: null,
   addComponent: null,
-  path: '/',
+  pathname: '/',
   location: null
 }
 

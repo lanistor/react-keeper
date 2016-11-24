@@ -7,32 +7,14 @@ export default class Router extends React.Component {
   constructor(...args) {
     super(...args)
     this.state = {
-      status: 0,
-      pages: [],
       components: [],
       history
     }
-
 
     this.props.history.listen((location, action)=>{
       clearMatch()
       this.forceUpdate()
     })
-
-    /** get config by jsx & init history listener */
-    // let routeConfig = createRouteConfigByJSX(this.props.children)
-    // routeControl.init(this, this.props.history || history(), routeConfig)
-  }
-
-  /**
-   * set pages to render
-   */
-  setPages(pages) {
-    this.setState({ pages })
-  }
-
-  componentDidMount() {
-    // routeControl.triggerHistory()
   }
 
   getChildContext= ()=> {
@@ -42,6 +24,12 @@ export default class Router extends React.Component {
   }
 
   render() {
+    if(!this.props.children || this.props.children.length===0) {
+      return null
+    }
+    if(this.props.children.length>1) {
+      return <div>{ this.props.children }</div>
+    }
     return React.Children.only(this.props.children)
   }
 }

@@ -10,9 +10,6 @@ import Mobile from './pages/products/Mobile'
 import AboutUs from './pages/AboutUs'
 
 import Host from './pages/host/Host'
-import HostInfo from './pages/host/HostInfo'
-import Concerns from './pages/host/Concerns'
-import Edit from './pages/host/Edit'
 
 const historyConfig = {
   type: 'hash',
@@ -24,26 +21,18 @@ class App extends React.Component {
     super(...args)
   }
 
-  componentDidMount() {
-    
-  }
-
   render() {
     return (
       <Router history={ history(historyConfig) }>
         
-        <Home path="/"/>
+        <Route component={Home} path="/"/>
 
-        <Products path="/products">
-          <Enterprise path="/ep"/>
-          <Mobile path="/mo"/>
-        </Products>
+        <Route component={Products} path="/products">
+          <Route component={Enterprise} path="/ep" index/>
+          <Route component={Mobile} path="/mo"/>
+        </Route>
 
-        <Host path="/host" enterFilter={[ 'loginCheck', 'permitCheck' ]}>
-          <HostInfo path="/info" rcIndex/>
-          <Edit path="edit" leaveFilter={[ 'editLeave' ]}/>
-          <Route path="concerns" component={Concerns}/>
-        </Host>
+        <Route component={Host} path="/host" enterFilter={[ 'loginCheck', 'permitCheck' ]}/>
 
         <Route path="aboutus" component={AboutUs}/>
 
