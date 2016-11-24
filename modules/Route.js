@@ -1,6 +1,6 @@
 import React from 'react'
 import matchPath from './match/matchPath'
-import { shouldMatch, addMatch, removeMatch, checkIndexMatch } from './RouteControl'
+import { shouldMatch, addMatch, removeMatch, checkMissMatch } from './RouteControl'
 
 export default class Route extends React.Component {
   
@@ -145,7 +145,7 @@ export default class Route extends React.Component {
    */
   checkMatch = (nextProps)=> {
     let status = 0
-    const { path: pattern, multiple, index: isIndex } = nextProps
+    const { path: pattern, multiple, 'rc-index': rcIndex, 'rc-miss': rcMiss } = nextProps
     const { pathname } = this.context.history? this.context.history.location : { }
 
     if(typeof pathname === 'undefined') {
@@ -155,7 +155,12 @@ export default class Route extends React.Component {
       return 1
     }
 
+    // if(rcIndex) {
+    //   if(matchPath(pathname, '/'))
+    // }
+
     let matcher = matchPath(pathname, pattern)
+    console.log('matcher', matcher)
     if(matcher.match) {
       if(multiple || shouldMatch(this, false)) {
         return 1
@@ -164,9 +169,8 @@ export default class Route extends React.Component {
       }
     }else {
       if(shouldMatch(this, false)) {
-        console.log(this, isIndex)
-        if(isIndex) {
-          checkIndexMatch(this)
+        if(rcMiss) {
+          checkMissMatch(this)
         }
       }
       status = 0

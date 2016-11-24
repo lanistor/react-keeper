@@ -12,7 +12,7 @@ export default class LeftNav extends React.Component {
           <li className={ Control.path === '/host/edit'? 'active' : '' }>
             <Link href="#/host/edit">Edit</Link>
           </li>
-          <li className={ Control.path === '/host/concerns'? 'active' : '' }>
+          <li className={ Control.path === '/host/concerns' || Control.path === '/host'? 'active' : '' }>
             <Link href="#/host/concerns">Concerns</Link>
           </li>
         </ul>

@@ -16,9 +16,9 @@ export default class Host extends React.Component {
           <LeftNav/>
           <div className="col-md-10">
 
-            <Route component={HostInfo} path="/info"/>
+            <Route rc-index component={HostInfo} path="/info"/>
             <Route component={Edit} path="edit" leaveFilter={[ 'editLeave' ]}/>
-            <Route index path="concerns" component={Concerns}/>
+            <Route rc-miss path="concerns" component={Concerns}/>
 
           </div>
         </div>

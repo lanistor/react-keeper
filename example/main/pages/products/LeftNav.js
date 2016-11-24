@@ -8,7 +8,7 @@ export default class LeftNav extends React.Component {
     return (
       <div className="col-md-2">
         <ul className="nav nav-pills nav-stacked">
-          <li className={ Control.path === '/products/ep'? 'active' : '' }>
+          <li className={ (Control.path === '/products/ep' || Control.path === '/products')? 'active' : '' }>
             <Link href="/products/ep">Enterprise Website</Link>
           </li>
           <li className={ Control.path === '/products/mo'? 'active' : '' }>

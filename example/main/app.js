@@ -28,7 +28,7 @@ class App extends React.Component {
         <Route component={Home} path="/"/>
 
         <Route component={Products} path="/products">
-          <Route component={Enterprise} path="/ep" index/>
+          <Route component={Enterprise} path="/ep" rc-miss/>
           <Route component={Mobile} path="/mo"/>
         </Route>
 

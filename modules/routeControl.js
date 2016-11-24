@@ -30,7 +30,7 @@ const removeMatch = (instance) => {
  * when no component matched, this one will match if condition
  * the condition is 'when no matched, it's parent is last matched one'
  */
-const checkIndexMatch = (child) => {
+const checkMissMatch = (child) => {
   const parent = routeMatch.length>0? routeMatch[0] : ''
   if(!child) {
     return
@@ -68,5 +68,5 @@ export {
   addMatch,
   removeMatch,
   shouldMatch,
-  checkIndexMatch
+  checkMissMatch
 }

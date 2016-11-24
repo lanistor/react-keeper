@@ -41,14 +41,17 @@ export default class Link extends React.Component {
   }
 
   render() {
-    let { to:to, href:href, ...props } = this.props
-    return <a onClick={this.handleClick} {...props}>{this.props.children}</a>
+    let { to, href, children, ...props } = this.props
+    return <a onClick={this.handleClick} {...props}>{children}</a>
   }
 }
 
 Link.propTypes = {
   to: React.PropTypes.string,
-  href: React.PropTypes.string,
   children: React.PropTypes.any.isRequired,
   onClick: React.PropTypes.any
+}
+
+Link.contextTypes = {
+  history: React.PropTypes.any
 }

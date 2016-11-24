@@ -2,6 +2,7 @@ import React from 'react'
 import { createRouteConfigByJSX } from './RouteUtil'
 import history from './history'
 import { clearMatch } from './RouteControl'
+import { set as controlSet } from './OuterControl'
 
 export default class Router extends React.Component {
   constructor(...args) {
@@ -10,8 +11,12 @@ export default class Router extends React.Component {
       components: [],
       history
     }
+    
+    controlSet('history', this.props.history)
+    controlSet('path', this.props.history.location.pathname)
 
     this.props.history.listen((location, action)=>{
+      controlSet('path', location.pathname)
       clearMatch()
       this.forceUpdate()
     })

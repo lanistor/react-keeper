@@ -12,10 +12,10 @@ import { defineProperty } from './Util'
  */
 export function set(key, value) {
   Control[key] = value
+}
+
+export function go(path, state) {
   
-  if(key === 'history') {
-    Control['location'] = Control.history.location
-  }
 }
 
 /**
@@ -35,8 +35,7 @@ export function historyChangeSucceed() {
  */
 const Control = {
   addComponent: null,
-  pathname: '/',
-  location: null
+  path: '/',
 }
 
 export default Control
