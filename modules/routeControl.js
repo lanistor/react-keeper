@@ -12,7 +12,38 @@ const clearMatch = () => {
 
 /** when a component matched the path and should to be mount, record it */
 const addMatch = (instance) => {
+  if(routeMatch.length > 0) {
+    routeMatch.forEach((item)=>{
+      if(item === instance) {
+        return
+      }
+    })
+  }
   routeMatch.push(instance)
+}
+
+/** get match component */
+const getMatch = (index)=> {
+  if(routeMatch.length === 0) {
+    return null
+  }
+  if(index < 0 || index >= routeMatch.length) {
+    return routeMatch[ routeMatch.length-1 ]
+  }
+  return routeMatch[index]
+}
+
+/** get matched path, all components matched will be counted */
+const getMatchedPath = ()=> {
+  if(routeMatch.length === 0) {
+    return ''
+  }
+  const path = []
+  routeMatch.forEach((item)=> {
+    if(item.matcher)
+      path.push(item.matcher.matchStr)
+  })
+  return path.join('')
 }
 
 /** when a component unmount, remove it */
@@ -68,5 +99,7 @@ export {
   addMatch,
   removeMatch,
   shouldMatch,
+  getMatch,
+  getMatchedPath,
   checkMissMatch
 }

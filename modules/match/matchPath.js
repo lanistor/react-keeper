@@ -26,7 +26,7 @@ export default function matchPath(path, pattern) {
   if(!match) {
     return { match : false }
   }
-
+  
   let matchers = match.splice(1)
   let params = {}
   if(patternCompile.params) {
@@ -39,6 +39,7 @@ export default function matchPath(path, pattern) {
     pattern,
     match: true,
     params,
+    matchStr: match[0],
     lastIndex: regular.lastIndex
   }
 }

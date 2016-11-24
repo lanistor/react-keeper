@@ -7,6 +7,8 @@ import Home from './pages/Home'
 import Products from './pages/products/Products'
 import Enterprise from './pages/products/Enterprise'
 import Mobile from './pages/products/Mobile'
+import Detail from './pages/products/Detail'
+
 import AboutUs from './pages/AboutUs'
 
 import Host from './pages/host/Host'
@@ -29,7 +31,8 @@ class App extends React.Component {
 
         <Route component={Products} path="/products">
           <Route component={Enterprise} path="/ep" rc-miss/>
-          <Route component={Mobile} path="/mo"/>
+          <Route rc-index component={Mobile} path="/mo"/>
+          <Route component={Detail} path="/item/:id" time={new Date().toLocaleString()}/>
         </Route>
 
         <Route component={Host} path="/host" enterFilter={[ 'loginCheck', 'permitCheck' ]}/>

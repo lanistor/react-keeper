@@ -13,7 +13,7 @@ export default class Products extends React.Component {
           <div className="row">
             <LeftNav item={1}/>
             <div className="col-md-10">
-              <h1>{this.props.children}</h1>
+              {this.props.children}
             </div>
           </div>
         </div>

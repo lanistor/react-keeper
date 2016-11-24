@@ -1,6 +1,7 @@
 import React from 'react'
 import matchPath from './match/matchPath'
-import { shouldMatch, addMatch, removeMatch, checkMissMatch } from './RouteControl'
+import { resetPath } from './Util'
+import { shouldMatch, addMatch, removeMatch, getMatchedPath, checkMissMatch } from './RouteControl'
 
 export default class Route extends React.Component {
   
@@ -9,6 +10,9 @@ export default class Route extends React.Component {
     this.state = {
       status: 0  //0: unbind, 1: bind
     }
+
+    this.matcher = null
+    this.component = null
   }
 
   componentWillMount = ()=> {
@@ -25,7 +29,8 @@ export default class Route extends React.Component {
       if(!result) {
         return
       }
-      this.setState({ component })                       // save component
+      this.component = component
+      // this.setState({ component })                       // save component
 
       this.checkFilter(this.props.enterFilter, (result)=> {
         if(!result) {
@@ -42,7 +47,10 @@ export default class Route extends React.Component {
 
     let { component } = this.props
 
-    let status = this.checkMatch(nextProps)
+    let { status, matcher } = this.checkMatch(nextProps)
+    if(status === 1) {
+      addMatch(this)
+    }
     if(this.state.status === status) {
       return
     }
@@ -63,10 +71,10 @@ export default class Route extends React.Component {
 
   /** load dynamic component */
   loadComponent = (callback)=> {
-    // if(this.state.component) {
-    //   callback(true, component)
-    //   return
-    // }
+    if(this.component) {
+      callback(true, component)
+      return
+    }
     let { component, loadComponent: dynamicComponent } = this.props
     if(component) {
       callback(true, component)
@@ -128,11 +136,6 @@ export default class Route extends React.Component {
 
   /** update bind state */
   updateMountStatus = (status)=> {
-    if(status === 1) {
-      addMatch(this)
-    } else {
-      removeMatch(this)
-    }
     this.setState({ status })
   }
 
@@ -141,47 +144,54 @@ export default class Route extends React.Component {
   }
   
   /**
-   * check if path matched
+   * check if the component matches the pathname
+   * rc-index       : when the path is equal to it's parent' path, this component will mount
+   * rc-miss        : when no component mount, this component will mount
    */
   checkMatch = (nextProps)=> {
+
     let status = 0
     const { path: pattern, multiple, 'rc-index': rcIndex, 'rc-miss': rcMiss } = nextProps
-    const { pathname } = this.context.history? this.context.history.location : { }
+    let { pathname } = this.context.history? this.context.history.location : { }
+    pathname = resetPath(pathname)
 
     if(typeof pathname === 'undefined') {
-      return 0
+      return { status: 0 }
     }
     if(typeof pattern === 'undefined') {
-      return 1
+      return { status: 1 }
     }
 
-    // if(rcIndex) {
-    //   if(matchPath(pathname, '/'))
-    // }
+    let checkPathname = pathname
+    let matchedPath = getMatchedPath()
+    if(matchedPath) {
+      checkPathname = pathname.substring(matchedPath.length)
+    }
+    
 
-    let matcher = matchPath(pathname, pattern)
-    console.log('matcher', matcher)
+    let matcher = matchPath(checkPathname, pattern)
+    this.matcher = matcher
+    
     if(matcher.match) {
-      if(multiple || shouldMatch(this, false)) {
-        return 1
+      if(multiple || shouldMatch(this)) {
+        return { status: 1, matcher }
       }else{
-        return 0
+        return { status: 0 }
       }
-    }else {
-      if(shouldMatch(this, false)) {
-        if(rcMiss) {
-          checkMissMatch(this)
-        }
-      }
-      status = 0
     }
-    this.setState({ status })
+
+    if(rcIndex && matchedPath === pathname && shouldMatch(this)) {
+      return { status: 1 }
+    }
+
+    if(rcMiss && shouldMatch(this)) {
+      checkMissMatch(this)
+    }
+    return { status: 0 }
   }
   
 
   render = ()=> {
-
-    console.log('--render-', this.props.component.name, this.state.component? this.state.component.name : null, this.state.status, this)
 
     const { path, multiple, remain, children, ...props } = this.props
     const { pathname } = this.context.history? this.context.history.location : { }
@@ -190,13 +200,16 @@ export default class Route extends React.Component {
       return null
     }
 
-    if(this.state.component) {
-      return React.createElement(this.state.component, { pathname, ...props }, children)
+    if(this.component) {
+      return React.createElement(this.component,
+          { pathname,
+            ...props,
+            params: this.matcher? (this.matcher.params || {}) : {}
+          }, children)
     }
     if(!children) {
       return null
     }
-    console.log('--Route--', this.props.component.name, children)
     return React.Children.only(children)
   }
 
