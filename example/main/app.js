@@ -30,8 +30,8 @@ class App extends React.Component {
         <Route component={Home} path="/"/>
 
         <Route component={Products} path="/products">
-          <Route component={Enterprise} path="/ep" rc-miss/>
-          <Route rc-index component={Mobile} path="/mo"/>
+          <Route rc-index component={Enterprise} path="/ep"/>
+          <Route rc-miss component={Mobile}/>
           <Route component={Detail} path="/item/:id" time={new Date().toLocaleString()}/>
         </Route>
 

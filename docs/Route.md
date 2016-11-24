@@ -1,25 +1,36 @@
 # Route
-## path
-## component
+## Path
+## Component
   * normal component
   * dynamic component 
-## index component
-  * add 'index' property to Route component, when no Route matched, this one will match and mount.
+## Index Component
+  * Add `'rc-index'` property to Route component, when no path is equals to parent component's path,this one will match and mount.
   ```
   <Route component={ User } path='/user'>
-    <Route index component={ Info } path='/info'/>
+    <Route rc-index component={ Info } path='/info'/>
     <Route component={ Edit } path='/edit'/>
     <Route component={ Article } path='/user'/>
    </Route>
   ```
-## no match deal
-  - use 'index' property
-  - use '*' path and add it as the last child
+   *`'rc-indexv` component can no use `'path'` property*
+## Miss Match Deal
+  * When no component is matched, we should show users something, such as `404` page. we support two way for this scene.
+  - use `'rc-miss'` property
   ```
    <Route component={ User } path='/user'>
      <Route component={ Edit } path='/edit'/>
      <Route component={ Article } path='/user'/>
-     <Route component={ Info } path='*'/>
+     <Route component={ NotFound } rc-miss/>
    </Route>
   ```
-## blocked pages
+  *`'rc-miss'` component can no use `'path'` property*
+
+  - use `'*'` path property, and add it as the last child
+  ```
+   <Route component={ User } path='/user'>
+     <Route component={ Edit } path='/edit'/>
+     <Route component={ Article } path='/user'/>
+     <Route component={ NotFound } path='*'/>
+   </Route>
+  ```
+## Blocked Pages

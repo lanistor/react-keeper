@@ -72,7 +72,7 @@ export default class Route extends React.Component {
   /** load dynamic component */
   loadComponent = (callback)=> {
     if(this.component) {
-      callback(true, component)
+      callback(true, this.component)
       return
     }
     let { component, loadComponent: dynamicComponent } = this.props
@@ -153,30 +153,31 @@ export default class Route extends React.Component {
     let status = 0
     const { path: pattern, multiple, 'rc-index': rcIndex, 'rc-miss': rcMiss } = nextProps
     let { pathname } = this.context.history? this.context.history.location : { }
-    pathname = resetPath(pathname)
-
     if(typeof pathname === 'undefined') {
       return { status: 0 }
     }
-    if(typeof pattern === 'undefined') {
-      return { status: 1 }
-    }
-
-    let checkPathname = pathname
+    pathname = resetPath(pathname)
     let matchedPath = getMatchedPath()
-    if(matchedPath) {
-      checkPathname = pathname.substring(matchedPath.length)
-    }
-    
 
-    let matcher = matchPath(checkPathname, pattern)
-    this.matcher = matcher
-    
-    if(matcher.match) {
-      if(multiple || shouldMatch(this)) {
-        return { status: 1, matcher }
-      }else{
-        return { status: 0 }
+    if(pattern) {
+      if(typeof pattern === 'undefined') {
+        return { status: 1 }
+      }
+
+      let checkPathname = pathname
+      if(matchedPath) {
+        checkPathname = pathname.substring(matchedPath.length)
+      }
+
+      let matcher = matchPath(checkPathname, pattern)
+      this.matcher = matcher
+      
+      if(matcher.match) {
+        if(multiple || shouldMatch(this)) {
+          return { status: 1, matcher }
+        }else{
+          return { status: 0 }
+        }
       }
     }
 
