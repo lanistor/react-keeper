@@ -4,7 +4,7 @@
   * normal component
   * dynamic component 
 ## Index Component
-  * Add `'rc-index'` property to Route component, when no path is equals to parent component's path,this one will match and mount.
+  * Add `'rc-index'` property to Route component, when path is equals to parent component's path,this one will match and mount.
   ```
   <Route component={ User } path='/user'>
     <Route rc-index component={ Info } path='/info'/>
