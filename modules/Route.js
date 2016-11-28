@@ -8,11 +8,17 @@ export default class Route extends React.Component {
   constructor(...args) {
     super(...args)
     this.state = {
-      status: 0  //0: unbind, 1: bind
+      status: 0  //0: unmount, 1: mounted
     }
 
     this.matcher = null
     this.component = null
+  }
+
+  getChildContext = ()=> {
+    return {
+      route: this
+    }
   }
 
   componentWillMount = ()=> {
@@ -30,7 +36,6 @@ export default class Route extends React.Component {
         return
       }
       this.component = component
-      // this.setState({ component })                       // save component
 
       this.checkFilter(this.props.enterFilter, (result)=> {
         if(!result) {
@@ -151,7 +156,7 @@ export default class Route extends React.Component {
   checkMatch = (nextProps)=> {
 
     let status = 0
-    const { path: pattern, multiple, 'rc-index': rcIndex, 'rc-miss': rcMiss } = nextProps
+    let { path: pattern, multiple, 'rc-index': rcIndex, 'rc-miss': rcMiss } = nextProps
     let { pathname } = this.context.history? this.context.history.location : { }
     if(typeof pathname === 'undefined') {
       return { status: 0 }
@@ -163,6 +168,8 @@ export default class Route extends React.Component {
       if(typeof pattern === 'undefined') {
         return { status: 1 }
       }
+
+      pattern = resetPath(pattern)
 
       let checkPathname = pathname
       if(matchedPath) {
@@ -228,6 +235,11 @@ Route.propTypes = {
   index: React.PropTypes.any
 }
 
+Route.childContextTypes = {
+  route: React.PropTypes.any
+}
+
 Route.contextTypes = {
-  history: React.PropTypes.object.isRequired
+  history: React.PropTypes.object.isRequired,
+  route: React.PropTypes.any
 }

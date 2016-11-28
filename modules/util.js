@@ -50,6 +50,15 @@ export function reactContains(parentComponent, childComponent) {
       || !(childComponent instanceof React.Component)) {
     return false
   }
+
+  /** if support context, use context first */
+  if(childComponent.context && childComponent.context.route) {
+    if(childComponent.context.route === parentComponent) {
+      return true
+    }
+    return false
+  }
+
   const parentSelf = parentComponent._reactInternalInstance
   const childSelf = childComponent._reactInternalInstance
 
@@ -73,7 +82,6 @@ export function reactContains(parentComponent, childComponent) {
   if(childOwner === parentOwner) {
     return isChild(parentSelf._currentElement, childSelf._currentElement)
   }
-  console.log('%c--error--', 'color:red')
 }
 
 /**

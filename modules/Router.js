@@ -24,7 +24,8 @@ export default class Router extends React.Component {
 
   getChildContext= ()=> {
     return {
-      history: this.props.history
+      history: this.props.history,
+      route: this
     }
   }
 
@@ -46,5 +47,6 @@ Router.propTypes = {
 }
 
 Router.childContextTypes = {
-  history: React.PropTypes.object
+  history: React.PropTypes.object,
+  route: React.PropTypes.any
 }

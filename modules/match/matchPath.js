@@ -34,7 +34,6 @@ export default function matchPath(path, pattern) {
       params[patternCompile.params[index]] = matchers.length > index ? matchers[index] : null
     }
   }
-
   return {
     pattern,
     match: true,
