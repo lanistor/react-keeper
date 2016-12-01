@@ -24,7 +24,6 @@ export default class Concerns extends React.Component {
             })
           }
         </ul>
-        Concerns
       </div>
     )
   }

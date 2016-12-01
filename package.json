@@ -1,13 +1,14 @@
 {
-  "name": "react-control",
-  "version": "0.1.0",
+  "name": "react-direct",
+  "version": "0.0.1",
   "description": "More than router of React",
   "homepage": "",
   "bug": "",
   "scripts": {
-    "exam": "node example/serve",
+    "example": "node example/serve",
+    "compile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js &&  && babel modules --extensions .js --out-dir npm/__build__",
     "test": "cross-env NODE_ENV=test karma start",
-    "start": "",
+    "publish": "npm publish npm/__build__/",
     "build": ""
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-istanbul": "^1.0.3",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-1": "^6.13.0",
@@ -55,7 +57,7 @@
     "react-dom": "^15.3.0",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
+    "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.6.1"
   }
 }

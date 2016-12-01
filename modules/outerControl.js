@@ -35,7 +35,7 @@ export function historyChangeSucceed() {
  */
 const Control = {
   addComponent: null,
-  path: '/',
+  path: '/'
 }
 
 export default Control
