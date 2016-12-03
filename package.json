@@ -1,12 +1,12 @@
 {
-  "name": "react-direct",
+  "name": "react-flex-router",
   "version": "0.0.1",
   "description": "More than router of React",
   "homepage": "",
   "bug": "",
   "scripts": {
     "example": "node example/serve",
-    "compile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js &&  && babel modules --extensions .js --out-dir npm/__build__",
+    "compile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js  && babel modules --extensions .js --out-dir npm/__build__",
     "test": "cross-env NODE_ENV=test karma start",
     "publish": "npm publish npm/__build__/",
     "build": ""
@@ -28,7 +28,7 @@
     "babel-core": "^6.13.2",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
-    "react-router": "^4.0.0",
+    "react-router": "@next",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-istanbul": "^1.0.3",

@@ -1,9 +1,9 @@
-import routeControl from './routeControl'
+import RouteControl from './RouteControl'
 import { defineProperty } from './Util'
 
 /**
  * dynamicly put value to Control Object
- * mainly called by routeControl
+ * mainly called by RouteControl
  * @method set
  * 
  * @param {string} key
