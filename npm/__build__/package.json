@@ -1,0 +1,13 @@
+{
+  "name": "react-flex-router",
+  "version": "0.0.5-dev.1",
+  "description": "More than router of React",
+  "homepage": "",
+  "bug": "",
+  "dependencies": {
+    "history": "~4.4.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.x || ^15.x.x || ^16.x.x"
+  }
+}
