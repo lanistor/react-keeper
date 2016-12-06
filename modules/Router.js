@@ -1,30 +1,34 @@
 import React from 'react'
 import { createRouteConfigByJSX } from './RouteUtil'
-import history from './history'
 import { clearMatch } from './RouteControl'
 import { set as controlSet } from './OuterControl'
 
 export default class Router extends React.Component {
   constructor(...args) {
     super(...args)
-    this.state = {
-      components: [],
-      history
-    }
-    
-    controlSet('history', this.props.history)
-    controlSet('path', this.props.history.location.pathname)
 
-    this.props.history.listen((location, action)=>{
+    /** create history object */
+    this.state = {
+      history: this.createHistory()
+    }
+
+    
+    /** set history object to `Control Object` */
+    controlSet('history', this.state.history)
+    controlSet('path', this.state.history.location.pathname)
+
+    // /** start history listener */
+    this.state.history.listen((location, action)=>{
       controlSet('path', location.pathname)
       clearMatch()
       this.forceUpdate()
     })
   }
 
-  getChildContext= ()=> {
+  /** get child context */
+  getChildContext = ()=> {
     return {
-      history: this.props.history,
+      history: this.state.history,
       route: this
     }
   }
@@ -33,15 +37,24 @@ export default class Router extends React.Component {
     if(!this.props.children || this.props.children.length===0) {
       return null
     }
-    if(this.props.children.length>1) {
-      return <div>{ this.props.children }</div>
+
+    if(React.isValidElement(this.props.children)) {
+      return React.Children.only(this.props.children)
     }
-    return React.Children.only(this.props.children)
+    console.error('The children of `*Router` component must be a single tag (not an array), like `div`|`view` .')
+    return null
   }
 }
 
+/**
+ * create history object
+ * override by child class
+ */
+Router.prototype.createHistory = function () {
+  return null
+}
+
 Router.propTypes = {
-  history: React.PropTypes.object,
   children: React.PropTypes.any,
   className: React.PropTypes.string
 }

@@ -6,10 +6,10 @@ export default class Concerns extends React.Component {
     super(...args)
     this.state = {
       concerns: [
-        { id:110, subject: 'React-Control , more than router of react.', time: 1457789912, user: 'Vifird', face: '/common/attach/user/1.jpg' },
-        { id:110, subject: 'React-Control , more than router of react.', time: 1457789912, user: 'Lisa', face: '/common/attach/user/2.jpg' },
-        { id:110, subject: 'React-Control , more than router of react.', time: 1457789912, user: 'John', face: '/common/attach/user/3.jpg' },
-        { id:110, subject: 'React-Control , more than router of react.', time: 1457789912, user: 'Jasine', face: '/common/attach/user/4.jpg' }
+        { id:110, subject: 'react-flex-router , more than router of react.', time: 1457789912, user: 'Vifird', face: '/common/attach/user/1.jpg' },
+        { id:110, subject: 'react-flex-router , more than router of react.', time: 1457789912, user: 'Lisa', face: '/common/attach/user/2.jpg' },
+        { id:110, subject: 'react-flex-router , more than router of react.', time: 1457789912, user: 'John', face: '/common/attach/user/3.jpg' },
+        { id:110, subject: 'react-flex-router , more than router of react.', time: 1457789912, user: 'Jasine', face: '/common/attach/user/4.jpg' }
       ]
     }
   }

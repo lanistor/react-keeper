@@ -15,7 +15,12 @@ export function set(key, value) {
 }
 
 export function go(path, state) {
-  
+  Control.history.push(path, state)
+  Control.history.goForward()
+}
+
+export function replace(path, state) {
+  Control.history.replace(path, state)
 }
 
 /**

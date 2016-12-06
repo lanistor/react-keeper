@@ -14,6 +14,40 @@ export const defineProperty = (ob, property, description) => {
 }
 
 /**
+ * object without properties
+ */
+export const objectWithoutProperties = (obj, keys) => {
+  const re = {}
+  if(!obj || !keys || !(keys instanceof Array) || keys.length === 0) {
+    return re
+  }
+  for(let item in obj) {
+    if(arrayContains(keys, item))
+      continue
+    if(!Object.prototype.hasOwnProperty.call(obj, item))
+      continue
+    
+    re[item] = obj[item]
+  }
+  return re
+}
+
+/**
+ * array contains
+ */
+export const arrayContains = (array, item) => {
+  if(!array || !item || !array.length) {
+    return false
+  }
+  for(let i=0; i< array.length; i++) {
+    if(array[i] === item) {
+      return true
+    }
+  } 
+  return false
+}
+
+/**
  * judge if childElement is a child of parentElement
  */
 export const isChild = (parentElement, childElement)=> {

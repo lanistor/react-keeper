@@ -1,6 +1,7 @@
 import React from 'react'
 import matchPath from './match/matchPath'
-import { resetPath } from './Util'
+import { resetPath, objectWithoutProperties } from './Util'
+import { OuterControl } from './OuterControl'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, checkMissMatch } from './RouteControl'
 
 export default class Route extends React.Component {
@@ -22,36 +23,22 @@ export default class Route extends React.Component {
   }
 
   componentWillMount = ()=> {
-    this.routeCheck(this.props)
+    this.routeCheckEntry(this.props)
   }
 
   componentWillReceiveProps = (nextProps)=> {
-    this.routeCheck(nextProps)
+    this.routeCheckEntry(nextProps)
   }
 
-  /** set to mount state by outside */
-  setToMount = ()=> {
-    this.loadComponent((result, component)=> {
-      if(!result) {
-        return
-      }
-      this.component = component
-
-      this.checkFilter(this.props.enterFilter, (result)=> {
-        if(!result) {
-          return
-        }
-        this.updateMountStatus(1)
-      })
-
-    })
-  }
-
-  /** check route mount needed */
-  routeCheck = (nextProps)=> {
+  /**
+   * entry of check
+   * compute route mount's state
+   */
+  routeCheckEntry = (nextProps)=> {
 
     let { component } = this.props
 
+    /** Step 1 : check match result & component parent */
     let { status, matcher } = this.checkMatch(nextProps)
     if(status === 1) {
       addMatch(this)
@@ -60,18 +47,70 @@ export default class Route extends React.Component {
       return
     }
     
+    /** Step 2 : set route state  */
     if(this.state.status === 0 && status === 1) {         // unmount to mount
 
       this.setToMount()
 
     }else if(this.state.status === 1 && status === 0) {   // mount to unmount
-      this.checkLeaveFilter((result)=> {
-        if(!result) {
+
+      this.setToUnmount()
+
+    }
+  }
+
+  /**
+   * set to mount state
+   * (also invoke by outside)
+   */
+  setToMount = ()=> {
+
+    /** Step 1 : dynamic load component */
+    this.loadComponent((result, component)=> {
+      if(!result) {
+        return
+      }
+      this.component = component
+
+      /** Step 2 : check enter filters */
+      this.checkFilter(this.props.enterFilter, (passed)=> {
+        if(!passed) {
           return
         }
-        this.updateMountStatus(0)
+        this.updateMountStatus(1)
       })
+
+      /** Step 3 : check 'redirect' props */
+      const { redirect } = this.props
+      if(redirect && typeof redirect === 'string') {
+        OuterControl.replace(redirect)
+      }
+
+    })
+  }
+
+  /**
+   * set to unmount state
+   */
+  setToUnmount = ()=> {
+
+    /** Step 1 : check lock tag */
+    const { 'lock': lock } = this.props
+
+    if(lock) {
+      return
     }
+
+    /** Step 2 : check Link(target=_new) state */
+    //
+
+    /** Step 3 : check leave filters */ 
+    this.checkFilter(this.props.leaveFilter, (passed)=> {
+      if(!passed) {
+        return
+      }
+      this.updateMountStatus(0)
+    })
   }
 
   /** load dynamic component */
@@ -99,13 +138,18 @@ export default class Route extends React.Component {
     return false
   }
 
-  /** check filters */
+  /**
+   * check filters
+   * @param { Function or Array of function } filters : filters to check in order
+   * @param { Function } callback(passed)
+   *   @passed { Boolean } : pass result of filters
+   */
   checkFilter = (filters, callback)=> {
     if(!filters) {
       callback(true)
       return
     }
-    if(! filters instanceof Array) {
+    if(!(filters instanceof Array)) {
       filters = [ filters ]
     }
     let tempFilters = []
@@ -134,11 +178,6 @@ export default class Route extends React.Component {
     filters[0](filterCallback, this.props, this.context)
   }
 
-  /** check leave filter */
-  checkLeaveFilter = (callback)=> {
-    callback(true)
-  }
-
   /** update bind state */
   updateMountStatus = (status)=> {
     this.setState({ status })
@@ -150,13 +189,13 @@ export default class Route extends React.Component {
   
   /**
    * check if the component matches the pathname
-   * rc-index       : when the path is equal to it's parent' path, this component will mount
-   * rc-miss        : when no component mount, this component will mount
+   * index       : when the path is equal to it's parent' path, this component will mount
+   * miss        : when no component mount, this component will mount
    */
   checkMatch = (nextProps)=> {
 
     let status = 0
-    let { path: pattern, multiple, 'rc-index': rcIndex, 'rc-miss': rcMiss } = nextProps
+    let { path: pattern, 'multiple': multiple, 'index': rcIndex, 'miss': rcMiss } = nextProps
     let { pathname } = this.context.history? this.context.history.location : { }
     if(typeof pathname === 'undefined') {
       return { status: 0 }
@@ -201,24 +240,39 @@ export default class Route extends React.Component {
 
   render = ()=> {
 
-    const { path, multiple, remain, children, ...props } = this.props
-    const { pathname } = this.context.history? this.context.history.location : { }
-
+    /** 1. unmount state */
     if(this.state.status === 0) {
       return null
     }
 
+    const children = this.props.children
+    
+    const { pathname } = this.context.history? this.context.history.location : { }
+
+    /** 2. mount state */
+    /** 2.1 check component props */
     if(this.component) {
+      const props = objectWithoutProperties(this.props, [
+        'children', 'component', 'loadComponent', 'enterFilter', 'leaveFilter', 'path', 'redirect',
+        'multiple', 'lock', 'index', 'miss'
+      ])
       return React.createElement(this.component,
-          { pathname,
-            ...props,
-            params: this.matcher? (this.matcher.params || {}) : {}
-          }, children)
+        { pathname,
+          ...props,
+          params: this.matcher? (this.matcher.params || {}) : {}
+        }, children)
     }
+
+    /** 2.2 check children */
     if(!children) {
+      console.error('Route component without children.')
       return null
     }
-    return React.Children.only(children)
+    if(React.isValidElement(children)) {
+      return React.Children.only(children)
+    }
+    console.error('When `Route` component has no component property, it\'s children must be a single tag (not an array), like `div`|`view` .')
+    return null
   }
 
 }
@@ -229,10 +283,12 @@ Route.propTypes = {
   enterFilter: React.PropTypes.array,
   leaveFilter: React.PropTypes.array,
   path: React.PropTypes.string,
-  multiple: React.PropTypes.string,
-  remain: React.PropTypes.string,
-  children: React.PropTypes.any,
-  index: React.PropTypes.any
+  redirect: React.PropTypes.string,
+  multiple: React.PropTypes.any,
+  lock: React.PropTypes.any,
+  index: React.PropTypes.any,
+  miss: React.PropTypes.any,
+  children: React.PropTypes.any
 }
 
 Route.childContextTypes = {

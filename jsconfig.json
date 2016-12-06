@@ -1,0 +1,20 @@
+/** vscode config */
+{
+
+	"compilerOptions": {
+
+		"target": "ES6",
+
+		"module": "commonjs",
+
+		"experimentalDecorators" : true,
+    
+    "lib": [
+      "es7",
+      "es2017.sharedmemory",
+      "es2017.object"
+    ]
+
+	}
+
+}

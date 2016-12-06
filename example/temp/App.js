@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, history, Link } from 'react-control'
+import { HashRouter, Route, Link } from 'react-flex-router'
 
 const historyConfig = {
   type: 'hash',
@@ -32,13 +32,9 @@ class App extends React.Component {
     super(...args)
   }
 
-  componentDidMount() {
-    
-  }
-
   render() {
     return (
-      <Router history={ history(historyConfig) }>
+      <HashRouter>
         <span>
           <ul>
             <li><Link to="/">Home</Link></li>
@@ -60,7 +56,7 @@ class App extends React.Component {
           
         </span>
 
-      </Router>
+      </HashRouter>
     )
   }
 }

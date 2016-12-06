@@ -9,7 +9,7 @@
     "test": "cross-env NODE_ENV=test karma start",
     "build": "",
     "compile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js  && babel modules --extensions .js --out-dir npm/__build__",
-    "publish": "npm publish npm/__build__/ --tag dev"
+    "publish": "npm publish npm/__build__/ --tag latest"
   },
   "dependencies": {
     "babel-cli": "^6.16.0",

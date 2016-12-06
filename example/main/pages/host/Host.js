@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../../common/Header'
 import Footer from '../../../common/Footer'
 import LeftNav from './LeftNav'
-import { Route } from 'react-control'
+import { Route } from 'react-flex-router'
 import HostInfo from './HostInfo'
 import Edit from './Edit'
 import Concerns from './Concerns'
@@ -16,9 +16,9 @@ export default class Host extends React.Component {
           <LeftNav/>
           <div className="col-md-10">
 
-            <Route rc-index component={HostInfo} path="/info"/>
+            <Route index component={HostInfo} path="/info"/>
             <Route component={Edit} path="edit" leaveFilter={[ 'editLeave' ]}/>
-            <Route rc-miss path="concerns" component={Concerns}/>
+            <Route miss path="concerns" component={Concerns}/>
 
           </div>
         </div>

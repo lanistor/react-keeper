@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link,Control } from 'react-control'
+import { Link,Control } from 'react-flex-router'
 import './com.css'
 
 export default class Header extends React.Component {
@@ -10,7 +10,7 @@ export default class Header extends React.Component {
       <header className="navbar navbar-static-top navbar-inverse bs-docs-nav" id="top" role="banner">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="#/" className="navbar-brand">React-Control</Link>
+            <Link to="#/" className="navbar-brand">react-flex-router</Link>
           </div>
           <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul className="nav navbar-nav">

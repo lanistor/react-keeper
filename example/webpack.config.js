@@ -41,7 +41,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      'react-control': path.join(__dirname, '..', 'modules/index')
+      'react-flex-router': path.join(__dirname, '..', 'modules/index')
     }
   },
 

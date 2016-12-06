@@ -1,5 +1,5 @@
 import React from 'react'
-import history from './history'
+import { go } from './OuterControl'
 
 /**
  * replace the tag 'A', used to link to a new url
@@ -33,11 +33,11 @@ export default class Link extends React.Component {
     if(to.indexOf('/') !== 0) {
       to = `/${to}`
     }
-    if(history.getHistory().location.pathname === to) {
+    
+    if(this.context.history.location.pathname === to) {
       return
     }
-    history.getHistory().push(to)
-    history.getHistory().goForward()
+    go(to)
   }
 
   render() {
