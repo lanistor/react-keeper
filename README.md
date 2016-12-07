@@ -4,6 +4,34 @@
 
 ## He did
 
+* Extensible route.
+
+  Allow you add route components ***anywhere,anytime***.
+  ```
+
+  const App = ()=> {
+    return (
+      <HashRouter>
+        <div>
+          <Route lock component={ Home } path="/"/>
+          <Route component={ Products } path="/products"/>
+        </div>
+      </HashRouter>
+    )
+  }
+
+  const Products = ()=> {
+    return (
+      <div>
+        <Route component={ ScienceProducts } path="/sci" />
+        <Route component={ DailiUseProducts } path="/dai" />
+      </div>
+    )
+  }
+
+  ReactDOM.render(<App/>, document.getElementById('root'))
+  ```
+
 * Supports muiltiple pages.
   1. Use `lock` tag to lock a page.
   2. Use `muiltiple` tag for muiltiple matching.
@@ -15,7 +43,7 @@
 
 * Add samll components' frame.
 
-  Flexible web project will need a lot of small components(Such as: float login panel, changeable advert, float), which will be added to document anytime and anywhere, it's high-cost before `React-Flex-Router` came.
+  Flexible web project will need a lot of small components(Such as: float login panel, changeable advert, float), which will be added to document ***anywhere,anytime***, it's high-cost before `React-Flex-Router` came.
 
 * Supports loading components dynamicly.
 
@@ -33,6 +61,7 @@
   ```
   <HashRouter>
     <div>
+
       <Route lock component={ Home } path="/"/>
 
       <Route component={ Products } path="/products" enterFilter={ loginFilter }>
@@ -40,6 +69,11 @@
         <Route miss component={ NotFound }/>
         <Route component={ Detail } path="/item/:id" time={new Date().toLocaleString()}/>
       </Route>
+
+      <Route muiltiple component={ Home }  path="/products">
+        <Route index component{ ProductNav }/>
+      </Route>
+
     </div>
   </HashRouter>
   ```
