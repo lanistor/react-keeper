@@ -1,14 +1,13 @@
 # React-Flex-Router
 
-<strong>More than router.</strong>
+**More than router.**
 
-## He did
+## Features
 
 * Extensible route.
 
-  Allow you add route components ***anywhere,anytime***.
+  You can add route components ***anywhere,anytime***.
   ```
-
   const App = ()=> {
     return (
       <HashRouter>
