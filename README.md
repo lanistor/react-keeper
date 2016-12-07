@@ -43,7 +43,7 @@
 
 * Add samll components' frame.
 
-  Flexible web project will need a lot of small components(Such as: float login panel, changeable advert, float), which will be added to document ***anywhere,anytime***, it's high-cost before `React-Flex-Router` came.
+  Flexible web projects will need a lot of small components(Such as: float login panel, changeable advert, and so on), which will be added to document ***anywhere,anytime***, it's high-cost before `React-Flex-Router` came.
 
 * Supports loading components dynamicly.
 
