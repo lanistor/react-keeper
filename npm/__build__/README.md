@@ -1,21 +1,47 @@
 # React-Flex-Router
-## Why another router of react?
-&emsp;&emsp;In React system, router should not only be a router, React needs more.
-He needs router, he needs filter, if in mobile environment, he will needs supports of multiple pages, and he may need animation to initialize a page.
 
-&emsp;&emsp;<strong>Not a router, more than router.</strong>
+<strong>More than router.</strong>
 
 ## He did
-* Intensive Router
-  * Router configures in React's way(Just like React-Router).
-  * Supports muilti pages at a time.
-  * Supports abstract router(Which cannot be activeted by URL).
-* Filter
-  * Filter queue before mount a component.
-  * Filter queue before unmount a component.
-* Small Component Use in React
-  * Which leads React to fit flexible projects.
-* Else
-  * Animation to initialize a page.
-  * Render in server side.
+
+* Supports muiltiple pages.
+  1. Use `lock` tag to lock a page.
+  2. Use `muiltiple` tag for muiltiple matching.
+  3. Use `page hook` to hold a will-unmount's page when open a new page.
+
+* Memory of scroll position.
+
+  Remember the scroll positions of every page, for scrolling to same position when back to a page.
+
+* Add samll components' frame.
+
+  Flexible web project will need a lot of small components(Such as: float login panel, changeable advert, float), which will be added to document anytime and anywhere, it's high-cost before `React-Flex-Router` came.
+
+* Supports loading components dynamicly.
+
+  Load a component dynamicly when it's route matches.
+
+* Supports enter(or leave) filters before a page will mount(or unmount).
+  * `Enter filters`, such as : login's check.
+  * `Leave filters`, such as : unsubmited form data.
+
+* Pretty flexible. 
+  * `index` tag : Index page of a module.
+  * `miss` tag : When miss match.
+  * `lock` tag : Lock a page for preventing to unmount after it mounted.
+  * `muiltiple` tag : For muiltiple matching's need.
+  ```
+  <HashRouter>
+    <div>
+      <Route lock component={ Home } path="/"/>
+
+      <Route component={ Products } path="/products" enterFilter={ loginFilter }>
+        <Route index component={Enterprise} path="/ep"/>
+        <Route miss component={ NotFound }/>
+        <Route component={ Detail } path="/item/:id" time={new Date().toLocaleString()}/>
+      </Route>
+    </div>
+  </HashRouter>
+  ```
+* Supports rendering in server side.
   
