@@ -49,18 +49,21 @@
       </CustomComponent>
       ```
     * ***You can create more flexible use scences by `type` and `children`***.
+
   * activeClassName  
-    The *activeClassName* will be added to the tag when *active*.  
+    The `activeClassName` will be added to the tag when `active`.  
+
     ```
     <Link to={ pathname + '/overview' } className='button' activeClassName='active'>Overview</Link>
     ```  
   * activeStyle  
-    The *activeStyle* will be added to the tag when *active*. 
+    The `activeStyle` will be added to the tag when `active`. 
+    
     ```
     <Link to={ pathname + '/overview' } className='button' activeClassName='active' activeStyle={{ color: 'red' }}>Overview</Link>
     ```  
   * isActive  
-    *isActive* is the active flag of the *Link* component, its's default value is computed by comparing the *pathname* with the value of *to*.  
+    `isActive` is the active flag of the `Link` component, its's default value is computed by comparing the `pathname` with the value of `to`.  
     You can define your own compute rule with this property  
     ```
       import { Control, Link } from 'react-flex-router'
