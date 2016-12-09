@@ -3,7 +3,7 @@
 **More than router.**
 ## Docs
   [Route Component](docs/Route.md)  
-  [Link Component](docs/Link)
+  [Link Component](docs/Link.md)
 
 ## Features
 
