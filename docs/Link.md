@@ -15,11 +15,11 @@
     The tag to render, default 'a'.  
     ```
     <Link type='img' src='http://localhost/favicon.ico' className='button' to={ '/overview' }/>
-    ```
+    ```  
     This will render to:  
     ```
     <img src='http://localhost/favicon.ico' class='button' />
-    ```
+    ```  
   * children  
     Support ***custom*** children, ***element*** children.
     * Custom children  
@@ -27,13 +27,13 @@
       <Link type='li' className='button' to={ pathname + '/overview' } >
         <a style={{ color: 'red' }}>Overview</a>
       </Link>
-      ```
+      ```  
       This will render to:  
       ```
       <li class='button'>
         <a style='color:red'>Overview</a>
       </li>
-      ```
+      ```  
     * Element children, which can support ***React Native***  
       ```
       import CustomComponent from './CustomButton'
@@ -50,23 +50,23 @@
       ```
     * ***You can create more flexible use scences by `type` and `children`***.
   * activeClassName  
-    The `activeClassName` will be added to the tag when `active`
+    The `activeClassName` will be added to the tag when `active`  
     ```
     <Link to={ pathname + '/overview' } className='button' activeClassName='active'>Overview</Link>
-    ```
+    ```  
   * activeStyle  
-    The `activeStyle` will be added to the tag when `active`
+    The `activeStyle` will be added to the tag when `active`  
     ```
     <Link to={ pathname + '/overview' } className='button' activeClassName='active' activeStyle={{ color: 'red' }}>Overview</Link>
-    ```
+    ```  
   * isActive  
     `isActive` is the active flag of the `Link` component, its's default value is computed by comparing the `pathname` with the value of `to`.  
-    You can define your own compute rule with this property
+    You can define your own compute rule with this property  
     ```
       import { Control, Link } from 'react-flex-router'
 
       <Link to={ pathname + '/overview' } isActive={ Control.path === pathname || Control.path === (pathname + '/overview') }>Overview</Link>
-    ```
+    ```  
     ```
       import { Control, Link } from 'react-flex-router'
 
