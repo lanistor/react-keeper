@@ -7,12 +7,12 @@
   * Fit for more flexible use scences.
 * Reserved properties
   * to  
-    The path linked to.
+    The path linked to.  
     ```
     <Link to={ pathname + '/overview' }>Overview</Link>
     ```
   * type  
-    The tag to render, default 'a'.
+    The tag to render, default 'a'.  
     ```
     <Link type='img' src='http://localhost/favicon.ico' className='button' to={ '/overview' }/>
     ```
@@ -22,7 +22,7 @@
     ```
   * children  
     Support ***custom*** children, ***element*** children.
-    * Custom children
+    * Custom children  
       ```
       <Link type='li' className='button' to={ pathname + '/overview' } >
         <a style={{ color: 'red' }}>Overview</a>
@@ -34,7 +34,7 @@
         <a style='color:red'>Overview</a>
       </li>
       ```
-    * Element children, which can support ***React Native*** 
+    * Element children, which can support ***React Native***  
       ```
       import CustomComponent from './CustomButton'
 
