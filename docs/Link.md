@@ -50,12 +50,12 @@
       ```
     * ***You can create more flexible use scences by `type` and `children`***.
   * activeClassName  
-    The `activeClassName` will be added to the tag when `active`  
+    The `activeClassName` will be added to the tag when `active`.  
     ```
     <Link to={ pathname + '/overview' } className='button' activeClassName='active'>Overview</Link>
     ```  
   * activeStyle  
-    The `activeStyle` will be added to the tag when `active`  
+    The `activeStyle` will be added to the tag when `active`. 
     ```
     <Link to={ pathname + '/overview' } className='button' activeClassName='active' activeStyle={{ color: 'red' }}>Overview</Link>
     ```  
