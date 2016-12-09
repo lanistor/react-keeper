@@ -4,7 +4,6 @@ import { Link, Control } from 'react-flex-router'
 export default class LeftNav extends React.Component {
 
   render() {
-
     return (
       <div className="col-md-2">
         <ul className="nav nav-pills nav-stacked">

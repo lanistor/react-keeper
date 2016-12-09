@@ -1,5 +1,5 @@
 import React from 'react'
-import { go } from './OuterControl'
+import Control from './OuterControl'
 
 /**
  * replace the tag 'A', used to link to a new url
@@ -37,19 +37,40 @@ export default class Link extends React.Component {
     if(this.context.history.location.pathname === to) {
       return
     }
-    go(to)
+    Control.go(to)
   }
 
   render() {
-    let { to, href, children, ...props } = this.props
-    return <a onClick={this.handleClick} {...props}>{children}</a>
+    let { to, href, children, isActive, activeStyle, activeClassName, style, className, type, ...props } = this.props
+    if(!type) {
+      type = 'a'
+    }
+
+    if(isActive) {
+      if(typeof isActive === 'function') {
+        isActive = isActive()
+      }else {
+        isActive = !!isActive
+      }
+    }else {
+      isActive = (Control.path === to)
+    }
+
+    if(isActive) {
+      if(activeStyle)
+        style = Object.assign({}, style, activeStyle)
+      if(activeClassName)
+        className = className? (className + ' ' + activeClassName) : activeClassName
+    }
+    
+    return React.createElement(type, { onClick : this.handleClick, style, className, ...props }, children)
   }
 }
 
 Link.propTypes = {
   to: React.PropTypes.string.isRequired,
   href: React.PropTypes.string,
-  children: React.PropTypes.any.isRequired,
+  children: React.PropTypes.any,
   onClick: React.PropTypes.any
 }
 

@@ -86,8 +86,10 @@ export function reactContains(parentComponent, childComponent) {
   }
 
   /** if support context, use context first */
-  if(childComponent.context && childComponent.context.route) {
-    if(childComponent.context.route === parentComponent) {
+  if(childComponent.context) {
+    if(childComponent.context.routes
+      && childComponent.context.routes.length>0
+      && childComponent.context.routes[childComponent.context.routes.length-1] === parentComponent) {
       return true
     }
     return false

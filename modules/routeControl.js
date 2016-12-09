@@ -1,6 +1,6 @@
 import match from './match'
 import React from 'react'
-import { reactContains } from './Util'
+import { reactContains, resetPath } from './Util'
 
 /** record the matched component by asc order */
 let routeMatch = []
@@ -43,6 +43,22 @@ const getMatchedPath = ()=> {
     if(item.matcher)
       path.push(item.matcher.matchStr)
   })
+  return path.join('')
+}
+
+/** 
+ * get addtive mathced component path
+ * different with getMatchedPath
+ */
+const getSelfPathname = (obj)=> {
+  if(!obj.context) {
+    return ''
+  }
+  const path = [];
+  (obj.context.routes || []).forEach((item)=> {
+    path.push(resetPath(item.props.path))
+  })
+  path.push(obj.props.path)
   return path.join('')
 }
 
@@ -101,5 +117,6 @@ export {
   shouldMatch,
   getMatch,
   getMatchedPath,
+  getSelfPathname,
   checkMissMatch
 }

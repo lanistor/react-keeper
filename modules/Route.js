@@ -2,7 +2,7 @@ import React from 'react'
 import matchPath from './match/matchPath'
 import { resetPath, objectWithoutProperties } from './Util'
 import { OuterControl } from './OuterControl'
-import { shouldMatch, addMatch, removeMatch, getMatchedPath, checkMissMatch } from './RouteControl'
+import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname, checkMissMatch } from './RouteControl'
 
 export default class Route extends React.Component {
   
@@ -18,7 +18,7 @@ export default class Route extends React.Component {
 
   getChildContext = ()=> {
     return {
-      route: this
+      routes: this.context.routes? [ ...this.context.routes, this ] : [ this ]
     }
   }
 
@@ -180,7 +180,10 @@ export default class Route extends React.Component {
 
   /** update bind state */
   updateMountStatus = (status)=> {
-    this.setState({ status })
+    if(status === 1) {
+      this.setState({ status, selfPathname: getSelfPathname(this) || '/' })
+    }else
+      this.setState({ status })
   }
 
   componentWillUnmount = ()=> {
@@ -227,7 +230,7 @@ export default class Route extends React.Component {
       }
     }
 
-    if(rcIndex && matchedPath === pathname && shouldMatch(this)) {
+    if(rcIndex && ( matchedPath || '/') === pathname && shouldMatch(this)) {
       return { status: 1 }
     }
 
@@ -246,8 +249,6 @@ export default class Route extends React.Component {
     }
 
     const children = this.props.children
-    
-    const { pathname } = this.context.history? this.context.history.location : { }
 
     /** 2. mount state */
     /** 2.1 check component props */
@@ -257,7 +258,7 @@ export default class Route extends React.Component {
         'multiple', 'lock', 'index', 'miss'
       ])
       return React.createElement(this.component,
-        { pathname,
+        { pathname: this.state.selfPathname,
           ...props,
           params: this.matcher? (this.matcher.params || {}) : {}
         }, children)
@@ -292,10 +293,10 @@ Route.propTypes = {
 }
 
 Route.childContextTypes = {
-  route: React.PropTypes.any
+  routes: React.PropTypes.any
 }
 
 Route.contextTypes = {
   history: React.PropTypes.object.isRequired,
-  route: React.PropTypes.any
+  routes: React.PropTypes.any
 }

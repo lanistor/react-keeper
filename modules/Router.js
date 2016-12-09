@@ -3,33 +3,46 @@ import { createRouteConfigByJSX } from './RouteUtil'
 import { clearMatch } from './RouteControl'
 import { set as controlSet } from './OuterControl'
 
+let history = null
+let unlisten = null
+
 export default class Router extends React.Component {
   constructor(...args) {
     super(...args)
 
     /** create history object */
-    this.state = {
-      history: this.createHistory()
+    if(!history) {
+      history = this.createHistory()
+      controlSet('history', history)
     }
 
-    
-    /** set history object to `Control Object` */
-    controlSet('history', this.state.history)
-    controlSet('path', this.state.history.location.pathname)
-
     // /** start history listener */
-    this.state.history.listen((location, action)=>{
+    this.unlisten = history.listen((location, action)=>{
       controlSet('path', location.pathname)
       clearMatch()
       this.forceUpdate()
     })
+
+    /** set history object to `Control Object` */
+    controlSet('path', history.location.pathname)
   }
+
+  /** react-hot-loader will unmount this component and */
+  componentWillReceiveProps(nextProps) {
+    clearMatch()
+    this.forceUpdate()
+  }
+  
+  componentWillUnmount() {
+    this.unlisten()
+  }
+  
 
   /** get child context */
   getChildContext = ()=> {
     return {
-      history: this.state.history,
-      route: this
+      history: history,
+      router: this
     }
   }
 
@@ -61,5 +74,5 @@ Router.propTypes = {
 
 Router.childContextTypes = {
   history: React.PropTypes.object,
-  route: React.PropTypes.any
+  router: React.PropTypes.any
 }
