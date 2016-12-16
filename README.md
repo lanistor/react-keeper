@@ -6,10 +6,10 @@
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...
 ## Docs
-  [Route Component](docs/Route.md)  
-  [Link Component](docs/Link.md)  
-  [Filter](docs/Filter.md)  
-  [RouteMapping](docs/RouteMapping.md)  
+  [Route Component](docs/Route.md)         - (How to config route component)    
+  [Link Component](docs/Link.md)           - (How to config Link component)  
+  [Filter](docs/Filter.md)                 - (How to use filters)  
+  [RouteMapping](docs/RouteMapping.md)     - (How to config path of route)  
 
 ## Features
 
