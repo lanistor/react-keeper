@@ -1,11 +1,11 @@
 # Link
-* Features
+## Features
   * Support ***all properties*** that normal component can use.
   * Support ***custom tag*** of `Link` component (default tag is `a`).
   * Support ***custom*** children, ***tag*** children.
   * ***React Native*** compatible.
   * Fit for more flexible use scences.
-* Reserved properties
+## Reserved properties
   * to  
     The path linked to.  
     ```

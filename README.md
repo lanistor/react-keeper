@@ -7,7 +7,9 @@
   And more...
 ## Docs
   [Route Component](docs/Route.md)  
-  [Link Component](docs/Link.md)
+  [Link Component](docs/Link.md)  
+  [Filter](docs/Filter.md)  
+  [RouteMapping](docs/RouteMapping.md)  
 
 ## Features
 

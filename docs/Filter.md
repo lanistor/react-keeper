@@ -29,13 +29,13 @@ const loginFilter = (callback, props, context)=> {
 ## Added to Route Component
 * Single Filter
 ```
-<Router >
+<HashRouter >
   <Route path='/user' component={User}, enterFilter={ loginFilter } />
-</Router>
+</HashRouter>
 ```
 * Multiple Filters
 ```
-<Router ...>
+<HashRouter >
   <Route path='/user' component={User}, enterFilter={[ loginFilter, permitFilter1, permitFilter2 ] } />
-</Router>
+</HashRouter>
 ```
