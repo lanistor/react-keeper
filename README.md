@@ -2,7 +2,7 @@
   A routing library of React, but more than router.  
   React-Router is a great product, we learned a lot from it. But we truely faced many problems that React-Router doesn't resolve in real using, especially in mobile APPs.  
   We did a lot to let React-Flex-Router fit mobile APPs, such as `Pages Cache`, `Scroll Memory`.  
-  We add samll component support, to let you project fit more flexible WEB or mobile APPs.  
+  We add small component support, to let you project fit more flexible WEB or mobile APPs.  
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...
 ## Docs
