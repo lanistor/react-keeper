@@ -147,6 +147,14 @@ export function hashCode() {
   return res + new Date().getTime()
 }
 
+/** is null */
+export function isNull(obj) {
+  if(typeof obj === 'undefined' || obj === null) {
+    return true
+  }
+  return false
+}
+
 /**
  * get correct path
  * @method resetPath

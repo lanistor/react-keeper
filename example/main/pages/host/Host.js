@@ -10,15 +10,15 @@ import Concerns from './Concerns'
 export default class Host extends React.Component {
   render() {
     return (
-      <div className="page">
+      <div className='page'>
         <Header/>
-        <div className="container-fluid">
+        <div className='container-fluid'>
           <LeftNav/>
-          <div className="col-md-10">
+          <div className='col-md-10'>
 
-            <Route index component={HostInfo} path="/info"/>
-            <Route component={Edit} path="edit" leaveFilter={[ 'editLeave' ]}/>
-            <Route miss path="concerns" component={Concerns}/>
+            <Route index component={HostInfo} path='/info'/>
+            <Route component={Edit} path='edit' leaveFilter={[ 'editLeave' ]}/>
+            <Route miss path='concerns' component={Concerns}/>
 
           </div>
         </div>

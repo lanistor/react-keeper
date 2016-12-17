@@ -9,6 +9,7 @@
   [Route Component](docs/Route.md)         - (How to config route component)    
   [Link Component](docs/Link.md)           - (How to config Link component)  
   [Filter](docs/Filter.md)                 - (How to use filters)  
+  [FlexComponent](docs/FlexComponent.md)  - (How to config path of route)  
   [RouteMapping](docs/RouteMapping.md)     - (How to config path of route)  
 
 ## Features
@@ -16,7 +17,7 @@
 * ***Extensible route***
 
   You can add route components ***anywhere,anytime***.
-  ```
+  ```javascript
   const App = ()=> {
     return (
       <HashRouter>
@@ -48,9 +49,9 @@
 
   Remember the scroll positions of every page, for scrolling to same position when back to a page.
 
-* ***Add samll components' frame***
+* ***Add FlexComponent's frame***
 
-  Flexible web projects will need a lot of small components(Such as: float login panel, changeable advert, and so on), which will be added to document ***anywhere,anytime***, it's high-cost before `React-Flex-Router` came.
+  Flexible web projects will need a lot of small and flexible components(Such as: float login panel, changeable advert, popup dialogs, and so on), which will be added to document ***anywhere,anytime***, it's high-cost without `FlexComponent's frame`.
 
 * ***Supports loading components dynamicly***
 
@@ -65,7 +66,7 @@
   * `miss` tag : When miss match.
   * `lock` tag : Lock a page for preventing to unmount after it mounted.
   * `muiltiple` tag : For muiltiple matching's need.
-  ```
+  ```javascript
   <HashRouter>
     <div>
 
@@ -89,11 +90,13 @@
 ## Install
   ```
   npm install react-flex-router --save-dev
+
+  npm install
   ```
 
 ## Usage
   App.js
-  ```
+  ```javascript
   import React, { Component } from 'react'
   import ReactDOM from 'react-dom'
   import { HashRouter, Route } from 'react-flex-router'
@@ -125,7 +128,7 @@
   ReactDOM.render(<App/>, document.getElementById('root'))  
   ```
   User.js
-  ```
+  ```javascript
   import React, { Component } from 'react'
   import { Link, Route } from 'react-flex-router' 
   // other import
@@ -148,3 +151,18 @@
     }
   }
   ```
+
+## Contributors 
+  * ***Clone Project***
+  ```
+  git clone git@github.com:vifird/react-flex-router.git
+
+  cd react-flex-router
+
+  npm install
+  ```
+  * ***Run Example***
+  ```
+  npm run example
+  ```
+  Then open `http://127.0.0.1:8600`

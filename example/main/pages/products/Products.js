@@ -6,14 +6,13 @@ import React from 'react'
 export default class Products extends React.Component {
 
   render() {
-    console.log('---', this.props.pathname)
     return (
-      <div className="page">
+      <div className='page'>
         <Header/>
-        <div className="container-fluid">
-          <div className="row">
+        <div className='container-fluid'>
+          <div className='row'>
             <LeftNav item={1}/>
-            <div className="col-md-10">
+            <div className='col-md-10'>
               {this.props.children}
             </div>
           </div>

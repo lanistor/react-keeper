@@ -24,6 +24,6 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
 
 app.use(express.static(__dirname))
 
-app.listen(8081, function () {
-  console.log('Server listening on http://localhost:8081, Ctrl+C to stop')
+app.listen(8600, function () {
+  console.log('Server listening on http://localhost:8600, Ctrl+C to stop')
 })

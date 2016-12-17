@@ -1,7 +1,7 @@
 # Filter
 ## Define a Filter
 * Define a fllter, and run over it or not.
-```
+```javascript
 // receive 'props' and 'context' from React-Control
 const loginFilter = (callback, props, context)=> {
   
@@ -28,14 +28,14 @@ const loginFilter = (callback, props, context)=> {
 ```
 ## Added to Route Component
 * Single Filter
-```
-<HashRouter >
+```javascript
+<HashRouter>
   <Route path='/user' component={User}, enterFilter={ loginFilter } />
 </HashRouter>
 ```
 * Multiple Filters
-```
-<HashRouter >
+```javascript
+<HashRouter>
   <Route path='/user' component={User}, enterFilter={[ loginFilter, permitFilter1, permitFilter2 ] } />
 </HashRouter>
 ```

@@ -1,7 +1,7 @@
 # Route
 ## Component
   Use component property to define the component to render.  
-  ```
+  ```javascript
   <HashRouter>
     <div className='page-group'>
       <Route index path='/monitor' component={ Monitor } />
@@ -11,7 +11,7 @@
   ```
   * Extensible Component  
     You can use `Route` component ***anywhere, anytime***.
-    ```
+    ```javascript
     import User from './User.js'
 
     <HashRouter>
@@ -35,7 +35,7 @@
 
 ## Dynamic Component  
   If we want to load `Products` component dynamicly, we can config like this:
-  ```
+  ```javascript
     <Route loadComponent={ (cb)=>{
         System.import('../Products.js').then((Products)=>{
           cb(Products)
@@ -45,7 +45,7 @@
   Then, when this Route Component matched, the `Products.js` will load.
 ## Filters  
   Filters lead you to add your own fliter function before(or after) a component mount(or unmount).
-  ```
+  ```javascript
   <Route component={ User } path='/user' enterFilter={ [ loginCheck, permitCheck ] }>
     <Route index component={ Info } path='/info'/>
     <Route component={ Edit } path='/edit' leaveFilter={ editLeave }/>
@@ -75,7 +75,7 @@
 
 ## Index Component  
   * Add `'index'` property to Route component, when path is equals to parent component's path,this one will match and mount.
-  ```
+  ```javascript
   <Route component={ User } path='/user'>
     <Route index component={ Info } path='/info'/>
     <Route component={ Edit } path='/edit'/>
@@ -86,7 +86,7 @@
 ## Miss Match Deal  
   * When no component is matched, we should show users something, such as `404` page. we support two way for this scene.
   - use `'miss'` property
-  ```
+  ```javascript
    <Route component={ User } path='/user'>
      <Route component={ Edit } path='/edit'/>
      <Route component={ Article } path='/user'/>
@@ -96,7 +96,7 @@
   *`'miss'` component can no use `'path'` property*
 
   - use `'*'` path property, and add it as the last child
-  ```
+  ```javascript
    <Route component={ User } path='/user'>
      <Route component={ Edit } path='/edit'/>
      <Route component={ Article } path='/user'/>
@@ -105,7 +105,7 @@
   ```
 ## Locked Pages  
   Lock a component to prevent it unmounting after it mount.
-  ```
+  ```javascript
   <HashRouter>
     <div className='page-group'>
       <Route index path='/monitor' component={ Monitor } />

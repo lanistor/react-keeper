@@ -6,11 +6,14 @@
   "rules": {
     "no-console": 0,
     "no-unused-vars": 0,
+    "jsx-quotes":[1, "prefer-single"],
     "react/prop-types": 0,
     "react/display-name": 0,
-    "react/wrap-multilines": 2
+    "react/wrap-multilines": 2,
+    "space-before-function-paren": 1,
+    "react/react-in-jsx-scope": 0,
+    "react/wrap-multiline": 0,
+    "object-curly-spacing": 1
   },
-  "plugins": [
-    "react"
-  ]
+  "plugins": [ "react", "babel" ]
 }

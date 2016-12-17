@@ -4,9 +4,9 @@ import React from 'react'
 
 export default function AboutUs() {
   return (
-    <div className="page">
+    <div className='page'>
       <Header/>
-      <div className="container-fluid">
+      <div className='container-fluid'>
         <h1>AboutUs</h1>
       </div>
       <Footer/>

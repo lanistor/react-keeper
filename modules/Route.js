@@ -3,13 +3,15 @@ import matchPath from './match/matchPath'
 import { resetPath, objectWithoutProperties } from './Util'
 import { OuterControl } from './OuterControl'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname, checkMissMatch } from './RouteControl'
+import Logger from './Logger'
 
 export default class Route extends React.Component {
   
   constructor(...args) {
     super(...args)
     this.state = {
-      status: 0  //0: unmount, 1: mounted
+      status: 0,        // 0: unmount, 1: mounted
+      mountBy: 0        // 0: mount by route or none, 1: mount by 'lock', 2: mount by 'hook'
     }
 
     this.matcher = null
@@ -43,16 +45,16 @@ export default class Route extends React.Component {
     if(status === 1) {
       addMatch(this)
     }
-    if(this.state.status === status) {
-      return
-    }
+    // if(this.state.status === status) {
+    //   return
+    // }
     
     /** Step 2 : set route state  */
-    if(this.state.status === 0 && status === 1) {         // unmount to mount
+    if(status === 1) {         // unmount to mount
 
       this.setToMount()
 
-    }else if(this.state.status === 1 && status === 0) {   // mount to unmount
+    }else if(status === 0) {   // mount to unmount
 
       this.setToUnmount()
 
@@ -98,6 +100,9 @@ export default class Route extends React.Component {
     const { 'lock': lock } = this.props
 
     if(lock) {
+      if(this.state.mountBy !== 1 && this.state.status === 1) {
+        this.updateMountStatus(1, 1)
+      }
       return
     }
 
@@ -179,11 +184,18 @@ export default class Route extends React.Component {
   }
 
   /** update bind state */
-  updateMountStatus = (status)=> {
+  updateMountStatus = (status, mountBy)=> {
+    if(typeof mountBy === 'undefined' || mountBy === null) {
+      mountBy = 0
+    }
     if(status === 1) {
-      this.setState({ status, selfPathname: getSelfPathname(this) || '/' })
+      this.setState({
+        status,
+        mountBy: mountBy,
+        selfPathname: getSelfPathname(this) || '/' 
+      })
     }else
-      this.setState({ status })
+      this.setState({ status, mountBy })
   }
 
   componentWillUnmount = ()=> {
@@ -257,6 +269,7 @@ export default class Route extends React.Component {
         'children', 'component', 'loadComponent', 'enterFilter', 'leaveFilter', 'path', 'redirect',
         'multiple', 'lock', 'index', 'miss'
       ])
+      props.route = { isActive: this.state.mountBy===0 }
       return React.createElement(this.component,
         { pathname: this.state.selfPathname,
           ...props,
@@ -272,7 +285,7 @@ export default class Route extends React.Component {
     if(React.isValidElement(children)) {
       return React.Children.only(children)
     }
-    console.error('When `Route` component has no component property, it\'s children must be a single tag (not an array), like `div`|`view` .')
+    Logger.error('When `Route` component has no component property, it\'s children must be a single tag (not an array), like `div`|`view` .')
     return null
   }
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { createRouteConfigByJSX } from './RouteUtil'
 import { clearMatch } from './RouteControl'
 import { set as controlSet } from './OuterControl'
+import Logger from './Logger'
 
 let history = null
 let unlisten = null
@@ -54,7 +55,7 @@ export default class Router extends React.Component {
     if(React.isValidElement(this.props.children)) {
       return React.Children.only(this.props.children)
     }
-    console.error('The children of `*Router` component must be a single tag (not an array), like `div`|`view` .')
+    Logger.error('The children of `*Router` component must be a single tag (not an array), like `div`|`view` .')
     return null
   }
 }

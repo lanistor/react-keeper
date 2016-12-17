@@ -5,9 +5,9 @@ import React from 'react'
 export default function Home() {
   
   return (
-    <div className="page">
+    <div className='page'>
       <Header/>
-      <div className="container-fluid">
+      <div className='container-fluid'>
         <h1>Home</h1>
       </div>
       <Footer/>

@@ -12,9 +12,9 @@ const App = () => (
     <div>
       <ul>
         {/* 3. Link to some paths with `Link` */}
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/about'>About</Link></li>
+        <li><Link to='/topics'>Topics</Link></li>
       </ul>
   
       <hr/>
@@ -23,10 +23,10 @@ const App = () => (
              When the current location matches the `pattern`
              then the `component` will render.
       */}
-      <Match exactly pattern="/" component={Home} />
-      <Match pattern="/about" component={About} />
-      <Match pattern="/topics" component={Topics} />
-      <Match pattern="/:userId" component={User} />
+      <Match exactly pattern='/' component={Home} />
+      <Match pattern='/about' component={About} />
+      <Match pattern='/topics' component={Topics} />
+      <Match pattern='/:userId' component={User} />
   
       {/* If none of those match, then a sibling `Miss` will render. */}
       <Miss component={NoMatch}/>
