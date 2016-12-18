@@ -1,6 +1,6 @@
 # Flex Component
-  React-Flex-Router supports a way to add(and remove) components flexiblely, this is good use for flexible projects.  
-  You will use this if your job has `float login panel`, `changed ads`, `popup dialogs` and so on. 
+  React-Flex-Router supports a way to add(and remove) components flexiblely, this is pretty usefule for flexible projects.  
+  You will use this if your project has `float login panel`, `changed ads`, `popup dialogs` and so on. 
 
   ---
   <font color='#f70'>Let's show a float login panel use case. </font>   

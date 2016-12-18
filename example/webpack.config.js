@@ -13,7 +13,7 @@ module.exports = {
 
   entry: fs.readdirSync(__dirname).reduce(function (entries, dir) {
       // console.log('--dirname---', __dirname)
-    if(dir === 'common' || dir === 'plugins'){
+    if(dir === 'common' || dir === 'plugins' || dir === 'react-router'){
       return entries
     }
     if (fs.statSync(path.join(__dirname, dir)).isDirectory()){
@@ -25,16 +25,15 @@ module.exports = {
   output: {
     path: __dirname + '/__build__',
     filename: '[name].js',
-    chunkFilename: '[id].chunk.js',
-    publicPath: '/__build__/'
+    chunkFilename: '[id].chunk.js'
   },
 
   module: {
     preLoaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader'}
+      { test: /\.js$/, exclude: /node_modules/, loader: 'eslint'}
     ],
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
+      { test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot', 'babel'] },
       { test: /\.css$/, loader: 'style!css' }
     ]
   },
@@ -52,10 +51,9 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin('shared.js'),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
-  ]
-
+    new webpack.HotModuleReplacementPlugin()
+  ],
+	devtool: 'inline-source-map'
 }

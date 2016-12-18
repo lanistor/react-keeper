@@ -1,29 +1,55 @@
-/*eslint-disable no-console, no-var */
-var express = require('express')
-var rewrite = require('express-urlrewrite')
+var WebpackDevServer = require("webpack-dev-server")
 var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var WebpackConfig = require('./webpack.config')
+var fs = require('fs')
+var path = require('path')
+var config = require('./webpack.config')
+var rewrite = require('express-urlrewrite')
 
-var app = express()
+var publicPath = '/__build__'
 
-app.use(webpackDevMiddleware(webpack(WebpackConfig), {
-  publicPath: '/__build__/',
-  stats: {
-    colors: true
+var port = 8600
+
+for(var key in config.entry){
+  if(!(config.entry[key] instanceof Array)) {
+    config.entry[key] = [ config.entry[key] ]
   }
-}))
+  config.entry[key].unshift(
+    'webpack-dev-server/client?http://localhost:8600',
+    'webpack/hot/only-dev-server'
+  )
+}
+config.output.publicPath = publicPath
 
-// var fs = require('fs')
-// var path = require('path')
-// fs.readdirSync(__dirname).forEach(function (file) {
-//   if (fs.statSync(path.join(__dirname, file)).isDirectory()){
-//     app.use(rewrite('/' + file + '\/?', '/' + file + '/index.html'))
-//   }
-// })
+console.log('dirname', __dirname)
 
-app.use(express.static(__dirname))
+var server = new WebpackDevServer(webpack(config), {
+  contentBase: [__dirname],
+	publicPath: publicPath,
+	hot: true,  
+	inline: true,
+	stats: {
+		colors: true
+	},
+	noInfo: false,
+	quiet: false,
+  historyApiFallback: {
+    rewrites: [
+      { from: /^\/([^\/]+)(\/)?$/, to: ( { match } )=>{
+          return path.join(match[1], 'index.html')
+        }
+      }
+    ]
+  }
+})
 
-app.listen(8600, function () {
-  console.log('Server listening on http://localhost:8600, Ctrl+C to stop')
+process.on('uncaughtException', function (err) {
+  console.error('--uncaughtException--', err);
+});
+
+server.listen(8600, 'localhost', function (error, result) {
+  if(error) {
+    console.error(error)
+  }else {
+    console.log('Server listening on http://localhost:8600, Ctrl+C to stop')
+  }
 })

@@ -15,5 +15,6 @@
     "react/wrap-multiline": 0,
     "object-curly-spacing": 1
   },
-  "plugins": [ "react", "babel" ]
+  "plugins": [ "react", "babel" ],
+  "exclude": ["example/serve.js", "webpack.config.js"]
 }
