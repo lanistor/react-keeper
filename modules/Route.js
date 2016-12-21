@@ -1,17 +1,18 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import matchPath from './match/matchPath'
-import { resetPath, objectWithoutProperties } from './Util'
+import { resetPath, objectWithoutProperties, isStatelessComponent } from './Util'
 import { OuterControl } from './OuterControl'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname, checkMissMatch } from './RouteControl'
 import Logger from './Logger'
 
 export default class Route extends React.Component {
-  
+
   constructor(...args) {
     super(...args)
     this.state = {
       status: 0,        // 0: unmount, 1: mounted
-      mountBy: 0        // 0: mount by route or none, 1: mount by 'lock', 2: mount by 'hook'
+      mountBy: 0        // 0: mount by route or none, 1: mount by 'cache', 2: mount by 'hook'
     }
 
     this.matcher = null
@@ -26,6 +27,7 @@ export default class Route extends React.Component {
 
   componentWillMount = ()=> {
     this.routeCheckEntry(this.props)
+    this.hideOrShow()
   }
 
   componentWillReceiveProps = (nextProps)=> {
@@ -48,7 +50,7 @@ export default class Route extends React.Component {
     // if(this.state.status === status) {
     //   return
     // }
-    
+
     /** Step 2 : set route state  */
     if(status === 1) {         // unmount to mount
 
@@ -96,10 +98,10 @@ export default class Route extends React.Component {
    */
   setToUnmount = ()=> {
 
-    /** Step 1 : check lock tag */
-    const { 'lock': lock } = this.props
+    /** Step 1 : check cache tag */
+    const { 'cache': cache } = this.props
 
-    if(lock) {
+    if(cache) {
       if(this.state.mountBy !== 1 && this.state.status === 1) {
         this.updateMountStatus(1, 1)
       }
@@ -109,7 +111,7 @@ export default class Route extends React.Component {
     /** Step 2 : check Link(target=_new) state */
     //
 
-    /** Step 3 : check leave filters */ 
+    /** Step 3 : check leave filters */
     this.checkFilter(this.props.leaveFilter, (passed)=> {
       if(!passed) {
         return
@@ -171,7 +173,7 @@ export default class Route extends React.Component {
     }
 
     let pointer = 0    // record the index of the running filter
-    
+
     const filterCallback = ()=> {
       if(pointer === filters.length-1) {
         callback(true)
@@ -192,7 +194,7 @@ export default class Route extends React.Component {
       this.setState({
         status,
         mountBy: mountBy,
-        selfPathname: getSelfPathname(this) || '/' 
+        selfPathname: getSelfPathname(this) || '/'
       })
     }else
       this.setState({ status, mountBy })
@@ -201,7 +203,7 @@ export default class Route extends React.Component {
   componentWillUnmount = ()=> {
     removeMatch(this)
   }
-  
+
   /**
    * check if the component matches the pathname
    * index       : when the path is equal to it's parent' path, this component will mount
@@ -232,7 +234,7 @@ export default class Route extends React.Component {
 
       let matcher = matchPath(checkPathname, pattern)
       this.matcher = matcher
-      
+
       if(matcher.match) {
         if(multiple || shouldMatch(this)) {
           return { status: 1, matcher }
@@ -251,7 +253,35 @@ export default class Route extends React.Component {
     }
     return { status: 0 }
   }
-  
+
+  /** hide or show it's component after it mounted */
+  hideOrShow = ()=> {
+    const display = this.state.mountBy === 0? (this.initDisplay || null) : 'none'
+    let dom
+    try{
+      dom = this.refs.component? ReactDOM.findDOMNode(this.refs.component) : null
+    }catch(error) {
+      Logger.warning('Cannot find dom')
+      return
+    }
+    if(!dom) {
+      if(React.isValidElement(this.props.children)) {
+        dom = this.props.children[0]
+      }
+    }
+
+    // change display
+    if(dom) {
+      if(typeof this.initDisplay === 'undefined') {
+        this.initDisplay = dom? (dom.style.display || null) : null
+      }
+      dom.style.display = display
+    }
+  }
+
+  componentDidUpdate() {
+    this.hideOrShow()
+  }
 
   render = ()=> {
 
@@ -267,9 +297,16 @@ export default class Route extends React.Component {
     if(this.component) {
       const props = objectWithoutProperties(this.props, [
         'children', 'component', 'loadComponent', 'enterFilter', 'leaveFilter', 'path', 'redirect',
-        'multiple', 'lock', 'index', 'miss'
+        'multiple', 'cache', 'index', 'miss'
       ])
+      // add route state to props
       props.route = { isActive: this.state.mountBy===0 }
+
+      if(!isStatelessComponent(this.component)) {
+        props.ref = 'component'
+      }
+
+      // create element
       return React.createElement(this.component,
         { pathname: this.state.selfPathname,
           ...props,
@@ -279,7 +316,7 @@ export default class Route extends React.Component {
 
     /** 2.2 check children */
     if(!children) {
-      console.error('Route component without children.')
+      Logger.error('Route component without children.')
       return null
     }
     if(React.isValidElement(children)) {
@@ -299,7 +336,7 @@ Route.propTypes = {
   path: React.PropTypes.string,
   redirect: React.PropTypes.string,
   multiple: React.PropTypes.any,
-  lock: React.PropTypes.any,
+  cache: React.PropTypes.any,
   index: React.PropTypes.any,
   miss: React.PropTypes.any,
   children: React.PropTypes.any

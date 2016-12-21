@@ -18,7 +18,7 @@ class App extends React.Component {
 
   render() {
 
-    console.log('%c--app render--', 'color:red')
+    // console.log('%c--app render--', 'color:red')
 
     return (
       <HashRouter>

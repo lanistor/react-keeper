@@ -4,6 +4,7 @@
     "__DEV__": false
   },
   "rules": {
+    "indent": 1,
     "no-console": 0,
     "no-unused-vars": 0,
     "jsx-quotes":[1, "prefer-single"],
@@ -13,6 +14,7 @@
     "space-before-function-paren": 1,
     "react/react-in-jsx-scope": 0,
     "react/wrap-multiline": 0,
+    "react/no-find-dom-node": 0,
     "object-curly-spacing": 1
   },
   "plugins": [ "react", "babel" ],

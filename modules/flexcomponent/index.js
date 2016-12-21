@@ -5,7 +5,3 @@ export const Flex = {
   remove: removeElement,
   clear: clearElement
 }
-
-export {
-  default as FlexContainer
-} from './ElementContainer'

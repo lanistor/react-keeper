@@ -46,7 +46,7 @@ const getMatchedPath = ()=> {
   return path.join('')
 }
 
-/** 
+/**
  * get addtive mathced component path
  * different with getMatchedPath
  */
@@ -56,9 +56,10 @@ const getSelfPathname = (obj)=> {
   }
   const path = [];
   (obj.context.routes || []).forEach((item)=> {
-    path.push(resetPath(item.props.path))
+    // path.push(resetPath(item.props.path))
+    path.push(item.matcher.matchStr)
   })
-  path.push(obj.props.path)
+  path.push(obj.matcher.matchStr)
   return path.join('')
 }
 
@@ -72,7 +73,7 @@ const removeMatch = (instance) => {
   })
 }
 
-/** 
+/**
  * 'index' property support
  * when no component matched, this one will match if condition
  * the condition is 'when no matched, it's parent is last matched one'

@@ -3,10 +3,18 @@
  * @module compilePattern
  *   1. compile path pattern to regular string
  *   2. extrac param names from path pattern
- * 
+ *
  * @param {string} pattern - the pattern defined by property 'path' on the component 'Route'
  */
 export default function compilePattern(pattern) {
+
+  // '>' means 'end'
+  let endForcedCheck = false
+  if(pattern.indexOf('>') === pattern.length-1) {
+    endForcedCheck = true
+    pattern = pattern.substring(0, pattern.length-1)
+  }
+  pattern = pattern.replace(/\$/g, '\\$')
 
   let regular = []
   let params = {}
@@ -16,7 +24,7 @@ export default function compilePattern(pattern) {
   let _match
   let _lastIndex = 0
   let _index = 0
-  
+
   while((_match = _rule.exec(pattern))) {
 
     regular.push(pattern.substring(_lastIndex, _match.index))
@@ -42,15 +50,20 @@ export default function compilePattern(pattern) {
     }
 
     _lastIndex = _rule.lastIndex
-    _index ++ 
+    _index ++
   }
 
   if(_lastIndex < pattern.length) {
     regular.push(pattern.substring(_lastIndex, pattern.length))
   }
 
-  /** followed by `/` or none */
-  regular.push('(?=/|$)')
+
+  if(endForcedCheck) {
+    regular.push('$')
+  }else {
+    /** followed by `/` or none */
+    regular.push('(?=/|$)')
+  }
   return {
     regular: regular.join(''),
     params,

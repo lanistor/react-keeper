@@ -26,7 +26,7 @@ export const objectWithoutProperties = (obj, keys) => {
       continue
     if(!Object.prototype.hasOwnProperty.call(obj, item))
       continue
-    
+
     re[item] = obj[item]
   }
   return re
@@ -43,7 +43,7 @@ export const arrayContains = (array, item) => {
     if(array[i] === item) {
       return true
     }
-  } 
+  }
   return false
 }
 
@@ -62,7 +62,7 @@ export const isChild = (parentElement, childElement)=> {
       || (typeof parentElement.props.children === 'string')) {
     return false
   }
-  
+
   let children = parentElement.props.children instanceof Array ? parentElement.props.children : [ parentElement.props.children ]
   // React.Children.toArray(parentElement.props.children)
   for(let i=0; i<children.length; i++) {
@@ -120,13 +120,17 @@ export function reactContains(parentComponent, childComponent) {
   }
 }
 
+export const isStatelessComponent = (component)=> {
+  return !component.name
+}
+
 /**
  * get the size of an object
- * 
+ *
  * @method size
- * 
+ *
  * @param {object} ob    - the object to check
- * 
+ *
  * @return {int}         - the size of the object
  */
 Object.size = (ob)=> {

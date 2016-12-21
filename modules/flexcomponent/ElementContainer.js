@@ -31,8 +31,6 @@ export default class ElementContainer extends Component {
 
   render() {
 
-    const type = this.props.type || 'div'
-
-    return React.createElement(type, null, this.state.elements)
+    return React.createElement(this.props.type || 'div', null, this.state.elements)
   }
 }
