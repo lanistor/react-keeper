@@ -1,4 +1,3 @@
-import match from './match'
 import React from 'react'
 import { reactContains, resetPath } from './Util'
 
@@ -57,9 +56,9 @@ const getSelfPathname = (obj)=> {
   const path = [];
   (obj.context.routes || []).forEach((item)=> {
     // path.push(resetPath(item.props.path))
-    path.push(item.matcher.matchStr)
+    path.push(item.matcher? item.matcher.matchStr : '')
   })
-  path.push(obj.matcher.matchStr)
+  path.push(obj.matcher? obj.matcher.matchStr : '')
   return path.join('')
 }
 

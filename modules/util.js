@@ -120,8 +120,8 @@ export function reactContains(parentComponent, childComponent) {
   }
 }
 
-export const isStatelessComponent = (component)=> {
-  return !component.name
+export const isStatelessComponent = (componentClass)=> {
+  return !componentClass.prototype | !(componentClass.prototype instanceof React.Component)
 }
 
 /**

@@ -5,7 +5,7 @@ import { defineProperty } from './Util'
  * dynamicly put value to Control Object
  * mainly called by RouteControl
  * @method set
- * 
+ *
  * @param {string} key
  * @param {object} value
  * @return none
@@ -14,9 +14,13 @@ export function set(key, value) {
   Control[key] = value
 }
 
-export function go(path, state) {
-  Control.history.push(path, state)
-  Control.history.goForward()
+export function go(pathOrIndex, state) {
+  if(typeof pathOrIndex === 'number') {
+    Control.history.go(pathOrIndex)
+  }else {
+    Control.history.push(pathOrIndex, state)
+    Control.history.goForward()
+  }
 }
 
 export function replace(path, state) {

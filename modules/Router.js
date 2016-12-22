@@ -19,6 +19,8 @@ export default class Router extends React.Component {
 
     // /** start history listener */
     this.unlisten = history.listen((location, action)=>{
+      console.log('%c--history--', 'color;red', history)
+      console.log('%c--window history--', 'color;red', window.history)
       controlSet('path', location.pathname)
       clearMatch()
       this.forceUpdate()
@@ -33,11 +35,11 @@ export default class Router extends React.Component {
     clearMatch()
     this.forceUpdate()
   }
-  
+
   componentWillUnmount() {
     this.unlisten()
   }
-  
+
 
   /** get child context */
   getChildContext = ()=> {
