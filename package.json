@@ -2,13 +2,14 @@
   "name": "react-flex-router",
   "version": "0.0.1",
   "description": "More than router of React",
-  "homepage": "",
+  "homepage": "https://github.com/vifird/react-flex-router",
   "bug": "",
   "scripts": {
-    "example": "node example/serve",
+    "example": "cross-env NODE_ENV=development node example/serve false",
     "test": "cross-env NODE_ENV=test karma start",
     "build": "",
-    "compile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js  && babel modules --extensions .js --out-dir npm/__build__",
+    "precompile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js",
+    "compile": "babel modules --extensions .js --out-dir npm/__build__",
     "publish": "npm publish npm/__build__/ --tag latest"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "react": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
+    "cross-env": "^3.1.3",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
     "babel-eslint": "^6.1.2",
