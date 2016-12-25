@@ -11,16 +11,16 @@ export default class LeftNav extends React.Component {
             <CacheLink to='/products/ep'>Enterprise Website</CacheLink>
           </li>
           <li className={ Control.path === '/products/mo' || Control.path === '/products'? 'active' : '' }>
-            <Link to='/products/mo'>Mobile Website</Link>
+            <CacheLink to='/products/mo'>Mobile Website</CacheLink>
           </li>
           <li className={ Control.path === '/products/item/first'? 'active' : '' }>
-            <Link to='/products/item/first'>Detail First</Link>
+            <CacheLink to='/products/item/first'>Detail First</CacheLink>
           </li>
           <li className={ Control.path === '/products/item/second'? 'active' : '' }>
-            <Link to='/products/item/second'>Detail Second</Link>
+            <CacheLink to='/products/item/second'>Detail Second</CacheLink>
           </li>
           <li className={ Control.path === '/products/ads'? 'active' : '' }>
-            <Link to='/products/ads'>Dynamic Ads</Link>
+            <CacheLink to='/products/ads'>Dynamic Ads</CacheLink>
           </li>
         </ul>
       </div>

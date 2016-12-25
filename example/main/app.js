@@ -26,7 +26,7 @@ class App extends React.Component {
           <Route component={Home} path='/'/>
 
           <Route component={Products} path='/products'>
-            <Route index component={Enterprise} path='/ep'/>
+            <Route cache index component={Enterprise} path='/ep'/>
             <Route miss component={Mobile}/>
             <Route component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
             <Route component={Ads} path='/ads' />
@@ -34,7 +34,7 @@ class App extends React.Component {
 
           <Route component={Host} path='/host' enterFilter={[ 'loginCheck', 'permitCheck' ]}/>
 
-          <Route lock path='aboutus' component={AboutUs}/>
+          <Route path='aboutus' component={AboutUs}/>
 
           <FlexContainer index='5'/>
         </div>

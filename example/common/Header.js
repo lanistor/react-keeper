@@ -4,7 +4,7 @@ import Login from './Login'
 import './com.css'
 
 export default class Header extends React.Component {
-  
+
   reLogin() {
     Flex.add(<Login title='ReLogin'/>, 5)
   }

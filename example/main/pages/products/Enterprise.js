@@ -1,9 +1,12 @@
 import React from 'react'
 
-export default function Enterprise() {
-  return (
-    <div>
-      Enterprise
-    </div>
-  )
+export default class Enterprise extends React.Component {
+
+  render() {
+    return (
+      <div>
+        Enterprise
+      </div>
+    )
+  }
 }

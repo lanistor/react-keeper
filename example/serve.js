@@ -9,6 +9,9 @@ var publicPath = '/__build__'
 
 var port = 8600
 
+console.warn('---env---', process.env.NODE_ENV)
+console.warn('---arg---', process.argv)
+
 for(var key in config.entry){
   if(!(config.entry[key] instanceof Array)) {
     config.entry[key] = [ config.entry[key] ]
@@ -20,12 +23,12 @@ for(var key in config.entry){
 }
 config.output.publicPath = publicPath
 
-console.log('dirname', __dirname)
+// console.log('dirname', __dirname)
 
 var server = new WebpackDevServer(webpack(config), {
   contentBase: [__dirname],
 	publicPath: publicPath,
-	hot: true,  
+	hot: true,
 	inline: true,
 	stats: {
 		colors: true

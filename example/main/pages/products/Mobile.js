@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function Mobile() {
-  return (
-    <div>
-      Mobile
-    </div>
-  )
+export default class Mobile extends React.Component {
+  render() {
+    return (
+      <div>
+        Mobile
+      </div>
+    )
+  }
 }
