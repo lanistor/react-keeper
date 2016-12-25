@@ -11,7 +11,7 @@
     "react/prop-types": 0,
     "react/display-name": 0,
     "react/wrap-multilines": 2,
-    "space-before-function-paren": 1,
+    "space-before-function-paren": 0,
     "react/react-in-jsx-scope": 0,
     "react/wrap-multiline": 0,
     "react/no-find-dom-node": 0,
