@@ -1,48 +1,205 @@
 import React from 'react'
-import extend from 'extend'
-import { hashCode, resetPath } from './Util'
+import ReactDOM from 'react-dom'
+import Logger from './Logger'
+import matchPath from './match/matchPath'
+import { resetPath, objectWithoutProperties, isStatelessComponent } from './Util'
+import RouteMatchGroupControl from './RouteMatchGroupControl'
+import CacheOfTagControl from './CacheOfTagControl'
+import CacheOfLinkControl from './CacheOfLinkControl'
 
-/**
- * @description : create route config by the JSX config 
- * @param elements {Array of ReactElement} : Children of Router Element
- */
-export function createRouteConfigByJSX(elements, srcConfig, mergeConfig) {
-  srcConfig = srcConfig || {}
-  if(!elements || React.Children.count(elements) === 0) {
-    return srcConfig
+export default class RouteUtil extends React.Component {
+
+  /** check 'cache' tag and link */
+  isCached = ()=> {
+    if(CacheOfLinkControl.isCached(this)) {
+      return 2
+    }
+    if(CacheOfTagControl.isCached(this)) {
+      return 1
+    }
+    return 0
   }
-  React.Children.forEach(elements, (element) => {
 
-    if(React.isValidElement(element)) {
-      let { path, children, component, rcIndex, enterFilter, leaveFilter, key, ...props } = extend({}, mergeConfig, element.props)
-      path = resetPath(path)
-      
-      /** normal route */
-      if(path) {
-        let _hashCode = hashCode()
+  /** check cache tag, used after route is mounted succeed */
+  checkCacheTag = ()=> {
+    let { cache } = this.props
+    if(!cache) {
+      cache = null
+    }
+    if(cache !== 'parent' && cache !== 'root') {
+      cache = null
+    }
+    CacheOfTagControl.add(this, cache)
+    return
+  }
 
-        srcConfig[ path ] = extend(
-            { type: component || element.type || undefined, hashCode: _hashCode },
-            enterFilter? { enterFilter } : null, leaveFilter? { leaveFilter } : null,
-            rcIndex? { rcIndex } : null)
+  /** update match group, used after route is mounted succeed */
+  updateMatchedGroup = ()=> {
+    RouteMatchGroupControl.updateGroup(this)
+  }
 
-        srcConfig[ path ].props = Object.assign({ key: key || _hashCode }, props)
+  /** check if the last matched route is it's parent */
+  checkParent = ()=> {
+    return RouteMatchGroupControl.parentCheck(this)
+  }
 
-        if(children) {
-          srcConfig[ path ].children = createRouteConfigByJSX(children, {}, null)
-        }
-      } else {
-        /** abstract route */
-        createRouteConfigByJSX(children, srcConfig, props)
+  /** get parents' matched path */
+  getParentPath = ()=> {
+    let paths = []
+    for(let route of this.context.routes) {
+      if(route.matcher)
+        paths.push(route.matcher.matchStr)
+    }
+    return paths.join('')
+  }
+
+  /** getSelfPath */
+  getSelfPath = ()=> {
+    let paths = [ this.getParentPath() ]
+    if(this.matcher)
+      paths.push(this.matcher.matchStr)
+    return paths.join('')
+  }
+
+  /**
+   * check path match
+   * 1. direct match
+   * 2. 'index' match
+   */
+  checkPath = ()=> {
+
+    let { path: pattern, index } = this.props
+    if(!pattern) {
+      return false
+    }
+    pattern = resetPath(pattern)
+
+    let { pathname } = this.context.history.location || {}
+    if(typeof pathname === 'undefined') {
+      return false
+    }
+    pathname = resetPath(pathname)
+
+    let parentPath = this.getParentPath()
+
+    let checkPathname = pathname
+    if(parentPath) {
+      checkPathname = pathname.substring(parentPath.length)
+    }
+
+    let matcher = matchPath(checkPathname, pattern)
+    this.matcher = matcher
+
+    if(matcher.match) {
+      return true
+    }
+
+    if(index) {
+      if(pathname === parentPath) {
+        return true
       }
     }
-  })
-  return srcConfig
-}
 
-/**
- * create route config by user config
- */
-export function createRouteConfigByUserConfig(userConfig) {
-  return userConfig
+    return false
+  }
+
+  /** load component, contains dynamic component */
+  loadComponent = (callback)=> {
+    if(this.component) {
+      callback(true, this.component)
+      return
+    }
+    let { component, loadComponent: dynamicComponent } = this.props
+    if(component) {
+      callback(true, component)
+      return
+    }
+    if(dynamicComponent) {
+      dynamicComponent((comp)=> {
+        callback(true, comp)
+      })
+      return
+    }
+    callback(true, null)
+  }
+
+  /**
+   * check filters
+   * @param { Function or Array of function } filters : filters to check in order
+   * @param { Function } callback(passed)
+   *   @passed { Boolean } : pass result of filters
+   */
+  checkFilter = (filters, callback)=> {
+    if(!filters) {
+      callback(true)
+      return
+    }
+    if(!(filters instanceof Array)) {
+      filters = [ filters ]
+    }
+    let tempFilters = []
+    for(let i=0; i<filters.length; i++) {
+      if(typeof filters[i] === 'function') {
+        tempFilters.push(filters[i])
+      }
+    }
+    filters = tempFilters
+
+    if(filters.length === 0) {
+      callback(true)
+      return
+    }
+
+    let pointer = 0    // record the index of the running filter
+
+    const filterCallback = ()=> {
+      if(pointer === filters.length-1) {
+        callback(true)
+      }else{
+        filters[ ++pointer ](filterCallback, this.props, this.context)
+      }
+    }
+
+    filters[0](filterCallback, this.props, this.context)
+  }
+
+  /** check 'miss' tag */
+  checkMiss = ()=> {
+    let { miss } = this.props
+    if(!miss) {
+      return
+    }
+    setTimeout(()=> {
+      if(!RouteMatchGroupControl.parentCheck(this)) {
+        return
+      }
+      this.setToMount()
+    }, 0)
+
+  }
+
+  /** hide or show it's component after it mounted */
+  hideOrShow = ()=> {
+    const display = this.state.mountBy === 0? (this.initDisplay || null) : 'none'
+    let dom
+    try{
+      dom = this.refs.component? ReactDOM.findDOMNode(this.refs.component) : null
+    }catch(error) {
+      Logger.warning('Cannot find dom.')
+      return
+    }
+    if(!dom) {
+      if(React.isValidElement(this.props.children)) {
+        dom = this.props.children[0]
+      }
+    }
+
+    // change display
+    if(dom) {
+      if(typeof this.initDisplay === 'undefined') {
+        this.initDisplay = dom? (dom.style.display || null) : null
+      }
+      dom.style.display = display
+    }
+  }
 }

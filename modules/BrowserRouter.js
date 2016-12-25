@@ -1,10 +1,23 @@
+import React from 'react'
 import Router from './Router'
 import createBrowserHistory from 'history/createBrowserHistory'
+import { objectWithoutProperties } from './Util'
 
-export default class BrowserRouter extends Router {
-}
+export default class BrowserRouter extends React.Component {
 
-BrowserRouter.prototype.createHistory = function () {
-  const { basename, hashType, getUserConfirmation }  = this.props
-  return createBrowserHistory({ basename, hashType, getUserConfirmation })
+  constructor(...args) {
+    super(...args)
+    this.history = this.createHistory()
+  }
+
+  createHistory = ()=> {
+    const { basename, hashType, getUserConfirmation }  = this.props
+    return createBrowserHistory({ basename, hashType, getUserConfirmation })
+  }
+
+  render() {
+    const props  = objectWithoutProperties(this.props,
+      [ 'basename', 'hashType', 'getUserConfirmation' ])
+    return <Router history={ this.history } { ...props } />
+  }
 }

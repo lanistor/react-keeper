@@ -1,11 +1,22 @@
 import React from 'react'
-import Control from './OuterControl'
+import HistoryControl from './HistoryControl'
 
 /**
  * replace the tag 'A', used to link to a new url
  * @module Link
  */
 export default class Link extends React.Component {
+
+  static propTypes = {
+    to: React.PropTypes.string.isRequired,
+    href: React.PropTypes.string,
+    children: React.PropTypes.any,
+    onClick: React.PropTypes.any
+  }
+
+  static contextTypes = {
+    history: React.PropTypes.any
+  }
 
   constructor(...args) {
     super(...args)
@@ -33,11 +44,14 @@ export default class Link extends React.Component {
     if(to.indexOf('/') !== 0) {
       to = `/${to}`
     }
-    
+
     if(this.context.history.location.pathname === to) {
       return
     }
-    Control.go(to)
+
+    this.go(to)
+
+    return
   }
 
   render() {
@@ -53,7 +67,7 @@ export default class Link extends React.Component {
         isActive = !!isActive
       }
     }else {
-      isActive = (Control.path === to)
+      isActive = (History.path === to)
     }
 
     if(isActive) {
@@ -62,18 +76,11 @@ export default class Link extends React.Component {
       if(activeClassName)
         className = className? (className + ' ' + activeClassName) : activeClassName
     }
-    
+
     return React.createElement(type, { onClick : this.handleClick, style, className, ...props }, children)
   }
 }
 
-Link.propTypes = {
-  to: React.PropTypes.string.isRequired,
-  href: React.PropTypes.string,
-  children: React.PropTypes.any,
-  onClick: React.PropTypes.any
-}
-
-Link.contextTypes = {
-  history: React.PropTypes.any
+Link.prototype.go = function(to) {
+  HistoryControl.go(to)
 }

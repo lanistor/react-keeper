@@ -1,10 +1,23 @@
+import React from 'react'
 import Router from './Router'
 import createMemoryHistory from 'history/createMemoryHistory'
+import { objectWithoutProperties } from './Util'
 
-export default class MemoryRouter extends Router {
-}
+export default class BrowserRouter extends React.Component {
 
-MemoryRouter.prototype.createHistory = function () {
-  const { initialEntries, initialIndex, getUserConfirmation }  = this.props
-  return createMemoryHistory({ initialEntries, initialIndex, getUserConfirmation })
+  constructor(...args) {
+    super(...args)
+    this.history = this.createHistory()
+  }
+
+  createHistory = ()=> {
+    const { initialEntries, initialIndex, getUserConfirmation }  = this.props
+    return createMemoryHistory({ initialEntries, initialIndex, getUserConfirmation })
+  }
+
+  render() {
+    const props  = objectWithoutProperties(this.props,
+      [ 'initialEntries', 'initialIndex', 'getUserConfirmation' ])
+    return <Router history={ this.history } { ...props } />
+  }
 }

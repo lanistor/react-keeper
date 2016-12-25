@@ -21,6 +21,11 @@ const addMatch = (instance) => {
   routeMatch.push(instance)
 }
 
+/** get last matched route */
+const getLastMatchedRoute = ()=> {
+  return routeMatch.length? routeMatch[routeMatch.length-1] : null
+}
+
 /** get match component */
 const getMatch = (index)=> {
   if(routeMatch.length === 0) {
@@ -113,6 +118,7 @@ const shouldMatch = (instance) => {
 export {
   clearMatch,
   addMatch,
+  getLastMatchedRoute,
   removeMatch,
   shouldMatch,
   getMatch,

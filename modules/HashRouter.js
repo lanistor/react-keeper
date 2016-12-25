@@ -1,10 +1,23 @@
+import React from 'react'
 import Router from './Router'
 import createHashHistory from 'history/createHashHistory'
+import { objectWithoutProperties } from './Util'
 
-export default class HashRouter extends Router {
-}
+export default class BrowserRouter extends React.Component {
 
-HashRouter.prototype.createHistory = function () {
-  const { basename, hashType, getUserConfirmation }  = this.props
-  return createHashHistory({ basename, hashType, getUserConfirmation })
+  constructor(...args) {
+    super(...args)
+    this.history = this.createHistory()
+  }
+
+  createHistory = ()=> {
+    const { basename, hashType, getUserConfirmation }  = this.props
+    return createHashHistory({ basename, hashType, getUserConfirmation })
+  }
+
+  render() {
+    const props  = objectWithoutProperties(this.props,
+      [ 'basename', 'hashType', 'getUserConfirmation' ])
+    return <Router history={ this.history } { ...props } />
+  }
 }
