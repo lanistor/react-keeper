@@ -22,7 +22,7 @@ export const add = (route, rule)=> {
     }
     index ++
   }
-  cachedRoute.push(route)
+  cachedRoute.push({ route, rule })
 }
 
 /** check if route is cached */
@@ -31,8 +31,8 @@ export const isCached = (route)=> {
     if(item === route) {
       return true
     }
-    if(item.rule === 'root' && item.context.routes) {
-      for(let innerItem of item.context.routes) {
+    if(item.rule === 'root' && item.route.context.routes) {
+      for(let innerItem of item.route.context.routes) {
         if(innerItem === route) {
           return true
         }

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import matchPath from './match/matchPath'
-import { hashCode, resetPath, objectWithoutProperties, isStatelessComponent } from './Util'
+import { hashCode, resetPath, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './Util'
 import HistoryControl from './HistoryControl'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname, checkMissMatch } from './RouteControl'
 import Logger from './Logger'
@@ -163,10 +163,13 @@ export default class Route extends RouteUtil {
     if(typeof mountBy === 'undefined' || mountBy === null) {
       mountBy = 0
     }
+    if(!isMountedComponent(this)) {
+      return
+    }
     if(status === 1) {
       this.setState({
         status,
-        mountBy: mountBy,
+        mountBy,
         selfPathname: this.getSelfPath()
       })
 
