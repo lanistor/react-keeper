@@ -50,8 +50,6 @@ export default class Link extends React.Component {
     }
 
     this.go(to)
-
-    return
   }
 
   render() {
@@ -67,7 +65,7 @@ export default class Link extends React.Component {
         isActive = !!isActive
       }
     }else {
-      isActive = (History.path === to)
+      isActive = (HistoryControl.path === to)
     }
 
     if(isActive) {
