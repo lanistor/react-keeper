@@ -9,7 +9,7 @@ const cachedRoute = [
 ]
 
 /** add(or delete when rule is null) cached route to array */
-export const add = (route, rule)=> {
+export const put = (route, rule)=> {
   let index = 0
   for(let item of cachedRoute) {
     if(item.route === route) {
@@ -43,12 +43,11 @@ export const isCached = (route)=> {
 }
 
 /** clear cached route */
-export const clear = ()=> {
-  cachedRoute.length = 0
-}
+// export const clear = ()=> {
+//   cachedRoute.length = 0
+// }
 
 export default {
-  add,
-  isCached,
-  clear
+  put,
+  isCached
 }

@@ -19,7 +19,7 @@ export const removeElement = (component)=> {
   let targetElementHashCode = component.props['ROUTER_HASHCODE']
   let elements
   let removed = false, itemRemoved = false
-  outer:
+
   for(let index in containers) {
     elements = containers[index].elements
     if(!elements) {
@@ -31,7 +31,7 @@ export const removeElement = (component)=> {
         elements.splice(i, 1)
         removed = true
         itemRemoved = true
-        break outer
+        break
       }
     }
     if(itemRemoved) {
@@ -112,7 +112,7 @@ const containers = {
    *    ]
    * },
    * '1': {
-   * 
+   *
    * }
    */
 }

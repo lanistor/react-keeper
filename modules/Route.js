@@ -172,19 +172,16 @@ export default class Route extends RouteUtil {
         mountBy,
         selfPathname: this.getSelfPath()
       })
-
-
-      // if(this.context && this.context.routes && this.context.routes.length>=0)
-      //   console.log('%c-context-', 'color:green', this.context)
     }else{
       this.setState({ status, mountBy })
     }
 
-    this.checkCacheTag()
+    this.checkCacheTag(status===0)
   }
 
   componentWillUnmount = ()=> {
     this.unsubscribe()
+    this.checkCacheTag(true)
   }
 
   componentDidUpdate() {

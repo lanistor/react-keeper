@@ -21,16 +21,20 @@ export default class RouteUtil extends React.Component {
   }
 
   /** check cache tag, used after route is mounted succeed */
-  checkCacheTag = ()=> {
-    let { cache } = this.props
-    if(!cache) {
+  checkCacheTag = (remove)=> {
+    let cache
+    if(remove) {
       cache = null
+    }else {
+      cache = this.props.cache
+      if(!cache) {
+        cache = null
+      }
+      if(cache !== 'parent' && cache !== 'root') {
+        cache = null
+      }
     }
-    if(cache !== 'parent' && cache !== 'root') {
-      cache = null
-    }
-    CacheOfTagControl.add(this, cache)
-    return
+    CacheOfTagControl.put(this, cache)
   }
 
   /** update match group, used after route is mounted succeed */
@@ -173,6 +177,7 @@ export default class RouteUtil extends React.Component {
       if(!RouteMatchGroupControl.parentCheck(this)) {
         return
       }
+      this.updateMatchedGroup()
       this.setToMount()
     }, 0)
 

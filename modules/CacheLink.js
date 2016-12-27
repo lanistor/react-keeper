@@ -16,7 +16,10 @@ export default class CacheLink extends Link {
 }
 
 CacheLink.prototype.go = function(to) {
-
+  let route
+  if(this.context.routes && this.context.routes.length) {
+    route = this.context.routes[this.context.routes.length-1]
+  }
   CacheOfLinkControl.add(RouteMatchGroupControl.getLastRoute(this), to)
   HistoryControl.go(to)
 }
