@@ -17,16 +17,16 @@ export default class Ads extends React.Component {
 
     setTimeout(()=> {
 
-      if(confirm('Stop and remove all?')) {
-        clearInterval(timer)
+      // if(confirm('Stop and remove all?')) {
+      clearInterval(timer)
 
-        // clear all component in the container
-        Flex.clear(1)
-      }
+      // clear all component in the container
+      Flex.clear(1)
+      // }
 
     }, 3000)
   }
-  
+
 
   render() {
     return (

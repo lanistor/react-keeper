@@ -9,9 +9,6 @@ var publicPath = '/__build__'
 
 var port = 8600
 
-console.warn('---env---', process.env.NODE_ENV)
-console.warn('---arg---', process.argv)
-
 for(var key in config.entry){
   if(!(config.entry[key] instanceof Array)) {
     config.entry[key] = [ config.entry[key] ]

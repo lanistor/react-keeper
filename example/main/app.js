@@ -18,15 +18,13 @@ class App extends React.Component {
 
   render() {
 
-    // console.log('%c--app render--', 'color:red')
-
     return (
       <HashRouter>
         <div>
           <Route component={Home} path='/'/>
 
           <Route component={Products} path='/products'>
-            <Route cache index component={Enterprise} path='/ep'/>
+            <Route cache='root' index component={Enterprise} path='/ep'/>
             <Route miss component={Mobile}/>
             <Route component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
             <Route component={Ads} path='/ads' />
