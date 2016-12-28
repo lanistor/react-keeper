@@ -22,13 +22,14 @@ export const put = (route, rule)=> {
     }
     index ++
   }
-  cachedRoute.push({ route, rule })
+  if(rule)
+    cachedRoute.push({ route, rule })
 }
 
 /** check if route is cached */
 export const isCached = (route)=> {
   for(let item of cachedRoute) {
-    if(item === route) {
+    if(item.route === route) {
       return true
     }
     if(item.rule === 'root' && item.route.context.routes) {

@@ -70,7 +70,7 @@ export default class RouteUtil extends React.Component {
    * 1. direct match
    * 2. 'index' match
    */
-  checkPath = ()=> {
+  checkPath = (location)=> {
 
     let { path: pattern, index } = this.props
     if(!pattern) {
@@ -78,7 +78,7 @@ export default class RouteUtil extends React.Component {
     }
     pattern = resetPath(pattern)
 
-    let { pathname } = this.context.history.location || {}
+    let { pathname } = location || {}
     if(typeof pathname === 'undefined') {
       return false
     }
@@ -167,6 +167,18 @@ export default class RouteUtil extends React.Component {
     filters[0](filterCallback, this.props, this.context)
   }
 
+  /** after check miss succeed */
+  checkMissSucceed = ()=> {
+    this.updateMatchedGroup()
+    this.setToMount()
+    this.cacheSaveLocation()
+  }
+
+  /** save 'location' as cache */
+  cacheSaveLocation = ()=> {
+    this.cacheLocation = Object.assign({}, this.context.history.location)
+  }
+
   /** check 'miss' tag */
   checkMiss = ()=> {
     let { miss } = this.props
@@ -177,8 +189,7 @@ export default class RouteUtil extends React.Component {
       if(!RouteMatchGroupControl.parentCheck(this)) {
         return
       }
-      this.updateMatchedGroup()
-      this.setToMount()
+      this.checkMissSucceed()
     }, 0)
 
   }

@@ -74,12 +74,12 @@ export default class Route extends RouteUtil {
    */
   routeCheckEntry = ()=> {
 
-    if(!this.checkParent()) {
-      this.setToUnmount()
-      return
-    }
+    // if(!this.checkParent()) {
+    //   this.setToUnmount()
+    //   return
+    // }
 
-    let status = this.checkPath()? 1 : 0
+    let status = this.checkPath(this.context.history.location)? 1 : 0
 
     if(status === 0) {
       this.checkMiss()
@@ -87,6 +87,7 @@ export default class Route extends RouteUtil {
 
     if(status === 1) {
       this.updateMatchedGroup()
+      this.cacheSaveLocation()
     }
 
     if(status === this.state.status
@@ -143,6 +144,7 @@ export default class Route extends RouteUtil {
     /** Step 1: check cache, link cache & tag cache */
     let cache = this.isCached()
     if(cache) {
+      this.checkPath(this.cacheLocation)
       if(this.state.mountBy !== cache && this.state.status === 1) {
         this.updateMountStatus(1, cache)
       }
