@@ -98,8 +98,9 @@ export default class RouteUtil extends React.Component {
       return true
     }
 
+
     if(index) {
-      if(pathname === parentPath) {
+      if(pathname === resetPath(parentPath)) {
         return true
       }
     }

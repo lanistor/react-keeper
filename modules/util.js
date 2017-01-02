@@ -98,7 +98,7 @@ export function isNull(obj) {
  */
 export function resetPath(path) {
   if(!path) {
-    return null
+    return '/'
   }
   if(path.charAt(0) !== '/') {
     path = `/${path}`
