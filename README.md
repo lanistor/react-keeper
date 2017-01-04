@@ -12,6 +12,11 @@
   [FlexComponent](docs/FlexComponent.md)  - (How to config path of route)  
   [RouteMapping](docs/RouteMapping.md)     - (How to config path of route)  
 
+## Usage
+  ```
+  npm install react-flex-router --save-dev
+  ```
+
 ## Features
 
 * ***Extensible route***
