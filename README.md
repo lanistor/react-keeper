@@ -9,7 +9,7 @@
   [Route Component](docs/Route.md)         - (How to config route component)    
   [Link Component](docs/Link.md)           - (How to config Link component)  
   [Filter](docs/Filter.md)                 - (How to use filters)  
-  [FlexComponent](docs/FlexComponent.md)  - (How to config path of route)  
+  [FlexComponent](docs/FlexComponent.md)   - (How to config path of route)  
   [RouteMapping](docs/RouteMapping.md)     - (How to config path of route)  
 
 ## Usage
@@ -47,8 +47,8 @@
   ```
 
 * ***Pages Cache***
-  1. Use `lock` tag to lock a page.
-  3. Use `page hook` to hold a will-unmount's page when open a new page.
+  1. Use `cache` tag to lock a page.
+  3. Use `CacheLink` Component to hold a will-unmount's page when open a new page.
 
 * ***Memory of scroll position***
 
