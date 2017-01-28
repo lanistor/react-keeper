@@ -1,5 +1,4 @@
 node_modules
 **.DS_Store
 npm-debug.log
-npm/__build__/*.js
-npm/__build__/*/*.js
+npm
