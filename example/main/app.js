@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route, FlexContainer } from 'react-flex-router'
+import { HashRouter, Route } from 'react-flex-router'
+import { Box } from 'react-boxer'
 
 import Home from './pages/Home'
 
@@ -34,7 +35,7 @@ class App extends React.Component {
 
           <Route path='aboutus' component={AboutUs}/>
 
-          <FlexContainer index='5'/>
+          <Box index='5'/>
         </div>
       </HashRouter>
     )

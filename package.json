@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "More than router of React",
   "homepage": "https://github.com/vifird/react-flex-router",
-  "bug": "",
+  "bug": "https://github.com/vifird/react-flex-router/issues",
+  "email": "vifirde@gmail.com",
   "scripts": {
     "example": "cross-env NODE_ENV=development node example/serve false",
     "test": "cross-env NODE_ENV=test karma start",
@@ -13,6 +14,7 @@
     "publish": "npm publish npm/__build__/ --tag latest"
   },
   "dependencies": {
+    "flex-boxer": "",
     "history": "~4.5.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1"

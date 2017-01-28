@@ -1,12 +1,13 @@
 import React from 'react'
-import { Link, Control, Flex } from 'react-flex-router'
+import { Link, Control } from 'react-flex-router'
+import { Boxer } from 'react-boxer'
 import Login from './Login'
 import './com.css'
 
 export default class Header extends React.Component {
 
   reLogin() {
-    Flex.add(<Login title='ReLogin'/>, 5)
+    Boxer.add(<Login title='ReLogin'/>, 5)
   }
 
   render() {
@@ -30,7 +31,7 @@ export default class Header extends React.Component {
               </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
-              <li className={ Control.path.indexOf('/host') === 0? 'active' : '' }>
+              <li>
                 <a href='javascript:void(0)' onClick={ this.reLogin }>Relogin</a>
               </li>
               <li className={ Control.path.indexOf('/host') === 0? 'active' : '' }>

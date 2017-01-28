@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
-import { Flex } from 'react-flex-router'
+import { Boxer } from 'react-boxer'
 
 export default class Login extends Component {
 
   remove= ()=> {
-    Flex.remove(this)
+    Boxer.remove(this)
   }
 
   render() {
-    console.log('login', this)
     return (
       <div className='modal fade-in' style={{ display: 'block' }}>
         <div className='modal-dialog'>
@@ -18,7 +17,7 @@ export default class Login extends Component {
               <h4 className='modal-title'>{ this.props.title }</h4>
             </div>
             <div className='modal-body'>
-              
+
 
               <form className='form-horizontal' role='form'>
                 <div className='form-group'>

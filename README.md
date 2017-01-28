@@ -1,15 +1,13 @@
 # React-Flex-Router
   A routing library of React, but more than router.  
   React-Router is a great product, we learned a lot from it. But we truely faced many problems that React-Router doesn't resolve in real using, especially in mobile APPs.  
-  We did a lot to let React-Flex-Router fit mobile APPs, such as `Pages Cache`, `Scroll Memory`.  
-  We add small component support, to let you project fit more flexible WEB or mobile APPs.  
+  We did a lot to let React-Flex-Router fit mobile APPs, such as `Pages Cache`, `Scroll Memory`.   
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...
 ## Docs
   [Route Component](docs/Route.md)         - (How to config route component)    
   [Link Component](docs/Link.md)           - (How to config Link component)  
   [Filter](docs/Filter.md)                 - (How to use filters)  
-  [FlexComponent](docs/FlexComponent.md)   - (How to config path of route)  
   [RouteMapping](docs/RouteMapping.md)     - (How to config path of route)  
 
 ## Usage
@@ -53,10 +51,6 @@
 * ***Memory of scroll position***
 
   Remember the scroll positions of every page, for scrolling to same position when back to a page.
-
-* ***Add FlexComponent's frame***
-
-  Flexible web projects will need a lot of small and flexible components(Such as: float login panel, changeable advert, popup dialogs, and so on), which will be added to document ***anywhere,anytime***, it's high-cost without `FlexComponent's frame`.
 
 * ***Supports loading components dynamicly***
 
@@ -135,7 +129,7 @@
   User.js
   ```javascript
   import React, { Component } from 'react'
-  import { Link, Route } from 'react-flex-router' 
+  import { Link, Route } from 'react-flex-router'
   // other import
 
   export default class User extends Component {
@@ -157,7 +151,7 @@
   }
   ```
 
-## Contributors 
+## Contributors
   * ***Clone Project***
   ```
   git clone git@github.com:vifird/react-flex-router.git
@@ -166,7 +160,7 @@
 
   npm install
   ```
-  
+
   * ***Run Example***
   ```
   npm run example

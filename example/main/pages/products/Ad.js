@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Flex } from 'react-flex-router'
+import { Boxer } from 'react-boxer'
 
 export default class Ad extends Component {
 
   componentDidMount() {
     setTimeout(()=> {
 
-      Flex.remove(this)
+      Boxer.remove(this)
 
     }, 3000)
   }

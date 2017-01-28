@@ -2,8 +2,9 @@
   "name": "react-flex-router",
   "version": "0.0.9",
   "description": "More than router of React",
-  "homepage": "",
-  "bug": "",
+  "homepage": "https://github.com/vifird/react-flex-router",
+  "bug": "https://github.com/vifird/react-flex-router/issues",
+  "email": "vifirde@gmail.com",
   "dependencies": {
     "history": "~4.4.0"
   },
