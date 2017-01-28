@@ -21,8 +21,19 @@ export function go(pathOrIndex, state) {
   if(typeof pathOrIndex === 'number') {
     HistoryControl.history.go(pathOrIndex)
   }else {
-    HistoryControl.history.push(pathOrIndex, state)
-    HistoryControl.history.goForward()
+    if(pathOrIndex === HistoryControl.path)
+      return
+    if(HistoryControl.history) {
+      HistoryControl.history.push(pathOrIndex, state)
+      HistoryControl.history.goForward()
+    }else {
+      setTimeout(()=>{
+        if(HistoryControl.history) {
+          HistoryControl.history.push(pathOrIndex, state)
+          HistoryControl.history.goForward()
+        }
+      }, 0)
+    }
   }
 }
 
