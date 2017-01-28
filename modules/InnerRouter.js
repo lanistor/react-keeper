@@ -10,15 +10,13 @@ export default class InnerRouter extends React.Component {
   }
 
   static childContextTypes = {
-    subscribe: React.PropTypes.any,
-    routes: React.PropTypes.array
+    subscribe: React.PropTypes.any
   }
 
   /** get child context */
   getChildContext = ()=> {
     return {
-      subscribe: this.subscribe,
-      routes: []
+      subscribe: this.subscribe
     }
   }
 

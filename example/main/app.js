@@ -26,7 +26,7 @@ class App extends React.Component {
           <Route component={Products} path='/products'>
             <Route cache='root' index component={Enterprise} path='/ep'/>
             <Route miss component={Mobile}/>
-            <Route component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
+            <Route cache='root' component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
             <Route component={Ads} path='/ads' />
           </Route>
 

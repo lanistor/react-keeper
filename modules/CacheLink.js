@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from './Link'
 import CacheOfLinkControl from './CacheOfLinkControl'
-import RouteMatchGroupControl from './RouteMatchGroupControl'
 import HistoryControl from './HistoryControl'
 
 export default class CacheLink extends Link {
@@ -20,6 +19,7 @@ CacheLink.prototype.go = function(to) {
   if(this.context.routes && this.context.routes.length) {
     route = this.context.routes[this.context.routes.length-1]
   }
-  CacheOfLinkControl.add(RouteMatchGroupControl.getLastRoute(this), to)
+  CacheOfLinkControl.add(this.context.routes && this.context.routes.length &&
+    this.context.routes[this.context.routes.length-1], to)
   HistoryControl.go(to)
 }

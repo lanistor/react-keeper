@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import matchPath from './match/matchPath'
-import { hashCode, resetPath, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './Util'
+import { resetPath, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './Util'
 import HistoryControl from './HistoryControl'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname, checkMissMatch } from './RouteControl'
 import Logger from './Logger'
@@ -16,22 +16,21 @@ export default class Route extends RouteUtil {
       mountBy: 0        // 0: mount by route or none, 1: mount by 'cache', 2: mount by 'CacheLink'
     }
 
-    // console.log('context- route', this.match())
-    if(!this.context.groupCode) {
-      this.groupCode = hashCode()
-    }
-
     this.unsubscribe = this.context.subscribe(this.locationChanged)
 
     this.matcher = null
     this.component = null
+
+    if(!this.context.routes) {
+      this.initRoutes = [ ]
+    }
   }
 
   static contextTypes = {
     routes: React.PropTypes.array,
     history: React.PropTypes.any,
     subscribe: React.PropTypes.any,
-    groupCode: React.PropTypes.string
+    parentRouteIndex: React.PropTypes.number
   }
 
   static propTypes = {
@@ -50,7 +49,7 @@ export default class Route extends RouteUtil {
 
   static childContextTypes = {
     routes: React.PropTypes.any,
-    groupCode: React.PropTypes.string
+    parentRouteIndex: React.PropTypes.number
   }
 
   componentDidMount() {
@@ -62,9 +61,15 @@ export default class Route extends RouteUtil {
   }
 
   getChildContext = ()=> {
-    return {
-      routes: this.context.routes? [ ...this.context.routes, this ] : [ this ],
-      groupCode: this.context.groupCode || this.groupCode
+    if(!this.context.routes) {
+      return {
+        routes: this.initRoutes,
+        parentRouteIndex: 0
+      }
+    }else {
+      return {
+        parentRouteIndex: this.context.parentRouteIndex + 1
+      }
     }
   }
 
@@ -74,45 +79,40 @@ export default class Route extends RouteUtil {
    */
   routeCheckEntry = ()=> {
 
-    // if(!this.checkParent()) {
-    //   this.setToUnmount()
-    //   return
-    // }
+    let matchData = this.checkPath(this.context.history.location || {})
 
-    let status = this.checkPath(this.context.history.location)? 1 : 0
-
-    if(status === 0) {
+    if(!matchData.match) {
       this.checkMiss()
     }
 
-    if(status === 1) {
-      this.updateMatchedGroup()
-      this.cacheSaveLocation()
-    }
+    if(matchData.match == this.state.status
+        && (matchData.match? 0 : this.state.mountBy) === this.state.mountBy) {
 
-    if(status === this.state.status
-        && (status===1? 0 : this.state.mountBy) === this.state.mountBy) {
+      if(matchData.match)
+        this.resetChildContext(matchData.match)
       /** no changed do */
       return
     }
 
-    if(status === 1) {
-      this.setToMount()
+    if(matchData.match) {
+      this.setToMount(matchData)
       return
     }
 
-    this.setToUnmount()
+    this.setToUnmount(matchData)
   }
 
   /**
    * set to mount state
    * (also invoke by outside)
    */
-  setToMount = ()=> {
+  setToMount = (matchData)=> {
+
+    this.resetChildContext(true)
 
     /** Step 1 : dynamic load component */
-    this.loadComponent((result, component)=> {
-      if(!result) {
+    this.loadComponent((succeed, component)=> {
+      if(!succeed) {
         return
       }
       this.component = component
@@ -130,7 +130,7 @@ export default class Route extends RouteUtil {
           return
         }
 
-        this.updateMountStatus(1)
+        this.updateMountStatus({ status: 1, matchData })
       })
 
     })
@@ -140,13 +140,15 @@ export default class Route extends RouteUtil {
    * set to unmount state
    */
   setToUnmount = ()=> {
+    // this.resetChildContext(false)
 
     /** Step 1: check cache, link cache & tag cache */
     let cache = this.isCached()
     if(cache) {
       this.checkPath(this.cacheLocation)
       if(this.state.mountBy !== cache && this.state.status === 1) {
-        this.updateMountStatus(1, cache)
+
+        this.updateMountStatus({ status: 1, mountBy: cache, matchData: this.state.cacheMatch })
       }
       return
     }
@@ -156,12 +158,12 @@ export default class Route extends RouteUtil {
       if(!passed) {
         return
       }
-      this.updateMountStatus(0)
+      this.updateMountStatus({ status: 0 })
     })
   }
 
   /** update bind state */
-  updateMountStatus = (status, mountBy)=> {
+  updateMountStatus = ({ status, mountBy, matchData })=> {
     if(typeof mountBy === 'undefined' || mountBy === null) {
       mountBy = 0
     }
@@ -172,7 +174,8 @@ export default class Route extends RouteUtil {
       this.setState({
         status,
         mountBy,
-        selfPathname: this.getSelfPath()
+        cacheMatch: matchData,
+        selfPathname: this.getSelfPath(matchData && matchData.matcher)
       })
     }else{
       this.setState({ status, mountBy })
@@ -202,7 +205,6 @@ export default class Route extends RouteUtil {
     /** 2. mount state */
     /** 2.1 check component props */
     if(this.component) {
-      // console.log('%c--mount--', 'color:red', this.state, this.component.name)
       const props = objectWithoutProperties(this.props, [
         'children', 'component', 'loadComponent', 'enterFilter', 'leaveFilter', 'path', 'redirect',
         'cache', 'index', 'miss'
@@ -218,7 +220,7 @@ export default class Route extends RouteUtil {
       return React.createElement(this.component,
         { pathname: this.state.selfPathname,
           ...props,
-          params: this.matcher? (this.matcher.params || {}) : {}
+          params: (this.state.cacheMatch && this.state.cacheMatch.matcher)? (this.state.cacheMatch.matcher.params || {}) : {}
         }, children)
     }
 

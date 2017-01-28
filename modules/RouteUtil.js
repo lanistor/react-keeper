@@ -3,11 +3,23 @@ import ReactDOM from 'react-dom'
 import Logger from './Logger'
 import matchPath from './match/matchPath'
 import { resetPath, objectWithoutProperties, isStatelessComponent } from './Util'
-import RouteMatchGroupControl from './RouteMatchGroupControl'
 import CacheOfTagControl from './CacheOfTagControl'
 import CacheOfLinkControl from './CacheOfLinkControl'
 
 export default class RouteUtil extends React.Component {
+
+
+  /** reset child context value */
+  resetChildContext = (match)=> {
+
+    let routes = this.context.routes || this.initRoutes
+    if(routes.length > (typeof(this.context.parentRouteIndex)==='undefined'? -1 : 0) + 1)
+      routes.length = (typeof(this.context.parentRouteIndex)==='undefined'? -1 : 0) + 1
+
+    if(match) {
+      routes.push(this)
+    }
+  }
 
   /** check 'cache' tag and link */
   isCached = ()=> {
@@ -20,7 +32,7 @@ export default class RouteUtil extends React.Component {
     return 0
   }
 
-  /** check cache tag, used after route is mounted succeed */
+  /** check `cache` tag, used after route is mounted succeed */
   checkCacheTag = (remove)=> {
     let cache
     if(remove) {
@@ -37,20 +49,10 @@ export default class RouteUtil extends React.Component {
     CacheOfTagControl.put(this, cache)
   }
 
-  /** update match group, used after route is mounted succeed */
-  updateMatchedGroup = ()=> {
-    RouteMatchGroupControl.updateGroup(this)
-  }
-
-  /** check if the last matched route is it's parent */
-  checkParent = ()=> {
-    return RouteMatchGroupControl.parentCheck(this)
-  }
-
   /** get parents' matched path */
   getParentPath = ()=> {
     let paths = []
-    for(let route of this.context.routes) {
+    for(let route of (this.context.routes || [])) {
       if(route.matcher)
         paths.push(route.matcher.matchStr)
     }
@@ -58,10 +60,10 @@ export default class RouteUtil extends React.Component {
   }
 
   /** getSelfPath */
-  getSelfPath = ()=> {
+  getSelfPath = (matcher)=> {
     let paths = [ this.getParentPath() ]
-    if(this.matcher)
-      paths.push(this.matcher.matchStr)
+    if(matcher)
+      paths.push(matcher.matchStr)
     return paths.join('')
   }
 
@@ -74,13 +76,13 @@ export default class RouteUtil extends React.Component {
 
     let { path: pattern, index } = this.props
     if(!pattern) {
-      return false
+      return { match: false }
     }
     pattern = resetPath(pattern)
 
     let { pathname } = location || {}
     if(typeof pathname === 'undefined') {
-      return false
+      return { match: false }
     }
     pathname = resetPath(pathname)
 
@@ -92,20 +94,18 @@ export default class RouteUtil extends React.Component {
     }
 
     let matcher = matchPath(checkPathname, pattern)
-    this.matcher = matcher
 
     if(matcher.match) {
-      return true
+      return { match: true, matcher: matcher }
     }
-
 
     if(index) {
       if(pathname === resetPath(parentPath)) {
-        return true
+        return { match: true, matcher: matcher }
       }
     }
 
-    return false
+    return { match: false }
   }
 
   /** load component, contains dynamic component */
@@ -170,14 +170,8 @@ export default class RouteUtil extends React.Component {
 
   /** after check miss succeed */
   checkMissSucceed = ()=> {
-    this.updateMatchedGroup()
     this.setToMount()
-    this.cacheSaveLocation()
-  }
-
-  /** save 'location' as cache */
-  cacheSaveLocation = ()=> {
-    this.cacheLocation = Object.assign({}, this.context.history.location)
+    this.resetChildContext(true)
   }
 
   /** check 'miss' tag */
@@ -187,12 +181,20 @@ export default class RouteUtil extends React.Component {
       return
     }
     setTimeout(()=> {
-      if(!RouteMatchGroupControl.parentCheck(this)) {
+      if(!this.checkParent()) {
         return
       }
       this.checkMissSucceed()
     }, 0)
 
+  }
+
+  /** check if the last matched route is it's parent */
+  checkParent = ()=> {
+    if(typeof this.context.parentRouteIndex === 'undefined' || !this.context.routes) {
+      return true
+    }
+    return this.context.routes.length === this.context.parentRouteIndex + 1
   }
 
   /** hide or show it's component after it mounted */

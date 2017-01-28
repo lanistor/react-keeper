@@ -5,7 +5,6 @@ import HistoryControl, {
   setHistory as historyControlSet
 } from './HistoryControl'
 import CacheOfLinkControl from './CacheOfLinkControl'
-import RouteMatchGroupControl from './RouteMatchGroupControl'
 import Logger from './Logger'
 
 export default class Router extends React.Component {
@@ -17,7 +16,6 @@ export default class Router extends React.Component {
 
     // /** start history listener */
     this.unlisten = this.props.history.listen((location, action)=>{
-      RouteMatchGroupControl.historyChanged()
       historyControlListener(location, action)
       CacheOfLinkControl.onHistoryChanged(location)
       this.forceUpdate()

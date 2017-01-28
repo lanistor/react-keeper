@@ -15,7 +15,8 @@ export default class Link extends React.Component {
   }
 
   static contextTypes = {
-    history: React.PropTypes.any
+    history: React.PropTypes.any,
+    routes: React.PropTypes.array
   }
 
   constructor(...args) {
