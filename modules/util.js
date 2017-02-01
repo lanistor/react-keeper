@@ -1,16 +1,45 @@
 import React from 'react'
 
-
-/**
- * Object.defineProperty
- * @method defineProperty
- */
-export const defineProperty = (ob, property, description) => {
-  try {
-    Object.defineProperty(ob, property, description)
-  }catch(e) {
-    // console.log(e)
+/** compare two objects */
+export const compare = (obj1, obj2)=> {
+  if(obj1 === obj2) {
+    return true
   }
+  if(!obj1 || !obj2) {
+    return false
+  }
+  if(typeof(obj1) !== 'object') {
+    if(typeof(obj2) === 'object') {
+      return false
+    }
+    if(obj1 !== obj2) {
+      return false
+    }
+    return true
+  }
+
+  if(typeof(obj2) !== 'object') {
+    return false
+  }
+
+  if(size(obj1) !== size(obj2)) {
+    return false
+  }
+
+  let result
+  for(let i in obj1) {
+    if(!obj1.hasOwnProperty(i)) {
+      continue
+    }
+    if(!obj2.hasOwnProperty(i)) {
+      return false
+    }
+    result = compare(obj1[i], obj2[i])
+    if(!result) {
+      return false
+    }
+  }
+  return true
 }
 
 /**
@@ -49,7 +78,7 @@ export const arrayContains = (array, item) => {
 
 /** is stateless component */
 export const isStatelessComponent = (componentClass)=> {
-  return !componentClass.prototype | !(componentClass.prototype instanceof React.Component)
+  return !componentClass.prototype || !componentClass.prototype.render
 }
 
 /** is mounted component */
@@ -66,7 +95,7 @@ export const isMountedComponent = (component)=> {
  *
  * @return {int}         - the size of the object
  */
-Object.size = (ob)=> {
+export function size (ob) {
   if(!ob)
     return 0
   return Object.keys(ob).length

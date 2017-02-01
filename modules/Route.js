@@ -1,7 +1,8 @@
 import React from 'react'
+import functional from 'react-functional'
 import ReactDOM from 'react-dom'
 import matchPath from './match/matchPath'
-import { resetPath, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './Util'
+import { resetPath, compare, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './Util'
 import HistoryControl from './HistoryControl'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname, checkMissMatch } from './RouteControl'
 import Logger from './Logger'
@@ -44,6 +45,7 @@ export default class Route extends RouteUtil {
     cache: React.PropTypes.any,
     index: React.PropTypes.any,
     miss: React.PropTypes.any,
+    offDirtyCheck: React.PropTypes.any,
     children: React.PropTypes.any
   }
 
@@ -85,21 +87,22 @@ export default class Route extends RouteUtil {
       this.checkMiss()
     }
 
-    if(matchData.match == this.state.status
-        && (matchData.match? 0 : this.state.mountBy) === this.state.mountBy) {
-
-      if(matchData.match)
-        this.resetChildContext(matchData.match)
-      /** no changed do */
-      return
-    }
-
     if(matchData.match) {
       this.setToMount(matchData)
       return
     }
 
     this.setToUnmount(matchData)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(this.props.offDirtyCheck) {
+      return true
+    }
+    if(nextState.status) {
+      return true
+    }
+    return !compare(nextProps, this.props) || !compare(nextState, this.state)
   }
 
   /**
@@ -115,7 +118,7 @@ export default class Route extends RouteUtil {
       if(!succeed) {
         return
       }
-      this.component = component
+      this.component = isStatelessComponent(component)?  functional({ render: component }) : component
 
       /** Step 2 : check enter filters */
       this.checkFilter(this.props.enterFilter, (passed)=> {
@@ -164,6 +167,7 @@ export default class Route extends RouteUtil {
 
   /** update bind state */
   updateMountStatus = ({ status, mountBy, matchData })=> {
+
     if(typeof mountBy === 'undefined' || mountBy === null) {
       mountBy = 0
     }
@@ -212,9 +216,7 @@ export default class Route extends RouteUtil {
       // add route state to props
       props.route = { isActive: this.state.mountBy===0 }
 
-      if(!isStatelessComponent(this.component)) {
-        props.ref = 'component'
-      }
+      props.ref = 'component'
 
       // create element
       return React.createElement(this.component,

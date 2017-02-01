@@ -22,18 +22,18 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div>
-          <Route component={Home} path='/'/>
+          <Route cache component={Home} path='/'/>
 
           <Route component={Products} path='/products'>
-            <Route cache='root' index component={Enterprise} path='/ep'/>
-            <Route miss component={Mobile}/>
-            <Route cache='root' component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
+            <Route cache='root' component={Enterprise} path='/ep'/>
+            <Route miss index component={Mobile}/>
+            <Route cache='parent' component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
             <Route component={Ads} path='/ads' />
           </Route>
 
           <Route component={Host} path='/host' enterFilter={[ 'loginCheck', 'permitCheck' ]}/>
 
-          <Route path='aboutus' component={AboutUs}/>
+          <Route cache='root' path='aboutus' component={AboutUs}/>
 
           <Box index='5'/>
         </div>

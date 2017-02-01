@@ -41,6 +41,7 @@
     "eslint-loader": "^1.6.1",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-react": "^6.8.0",
+    "react-functional": "^2.0.0",
     "express": "^4.14.0",
     "express-urlrewrite": "^1.2.0",
     "react-addons-css-transition-group": "^15.4.1",

@@ -23,11 +23,11 @@ export default class RouteUtil extends React.Component {
 
   /** check 'cache' tag and link */
   isCached = ()=> {
-    if(CacheOfLinkControl.isCached(this)) {
-      return 2
-    }
     if(CacheOfTagControl.isCached(this)) {
       return 1
+    }
+    if(CacheOfLinkControl.isCached(this)) {
+      return 2
     }
     return 0
   }
@@ -41,6 +41,9 @@ export default class RouteUtil extends React.Component {
       cache = this.props.cache
       if(!cache) {
         cache = null
+      }
+      if(cache === true) {
+        cache = 'root'
       }
       if(cache !== 'parent' && cache !== 'root') {
         cache = null
