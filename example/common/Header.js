@@ -16,7 +16,7 @@ export default class Header extends React.Component {
       <header className='navbar navbar-static-top navbar-inverse bs-docs-nav' id='top' role='banner'>
         <div className='container-fluid'>
           <div className='navbar-header'>
-            <Link to='#/' className='navbar-brand'>Feact-Flex-Router</Link>
+            <Link to='#/' className='navbar-brand'>React-Flex-Router</Link>
           </div>
           <nav className='collapse navbar-collapse bs-navbar-collapse' role='navigation'>
             <ul className='nav navbar-nav'>

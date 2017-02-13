@@ -1,9 +1,9 @@
 {
-  "name": "react-flex-router",
+  "name": "react-keeper",
   "version": "0.0.1",
-  "description": "More than router of React",
-  "homepage": "https://github.com/vifird/react-flex-router",
-  "bug": "https://github.com/vifird/react-flex-router/issues",
+  "description": "A Strong Routing Library of React",
+  "homepage": "https://github.com/vifird/react-keeper",
+  "bug": "https://github.com/vifird/react-keeper/issues",
   "email": "vifirde@gmail.com",
   "scripts": {
     "example": "cross-env NODE_ENV=development node example/serve false",
