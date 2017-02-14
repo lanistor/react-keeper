@@ -40,7 +40,7 @@
         System.import('../Products.js').then((Products)=>{
           cb(Products)
         })
-      } } path='/user'> 
+      } } path='/user'>
   ```
   Then, when this Route Component matched, the `Products.js` will load.
 ## Filters  
@@ -103,19 +103,6 @@
      <Route component={ NotFound } path='*'/>
    </Route>
   ```
-## Locked Pages  
-  Lock a component to prevent it unmounting after it mount.
-  ```javascript
-  <HashRouter>
-    <div className='page-group'>
-      <Route index path='/monitor' component={ Monitor } />
-      <Route path='/mine' component={ Mine } />
-    </div>
-  </HashRouter>
-  ```
-
-## Small Component Support
-  Developing...
 
 ## Scroll Position Memory
-  Developing...
+  Will be in next version.

@@ -5,11 +5,21 @@
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...
 ## Docs
-  [Route Component](docs/Route.md)         - (How to config route component)    
-  [Link Component](docs/Link.md)           - (How to config Link component)  
-  [Filter](docs/Filter.md)                 - (How to use filters)  
-  [RouteMapping](docs/RouteMapping.md)     - (How to config path of route)  
-
+  [Route Component](docs/Route.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to config the `Route` component )    
+  [Link Component](docs/Link.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 
+    ( How to use `Link` component)  
+  [CacheLink Component](docs/CacheLink.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `CahceLink` component )  
+  [RouteMapping](docs/RouteMapping.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 
+    ( How to config `path` of route )  
+  [Filter](docs/Filter.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `filters` )  
+  [Page Cache](docs/PageCache.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 
+    ( How to `cache` pages )  
+  [Control](docs/Control.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( Use Router `Control` in JavaScript code. )
+ 
 ## Usage
   ```
   npm install react-keeper --save-dev
@@ -17,7 +27,7 @@
 
 ## Features
 
-* ***Extensible route***
+### 1. Extensible route
 
   You can add route components ***anywhere,anytime***.
   ```javascript
@@ -44,23 +54,19 @@
   ReactDOM.render(<App/>, document.getElementById('root'))
   ```
 
-* ***Pages Cache***
+### 2. Pages Cache
   1. Use `cache` tag to lock a page.
   3. Use `CacheLink` Component to hold a will-unmount's page when open a new page.
 
-* ***Memory of scroll position***
-
-  Remember the scroll positions of every page, for scrolling to same position when back to a page.
-
-* ***Supports loading components dynamicly***
+### 3. Supports loading components dynamicly
 
   Load a component dynamicly when it's route matches.
 
-* ***Supports enter(and leave) filters***
+### 4. Supports enter(and leave) filters
   * `Enter filters`, filters run before a route mount succeed, such as : login's check.
   * `Leave filters`, filters run before a route unmount succeed, such as : unsubmited form data.
 
-* ***Pretty flexible***
+### 5. Pretty flexible
   * `index` tag : Index page of a module.
   * `miss` tag : When miss match.
   * `lock` tag : Lock a page for preventing to unmount after it mounted.
@@ -84,7 +90,11 @@
     </div>
   </HashRouter>
   ```
-* ***Supports rendering in server side***
+### 6. In the future
+  * Supports rendering in server side
+
+  * Memory of scroll position  
+    Remember the scroll positions of every page, for scrolling to same position when back to a page.
 
 ## Install
   ```
