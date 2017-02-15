@@ -41,7 +41,6 @@ export default class Route extends RouteUtil {
     leaveFilter: React.PropTypes.array,
     path: React.PropTypes.string,
     redirect: React.PropTypes.string,
-    multiple: React.PropTypes.any,
     cache: React.PropTypes.any,
     index: React.PropTypes.any,
     miss: React.PropTypes.any,

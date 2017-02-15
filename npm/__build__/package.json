@@ -1,12 +1,13 @@
 {
   "name": "react-keeper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Strong Routing Library of React",
   "homepage": "https://github.com/vifird/react-keeper",
   "bug": "https://github.com/vifird/react-keeper/issues",
   "email": "vifirde@gmail.com",
   "dependencies": {
-    "history": "~4.4.0"
+    "history": "~4.4.0",
+    "react-functional": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^0.14.x || ^15.x.x || ^16.x.x"

@@ -35,7 +35,7 @@
     return (
       <HashRouter>
         <div>
-          <Route lock component={ Home } path="/"/>
+          <Route cache component={ Home } path="/"/>
           <Route component={ Products } path="/products"/>
         </div>
       </HashRouter>
@@ -55,7 +55,7 @@
   ```
 
 ### 2. Pages Cache
-  1. Use `cache` tag to lock a page.
+  1. Use `cache` tag to cache a page.
   3. Use `CacheLink` Component to hold a will-unmount's page when open a new page.
 
 ### 3. Supports loading components dynamicly
@@ -69,13 +69,12 @@
 ### 5. Pretty flexible
   * `index` tag : Index page of a module.
   * `miss` tag : When miss match.
-  * `lock` tag : Lock a page for preventing to unmount after it mounted.
-  * `muiltiple` tag : For muiltiple matching's need.
+  * `cache` tag : Cache a page for preventing to unmount after it mounted.  
   ```javascript
   <HashRouter>
     <div>
 
-      <Route lock component={ Home } path="/"/>
+      <Route cache component={ Home } path="/"/>
 
       <Route component={ Products } path="/products" enterFilter={ loginFilter }>
         <Route index component={Enterprise} path="/ep"/>
@@ -83,7 +82,7 @@
         <Route component={ Detail } path="/item/:id" time={new Date().toLocaleString()}/>
       </Route>
 
-      <Route muiltiple component={ Home }  path="/products">
+      <Route component={ Home }  path="/products">
         <Route index component={ ProductNav }/>
       </Route>
 
@@ -118,7 +117,7 @@
         <HashRouter>
           <div>
 
-            <Route lock component={ Home } path="/"/>
+            <Route cache component={ Home } path="/"/>
 
             <Route component={ Products } path="/products" enterFilter={ loginFilter }>
               <Route index component={Enterprise} path="/ep"/>
@@ -126,7 +125,7 @@
               <Route component={ Detail } path="/item/:id" time={new Date().toLocaleString()}/>
             </Route>
 
-            <Route muiltiple component={ User }  path="/user"/>
+            <Route component={ User }  path="/user"/>
 
           </div>
         </HashRouter>
