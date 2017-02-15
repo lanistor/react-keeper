@@ -4,7 +4,7 @@
   We did a lot to let React-Keeper fit mobile APPs, such as `Pages Cache`, `Scroll Memory`.   
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...  
-## Usage
+## Install
   ```
   npm install react-keeper --save-dev
   ```
