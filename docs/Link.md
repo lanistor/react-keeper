@@ -8,16 +8,16 @@
 ## Reserved properties
   * to  
     The path linked to.  
-    ```javascript
+    ```
     <Link to={ pathname + '/overview' }>Overview</Link>
     ```
   * type  
     The tag to render, default 'a'.  
-    ```javascript
+    ```
     <Link type='img' src='http://localhost/favicon.ico' className='button' to={ '/overview' }/>
     ```  
     This will render to:  
-    ```javascript
+    ```
     <img src='http://localhost/favicon.ico' class='button' />
     ```  
   * children  
