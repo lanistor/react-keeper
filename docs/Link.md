@@ -8,18 +8,24 @@
 ## Reserved properties
   * to  
     The path linked to.  
+    
     ```
     <Link to={ pathname + '/overview' }>Overview</Link>
     ```
+    
   * type  
     The tag to render, default 'a'.  
+    
     ```
     <Link type='img' src='http://localhost/favicon.ico' className='button' to={ '/overview' }/>
     ```  
+    
     This will render to:  
+    
     ```
     <img src='http://localhost/favicon.ico' class='button' />
     ```  
+    
   * children  
     Support ***custom*** children, ***element*** children.  
     * Custom children  
