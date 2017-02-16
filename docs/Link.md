@@ -21,15 +21,17 @@
     <img src='http://localhost/favicon.ico' class='button' />
     ```  
   * children  
-    Support ***custom*** children, ***element*** children.
+    Support ***custom*** children, ***element*** children.  
     * Custom children  
+
       ```javascript
       <Link type='li' className='button' to={ pathname + '/overview' } >
         <a style={{ color: 'red' }}>Overview</a>
       </Link>
       ```  
+
       This will render to:  
-      ```
+      ```javascript
       <li class='button'>
         <a style='color:red'>Overview</a>
       </li>
