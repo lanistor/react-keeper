@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Control } from 'react-flex-router'
+import { Link, Control } from 'react-keeper'
 
 export default class LeftNav extends React.Component {
   render() {

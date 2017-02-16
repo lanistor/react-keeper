@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Control } from 'react-flex-router'
+import { Link, Control } from 'react-keeper'
 import { Boxer } from 'react-boxer'
 import Login from './Login'
 import './com.css'
@@ -16,7 +16,7 @@ export default class Header extends React.Component {
       <header className='navbar navbar-static-top navbar-inverse bs-docs-nav' id='top' role='banner'>
         <div className='container-fluid'>
           <div className='navbar-header'>
-            <Link to='#/' className='navbar-brand'>React-Flex-Router</Link>
+            <Link to='#/' className='navbar-brand'>react-keeper</Link>
           </div>
           <nav className='collapse navbar-collapse bs-navbar-collapse' role='navigation'>
             <ul className='nav navbar-nav'>

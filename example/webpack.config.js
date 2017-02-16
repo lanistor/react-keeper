@@ -40,7 +40,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      'react-flex-router': path.join(__dirname, '..', 'modules/index')
+      // 'react-keeper': path.join(__dirname, '..', 'modules/index')
     }
   },
 
