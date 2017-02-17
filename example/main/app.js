@@ -22,7 +22,7 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div>
-          <Route cache component={Home} path='/'/>
+          <Route cache component={Home} path='/>'/>
 
           <Route component={Products} path='/products'>
             <Route cache='root' component={Enterprise} path='/ep'/>

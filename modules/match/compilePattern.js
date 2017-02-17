@@ -57,13 +57,13 @@ export default function compilePattern(pattern) {
     regular.push(pattern.substring(_lastIndex, pattern.length))
   }
 
-
   if(endForcedCheck) {
     regular.push('$')
-  }else {
+  }else if(regular.length !== 1 || regular[0] !== '/') {
     /** followed by `/` or none */
     regular.push('(?=/|$)')
   }
+  
   return {
     regular: regular.join(''),
     params,

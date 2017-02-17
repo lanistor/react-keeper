@@ -1,14 +1,15 @@
 import compilePattern from './compilePattern'
+import { resetPath } from '../Util'
 
 /**
  * match path with pattern
  * @module matchPath
  *   1. check if the path matches the pattern
  *   2. retract param values by param names from the path
- * 
+ *
  * @param {string} path         - the path of next location
  * @param {string} pattern      - the pattern defined by property 'path' on the component 'Route'
- * 
+ *
  * @return {object} {
  *     match: {boolean}         - match result
  *     params: {object}         - param names & param values of the path
@@ -18,15 +19,15 @@ export default function matchPath(path, pattern) {
   if(!patterns[pattern]) {
     patterns[pattern] = compilePattern(pattern)
   }
+  path = resetPath(path)
 
   let patternCompile = patterns[pattern]
   let regular = new RegExp(patternCompile.regular, 'g')
   let match = regular.exec(path)
-  
   if(!match) {
     return { match : false }
   }
-  
+
   let matchers = match.splice(1)
   let params = {}
   if(patternCompile.params) {

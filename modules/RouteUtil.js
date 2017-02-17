@@ -78,10 +78,6 @@ export default class RouteUtil extends React.Component {
   checkPath = (location)=> {
 
     let { path: pattern, index } = this.props
-    if(!pattern) {
-      return { match: false }
-    }
-    pattern = resetPath(pattern)
 
     let { pathname } = location || {}
     if(typeof pathname === 'undefined') {
@@ -89,6 +85,16 @@ export default class RouteUtil extends React.Component {
     }
     pathname = resetPath(pathname)
 
+    if(!pattern) {
+      if(index) {
+        if(pathname === resetPath(parentPath)) {
+          return { match: true, matcher: matcher }
+        }
+      }
+      return { match: false }
+    }
+
+    pattern = resetPath(pattern)
     let parentPath = this.getParentPath()
 
     let checkPathname = pathname
