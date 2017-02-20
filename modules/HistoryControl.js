@@ -1,3 +1,4 @@
+import Logger from './Logger'
 
 /**
  * dynamicly put value to History Object
@@ -15,11 +16,23 @@ export const setHistory = (history)=> {
 
 export const listener = (location, action)=> {
   HistoryControl.path = location.pathname
+  HistoryControl.state = location.state
 }
 
 export function go(pathOrIndex, state) {
+  if(HistoryControl.history.type === 'hash' && state) {
+    Logger.warn('Warning: HashRouter cannot push state; it is ignored.')
+    state = undefined
+  }
+  console.log(HistoryControl.history, history)
   if(typeof pathOrIndex === 'number') {
-    HistoryControl.history.go(pathOrIndex)
+    if(pathOrIndex === -1) {
+      HistoryControl.history.goBack()
+    }else if(pathOrIndex === 1) {
+      HistoryControl.history.goForward()
+    }else{
+      HistoryControl.history.go(pathOrIndex)
+    }
   }else {
     if(pathOrIndex === HistoryControl.path)
       return
@@ -46,6 +59,7 @@ export function replace(path, state) {
  */
 const HistoryControl = {
   path: '/',
+  state: null,
   go,
   replace
 }

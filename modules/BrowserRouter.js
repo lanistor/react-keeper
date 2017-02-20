@@ -8,6 +8,7 @@ export default class BrowserRouter extends React.Component {
   constructor(...args) {
     super(...args)
     this.history = this.createHistory()
+    this.history.type = 'browser'
   }
 
   createHistory = ()=> {

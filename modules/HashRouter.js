@@ -3,11 +3,12 @@ import Router from './Router'
 import createHashHistory from 'history/createHashHistory'
 import { objectWithoutProperties } from './Util'
 
-export default class BrowserRouter extends React.Component {
+export default class HashRouter extends React.Component {
 
   constructor(...args) {
     super(...args)
     this.history = this.createHistory()
+    this.history.type = 'hash'
   }
 
   createHistory = ()=> {

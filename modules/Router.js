@@ -14,7 +14,7 @@ export default class Router extends React.Component {
     historyControlSet(this.props.history)
     historyControlListener(this.props.history.location, this.props.history.action)
 
-    // /** start history listener */
+    /** start history listener */
     this.unlisten = this.props.history.listen((location, action)=>{
       historyControlListener(location, action)
       CacheOfLinkControl.onHistoryChanged(location)

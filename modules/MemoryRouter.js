@@ -3,11 +3,12 @@ import Router from './Router'
 import createMemoryHistory from 'history/createMemoryHistory'
 import { objectWithoutProperties } from './Util'
 
-export default class BrowserRouter extends React.Component {
+export default class MemoryRouter extends React.Component {
 
   constructor(...args) {
     super(...args)
     this.history = this.createHistory()
+    this.history.type = 'memory'
   }
 
   createHistory = ()=> {

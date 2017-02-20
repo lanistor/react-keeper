@@ -5,9 +5,9 @@ export function log(...args) {
   }
 }
 
-export function warning(...args) {
+export function warn(...args) {
   if(console) {
-    console.warning(...args)
+    console.warn(...args)
   }
 }
 
@@ -19,6 +19,6 @@ export function error(...args) {
 
 export default {
   log,
-  warning,
+  warn,
   error
 }
