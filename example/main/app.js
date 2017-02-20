@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route } from 'react-keeper'
+import { HashRouter, BrowserRouter, MemoryRouter, Route, Control } from 'react-keeper'
 import { Box } from 'react-boxer'
 
 import Home from './pages/Home'

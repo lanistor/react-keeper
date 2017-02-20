@@ -29,6 +29,13 @@ export default class Header extends React.Component {
               <li className={ Control.path.indexOf('/aboutus') === 0? 'active' : '' }>
                 <Link to='/aboutus'>AboutUs</Link>
               </li>
+
+              <li><a></a></li>
+              <li><a></a></li>
+              <li><a onClick={ ()=> Control.go(-1) }>Back -1</a></li>
+              <li><a onClick={ ()=> Control.go(-3) }>Back -3</a></li>
+              <li><a onClick={ ()=> Control.go(1) }>Forward</a></li>
+
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li>
