@@ -6,4 +6,5 @@ Use Router Control in JavaScript code.
   - pathOrIndex  
     - path : such as `/home`  
     - index : such as -1(history back), 1(history forward), -3(history back to the last third one)   
+
 `Control.replace(path, state)` (function) : Replace current path.

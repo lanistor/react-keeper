@@ -24,7 +24,6 @@ export function go(pathOrIndex, state) {
     Logger.warn('Warning: HashRouter cannot push state; it is ignored.')
     state = undefined
   }
-  console.log(HistoryControl.history, history)
   if(typeof pathOrIndex === 'number') {
     if(pathOrIndex === -1) {
       HistoryControl.history.goBack()

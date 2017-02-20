@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
 
     return (
-      <HashRouter>
+      <BrowserRouter basename='/main'>
         <div>
           <Route cache component={Home} path='/>'/>
 
@@ -37,7 +37,7 @@ class App extends React.Component {
 
           <Box index='5'/>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     )
   }
 }

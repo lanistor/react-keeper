@@ -36,6 +36,7 @@ export default class Header extends React.Component {
               <li><a onClick={ ()=> Control.go(-3) }>Back -3</a></li>
               <li><a onClick={ ()=> Control.go(1) }>Forward</a></li>
 
+              <li><a>{ Control.path } - { JSON.stringify(Control.state) }</a></li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li>
