@@ -20,6 +20,7 @@ export default class Router extends React.Component {
       CacheOfLinkControl.onHistoryChanged(location)
       this.forceUpdate()
     })
+    console.log('===========')
   }
 
   static childContextTypes = {

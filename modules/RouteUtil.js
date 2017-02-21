@@ -56,10 +56,12 @@ export default class RouteUtil extends React.Component {
   getParentPath = ()=> {
     let paths = []
     for(let route of (this.context.routes || [])) {
-      if(route.matcher)
-        paths.push(route.matcher.matchStr)
+      if(route.state.cacheMatch
+          && route.state.cacheMatch.matcher) {
+        paths.push(route.state.cacheMatch.matcher.matchStr)
+      }
     }
-    return paths.join('')
+    return paths.join('').replace(/[/]{2,}/g, '/')
   }
 
   /** getSelfPath */
@@ -67,7 +69,7 @@ export default class RouteUtil extends React.Component {
     let paths = [ this.getParentPath() ]
     if(matcher)
       paths.push(matcher.matchStr)
-    return paths.join('')
+    return paths.join('').replace(/[/]{2,}/g, '/')
   }
 
   /**
