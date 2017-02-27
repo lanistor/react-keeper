@@ -95,6 +95,7 @@
     </div>
   </HashRouter>
   ```
+
 ### 6. In the future
   * Supports rendering in server side
 
