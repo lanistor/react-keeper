@@ -119,7 +119,7 @@
 
 ## Install
   ```
-  npm install react-keeper --save-dev
+  npm install react-keeper
 
   npm install
   ```
