@@ -4,6 +4,7 @@
   We did a lot to let React-Keeper fit mobile APPs, such as `Pages Cache`, `Scroll Memory`.   
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...  
+
 ## Install
   ```
   npm install react-keeper --save-dev
@@ -39,16 +40,37 @@
   ```
 
 ### 2. Pages Cache
+  Cache pages' state while not matched, and recover them when matched. Certainly you can config which one to cache.  
   1. Use `cache` tag to cache a page.
-  3. Use `CacheLink` Component to hold a will-unmount's page when open a new page.
+  3. Use `CacheLink` Component to hold a will-unmount's page when open a new page.  
+
+  ```javascript
+   <Route cache component={Home} path='/'/>
+
+   <CacheLink to='/product/ASDFADF'>Detail</CacheLink>
+  ```
 
 ### 3. Supports loading components dynamicly
 
-  Load a component dynamicly when it's route matches.
+  Load a component dynamicly when it's route matches, such as:  
+
+  ```javascript
+  <Route loadComponent={ (callback)=>{
+      System.import('../Products.js').then((Products)=>{
+          callback(Products)
+        })
+    } } path='/products'/>
+  ```
 
 ### 4. Supports enter(and leave) filters
   * `Enter filters`, filters run before a route mount succeed, such as : login's check.
   * `Leave filters`, filters run before a route unmount succeed, such as : unsubmited form data.
+
+  ```javascript
+  <HashRouter>
+    <Route path='/user' component={User}, enterFilter={[ loginFilter, (cb, props)=>{ if(props.access) cb()} ] } />
+  </HashRouter>
+  ```
 
 ### 5. Pretty flexible
   * `index` tag : Index page of a module.
