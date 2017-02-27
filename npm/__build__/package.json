@@ -1,6 +1,6 @@
 {
   "name": "react-keeper",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A Strong Routing Library of React",
   "homepage": "https://github.com/vifird/react-keeper",
   "bug": "https://github.com/vifird/react-keeper/issues",
@@ -16,6 +16,7 @@
     "react",
     "keeper",
     "router",
+    "react router",
     "route",
     "director"
   ],
