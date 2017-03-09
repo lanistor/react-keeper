@@ -15,12 +15,15 @@ import AboutUs from './pages/AboutUs'
 
 import Host from './pages/host/Host'
 
+import LoginFilter from './filter/LoginFilter'
+import UserLeave from './filter/UserLeave'
+
 class App extends React.Component {
 
   render() {
 
     return (
-      <BrowserRouter basename='/main'>
+      <HashRouter>
         <div>
           <Route cache component={Home} path='/>'/>
 
@@ -31,13 +34,13 @@ class App extends React.Component {
             <Route component={Ads} path='/ads' />
           </Route>
 
-          <Route component={Host} path='/host' enterFilter={[ 'loginCheck', 'permitCheck' ]}/>
+          <Route component={Host} path='/host' enterFilter={[ LoginFilter ]} leaveFilter={ UserLeave }/>
 
           <Route cache='root' path='aboutus' component={AboutUs}/>
 
           <Box index='5'/>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     )
   }
 }

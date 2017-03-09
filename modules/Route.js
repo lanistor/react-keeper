@@ -37,8 +37,14 @@ export default class Route extends RouteUtil {
   static propTypes = {
     component: React.PropTypes.any,
     loadComponent: React.PropTypes.any,
-    enterFilter: React.PropTypes.array,
-    leaveFilter: React.PropTypes.array,
+    enterFilter: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
+    leaveFilter: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
     path: React.PropTypes.string,
     redirect: React.PropTypes.string,
     cache: React.PropTypes.any,
@@ -121,6 +127,7 @@ export default class Route extends RouteUtil {
 
       /** Step 2 : check enter filters */
       this.checkFilter(this.props.enterFilter, (passed)=> {
+        // console.log('--enterFilter--', this.props.enterFilter, passed)
         if(!passed) {
           return
         }
@@ -141,7 +148,7 @@ export default class Route extends RouteUtil {
   /**
    * set to unmount state
    */
-  setToUnmount = ()=> {
+  setToUnmount = (matchData)=> {
     // this.resetChildContext(false)
 
     /** Step 1: check cache, link cache & tag cache */
@@ -156,12 +163,16 @@ export default class Route extends RouteUtil {
     }
 
     /** Step 2 : check leave filters */
-    this.checkFilter(this.props.leaveFilter, (passed)=> {
-      if(!passed) {
-        return
-      }
+    if(this.state.status) {
+      this.checkFilter(this.props.leaveFilter, (passed)=> {
+        if(!passed) {
+          return
+        }
+        this.updateMountStatus({ status: 0 })
+      })
+    }else {
       this.updateMountStatus({ status: 0 })
-    })
+    }
   }
 
   /** update bind state */

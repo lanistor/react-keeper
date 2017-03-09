@@ -102,13 +102,6 @@
   * Memory of scroll position  
     Remember the scroll positions of every page, for scrolling to same position when back to a page.
 
-## Install
-  ```
-  npm install react-keeper --save-dev
-
-  npm install
-  ```
-
 ## Usage
   App.js
   ```javascript

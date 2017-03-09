@@ -172,11 +172,11 @@ export default class RouteUtil extends React.Component {
       if(pointer === filters.length-1) {
         callback(true)
       }else{
-        filters[ ++pointer ](filterCallback, this.props, this.context)
+        filters[ ++pointer ](filterCallback, this.props)
       }
     }
 
-    filters[0](filterCallback, this.props, this.context)
+    filters[0](filterCallback, this.props)
   }
 
   /** after check miss succeed */
