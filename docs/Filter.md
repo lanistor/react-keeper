@@ -2,9 +2,9 @@
 ## Define a Filter
 * Define a fllter, and run over it or not.
 ```javascript
-// receive 'props' and 'context' from React-Control
-const loginFilter = (callback, props, context)=> {
-  
+// receive 'props' from React-Control
+const loginFilter = (callback, props)=> {
+
   if(!props.host) {
 
     // dynamicly request data (use jQuery ajax)
