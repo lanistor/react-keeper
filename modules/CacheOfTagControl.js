@@ -43,11 +43,6 @@ export const isCached = (route)=> {
   return false
 }
 
-/** clear cached route */
-// export const clear = ()=> {
-//   cachedRoute.length = 0
-// }
-
 export default {
   put,
   isCached

@@ -27,38 +27,6 @@ export default class Route extends RouteUtil {
     }
   }
 
-  static contextTypes = {
-    routes: React.PropTypes.array,
-    history: React.PropTypes.any,
-    subscribe: React.PropTypes.any,
-    parentRouteIndex: React.PropTypes.number
-  }
-
-  static propTypes = {
-    component: React.PropTypes.any,
-    loadComponent: React.PropTypes.any,
-    enterFilter: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]),
-    leaveFilter: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]),
-    path: React.PropTypes.string,
-    redirect: React.PropTypes.string,
-    cache: React.PropTypes.any,
-    index: React.PropTypes.any,
-    miss: React.PropTypes.any,
-    offDirtyCheck: React.PropTypes.any,
-    children: React.PropTypes.any
-  }
-
-  static childContextTypes = {
-    routes: React.PropTypes.any,
-    parentRouteIndex: React.PropTypes.number
-  }
-
   componentDidMount() {
     this.locationChanged()
   }
@@ -248,4 +216,39 @@ export default class Route extends RouteUtil {
     return null
   }
 
+}
+
+if(__DEV__) {
+
+  Route.contextTypes = {
+    routes: React.PropTypes.array,
+    history: React.PropTypes.any,
+    subscribe: React.PropTypes.any,
+    parentRouteIndex: React.PropTypes.number
+  }
+
+  Route.propTypes = {
+    component: React.PropTypes.any,
+    loadComponent: React.PropTypes.any,
+    enterFilter: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
+    leaveFilter: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
+    path: React.PropTypes.string,
+    redirect: React.PropTypes.string,
+    cache: React.PropTypes.any,
+    index: React.PropTypes.any,
+    miss: React.PropTypes.any,
+    offDirtyCheck: React.PropTypes.any,
+    children: React.PropTypes.any
+  }
+
+  Route.childContextTypes = {
+    routes: React.PropTypes.any,
+    parentRouteIndex: React.PropTypes.number
+  }
 }

@@ -7,18 +7,6 @@ import HistoryControl from './HistoryControl'
  */
 export default class Link extends React.Component {
 
-  static propTypes = {
-    to: React.PropTypes.string.isRequired,
-    href: React.PropTypes.string,
-    children: React.PropTypes.any,
-    onClick: React.PropTypes.any
-  }
-
-  static contextTypes = {
-    history: React.PropTypes.any,
-    routes: React.PropTypes.array
-  }
-
   constructor(...args) {
     super(...args)
   }
@@ -82,4 +70,19 @@ export default class Link extends React.Component {
 
 Link.prototype.go = function(to) {
   HistoryControl.go(to)
+}
+
+if(__DEV__) {
+
+  Link.propTypes = {
+    to: React.PropTypes.string.isRequired,
+    href: React.PropTypes.string,
+    children: React.PropTypes.any,
+    onClick: React.PropTypes.any
+  }
+
+  Link.contextTypes = {
+    history: React.PropTypes.any,
+    routes: React.PropTypes.array
+  }
 }

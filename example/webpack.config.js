@@ -54,6 +54,5 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin('shared.js'),
     new webpack.HotModuleReplacementPlugin()
-  ],
-	devtool: 'inline-source-map'
+  ]
 }

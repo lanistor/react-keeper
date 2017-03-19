@@ -9,8 +9,10 @@
     "example": "cross-env NODE_ENV=development node example/serve false",
     "test": "cross-env NODE_ENV=test karma start",
     "build": "",
+    "build-umd": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build-min": "cross-env NODE_ENV=production webpack -p --config webpack.config.js",
     "precompile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js",
-    "compile": "babel modules --extensions .js --out-dir npm/__build__",
+    "compile": "cross-env NODE_ENV=production babel modules --extensions .js --out-dir npm/__build__",
     "publish": "npm publish npm/__build__/ --tag latest"
   },
   "dependencies": {

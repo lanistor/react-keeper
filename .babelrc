@@ -2,12 +2,5 @@
   "presets": ["es2015", "react", "stage-1"],
   "plugins": ["dev-expression"],
 
-  "env": {
-    "cjs": {
-      "plugins": ["add-module-exports"]
-    },
-    "test": {
-      "plugins": ["istanbul"]
-    }
-  }
+  "env": {}
 }
