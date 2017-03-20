@@ -4,18 +4,12 @@ let webpack = require('webpack')
 module.exports = {
   entry: path.join(__dirname, 'modules/index.js'),
   output: {
-    path: path.join(__dirname, 'umd'),
-    filename: 'react-keeper.js',
     library: 'ReactKeeper',
     libraryTarget: 'umd'
   },
   externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react'
-    }
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
   module: {
     loaders: [
