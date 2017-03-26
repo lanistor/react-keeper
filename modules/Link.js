@@ -80,9 +80,9 @@ if(__DEV__) {
     children: React.PropTypes.any,
     onClick: React.PropTypes.any
   }
+}
 
-  Link.contextTypes = {
-    history: React.PropTypes.any,
-    routes: React.PropTypes.array
-  }
+Link.contextTypes = {
+  history: React.PropTypes.any,
+  routes: React.PropTypes.array
 }

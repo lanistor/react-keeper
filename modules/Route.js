@@ -16,7 +16,6 @@ export default class Route extends RouteUtil {
       status: 0,        // 0: unmount, 1: mounted
       mountBy: 0        // 0: mount by route or none, 1: mount by 'cache', 2: mount by 'CacheLink'
     }
-
     this.unsubscribe = this.context.subscribe(this.locationChanged)
 
     this.matcher = null
@@ -220,13 +219,6 @@ export default class Route extends RouteUtil {
 
 if(__DEV__) {
 
-  Route.contextTypes = {
-    routes: React.PropTypes.array,
-    history: React.PropTypes.any,
-    subscribe: React.PropTypes.any,
-    parentRouteIndex: React.PropTypes.number
-  }
-
   Route.propTypes = {
     component: React.PropTypes.any,
     loadComponent: React.PropTypes.any,
@@ -246,9 +238,16 @@ if(__DEV__) {
     offDirtyCheck: React.PropTypes.any,
     children: React.PropTypes.any
   }
+}
 
-  Route.childContextTypes = {
-    routes: React.PropTypes.any,
-    parentRouteIndex: React.PropTypes.number
-  }
+Route.contextTypes = {
+  routes: React.PropTypes.array,
+  history: React.PropTypes.any,
+  subscribe: React.PropTypes.any,
+  parentRouteIndex: React.PropTypes.number
+}
+
+Route.childContextTypes = {
+  routes: React.PropTypes.any,
+  parentRouteIndex: React.PropTypes.number
 }

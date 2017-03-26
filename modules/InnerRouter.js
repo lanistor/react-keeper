@@ -5,12 +5,7 @@ export default class InnerRouter extends React.Component {
 
   constructor(...args) {
     super(...args)
-
     this.subscribers = []
-  }
-
-  static childContextTypes = {
-    subscribe: React.PropTypes.any
   }
 
   /** get child context */
@@ -56,4 +51,8 @@ export default class InnerRouter extends React.Component {
     return null
   }
 
+}
+
+InnerRouter.childContextTypes = {
+  subscribe: React.PropTypes.any
 }

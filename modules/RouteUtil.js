@@ -8,7 +8,6 @@ import CacheOfLinkControl from './CacheOfLinkControl'
 
 export default class RouteUtil extends React.Component {
 
-
   /** reset child context value */
   resetChildContext = (match)=> {
 

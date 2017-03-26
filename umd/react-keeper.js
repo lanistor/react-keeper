@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"), require("ReactDOM"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["React", "ReactDOM"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactKeeper"] = factory(require("React"), require("ReactDOM"));
+		exports["ReactKeeper"] = factory(require("react"), require("react-dom"));
 	else
 		root["ReactKeeper"] = factory(root["React"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_26__) {
@@ -147,7 +147,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(HashRouter, _React$Component);
 
 	  function HashRouter() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, HashRouter);
 
@@ -155,14 +155,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(HashRouter)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = HashRouter.__proto__ || Object.getPrototypeOf(HashRouter)).call.apply(_ref, [this].concat(args)));
 
 	    _this.createHistory = function () {
-	      var _this$props = _this.props;
-	      var basename = _this$props.basename;
-	      var hashType = _this$props.hashType;
-	      var getUserConfirmation = _this$props.getUserConfirmation;
+	      var _this$props = _this.props,
+	          basename = _this$props.basename,
+	          hashType = _this$props.hashType,
+	          getUserConfirmation = _this$props.getUserConfirmation;
 
+	      if (!/^(\.|\/)/.test(basename)) basename = resetPath(basename);
 	      return (0, _createHashHistory2.default)({ basename: basename, hashType: hashType, getUserConfirmation: getUserConfirmation });
 	    };
 
@@ -238,7 +239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(Router, _React$Component);
 
 	  function Router() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, Router);
 
@@ -246,7 +247,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Router)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = Router.__proto__ || Object.getPrototypeOf(Router)).call.apply(_ref, [this].concat(args)));
 
 	    (0, _HistoryControl.setHistory)(_this.props.history);
 	    (0, _HistoryControl.listener)(_this.props.history.location, _this.props.history.action);
@@ -295,10 +296,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Router;
 	}(_react2.default.Component);
 
+	exports.default = Router;
+
+
 	Router.childContextTypes = {
 	  history: _react2.default.PropTypes.any
 	};
-	exports.default = Router;
 
 /***/ },
 /* 5 */
@@ -332,7 +335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(InnerRouter, _React$Component);
 
 	  function InnerRouter() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, InnerRouter);
 
@@ -340,7 +343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(InnerRouter)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = InnerRouter.__proto__ || Object.getPrototypeOf(InnerRouter)).call.apply(_ref, [this].concat(args)));
 
 	    _this.getChildContext = function () {
 	      return {
@@ -419,10 +422,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return InnerRouter;
 	}(_react2.default.Component);
 
+	exports.default = InnerRouter;
+
+
 	InnerRouter.childContextTypes = {
 	  subscribe: _react2.default.PropTypes.any
 	};
-	exports.default = InnerRouter;
 
 /***/ },
 /* 6 */
@@ -1496,7 +1501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.isMountedComponent = exports.isStatelessComponent = exports.arrayContains = exports.objectWithoutProperties = exports.compare = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.size = size;
 	exports.hashCode = hashCode;
@@ -1686,7 +1691,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(BrowserRouter, _React$Component);
 
 	  function BrowserRouter() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, BrowserRouter);
 
@@ -1694,14 +1699,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(BrowserRouter)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = BrowserRouter.__proto__ || Object.getPrototypeOf(BrowserRouter)).call.apply(_ref, [this].concat(args)));
 
 	    _this.createHistory = function () {
-	      var _this$props = _this.props;
-	      var basename = _this$props.basename;
-	      var hashType = _this$props.hashType;
-	      var getUserConfirmation = _this$props.getUserConfirmation;
+	      var _this$props = _this.props,
+	          basename = _this$props.basename,
+	          hashType = _this$props.hashType,
+	          getUserConfirmation = _this$props.getUserConfirmation;
 
+	      if (!/^(\.|\/)/.test(basename)) basename = (0, _Util.resetPath)(basename);
 	      return (0, _createBrowserHistory2.default)({ basename: basename, hashType: hashType, getUserConfirmation: getUserConfirmation });
 	    };
 
@@ -2081,7 +2087,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(MemoryRouter, _React$Component);
 
 	  function MemoryRouter() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, MemoryRouter);
 
@@ -2089,13 +2095,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(MemoryRouter)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = MemoryRouter.__proto__ || Object.getPrototypeOf(MemoryRouter)).call.apply(_ref, [this].concat(args)));
 
 	    _this.createHistory = function () {
-	      var _this$props = _this.props;
-	      var initialEntries = _this$props.initialEntries;
-	      var initialIndex = _this$props.initialIndex;
-	      var getUserConfirmation = _this$props.getUserConfirmation;
+	      var _this$props = _this.props,
+	          initialEntries = _this$props.initialEntries,
+	          initialIndex = _this$props.initialIndex,
+	          getUserConfirmation = _this$props.getUserConfirmation;
 
 	      return (0, _createMemoryHistory2.default)({ initialEntries: initialEntries, initialIndex: initialIndex, getUserConfirmation: getUserConfirmation });
 	    };
@@ -2351,7 +2357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(Route, _RouteUtil);
 
 	  function Route() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, Route);
 
@@ -2359,7 +2365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Route)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = Route.__proto__ || Object.getPrototypeOf(Route)).call.apply(_ref, [this].concat(args)));
 
 	    _this.locationChanged = function () {
 	      _this.routeCheckEntry();
@@ -2452,10 +2458,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    };
 
-	    _this.updateMountStatus = function (_ref) {
-	      var status = _ref.status;
-	      var mountBy = _ref.mountBy;
-	      var matchData = _ref.matchData;
+	    _this.updateMountStatus = function (_ref2) {
+	      var status = _ref2.status,
+	          mountBy = _ref2.mountBy,
+	          matchData = _ref2.matchData;
 
 
 	      if (typeof mountBy === 'undefined' || mountBy === null) {
@@ -2524,7 +2530,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      status: 0, // 0: unmount, 1: mounted
 	      mountBy: 0 // 0: mount by route or none, 1: mount by 'cache', 2: mount by 'CacheLink'
 	    };
-
 	    _this.unsubscribe = _this.context.subscribe(_this.locationChanged);
 
 	    _this.matcher = null;
@@ -2587,13 +2592,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	if (false) {
 
-	  Route.contextTypes = {
-	    routes: _react2.default.PropTypes.array,
-	    history: _react2.default.PropTypes.any,
-	    subscribe: _react2.default.PropTypes.any,
-	    parentRouteIndex: _react2.default.PropTypes.number
-	  };
-
 	  Route.propTypes = {
 	    component: _react2.default.PropTypes.any,
 	    loadComponent: _react2.default.PropTypes.any,
@@ -2607,12 +2605,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    offDirtyCheck: _react2.default.PropTypes.any,
 	    children: _react2.default.PropTypes.any
 	  };
-
-	  Route.childContextTypes = {
-	    routes: _react2.default.PropTypes.any,
-	    parentRouteIndex: _react2.default.PropTypes.number
-	  };
 	}
+
+	Route.contextTypes = {
+	  routes: _react2.default.PropTypes.array,
+	  history: _react2.default.PropTypes.any,
+	  subscribe: _react2.default.PropTypes.any,
+	  parentRouteIndex: _react2.default.PropTypes.number
+	};
+
+	Route.childContextTypes = {
+	  routes: _react2.default.PropTypes.any,
+	  parentRouteIndex: _react2.default.PropTypes.number
+	};
 
 /***/ },
 /* 25 */
@@ -3030,7 +3035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(RouteUtil, _React$Component);
 
 	  function RouteUtil() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    var _temp, _this, _ret;
 
@@ -3040,7 +3045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(RouteUtil)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.resetChildContext = function (match) {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RouteUtil.__proto__ || Object.getPrototypeOf(RouteUtil)).call.apply(_ref, [this].concat(args))), _this), _this.resetChildContext = function (match) {
 
 	      var routes = _this.context.routes || _this.initRoutes;
 	      if (routes.length > (typeof _this.context.parentRouteIndex === 'undefined' ? -1 : 0) + 1) routes.length = (typeof _this.context.parentRouteIndex === 'undefined' ? -1 : 0) + 1;
@@ -3108,13 +3113,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (matcher) paths.push(matcher.matchStr);
 	      return paths.join('').replace(/[/]{2,}/g, '/');
 	    }, _this.checkPath = function (location) {
-	      var _this$props = _this.props;
-	      var pattern = _this$props.path;
-	      var index = _this$props.index;
+	      var _this$props = _this.props,
+	          pattern = _this$props.path,
+	          index = _this$props.index;
 
-	      var _ref = location || {};
-
-	      var pathname = _ref.pathname;
+	      var _ref2 = location || {},
+	          pathname = _ref2.pathname;
 
 	      if (typeof pathname === 'undefined') {
 	        return { match: false };
@@ -3156,9 +3160,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        callback(true, _this.component);
 	        return;
 	      }
-	      var _this$props2 = _this.props;
-	      var component = _this$props2.component;
-	      var dynamicComponent = _this$props2.loadComponent;
+	      var _this$props2 = _this.props,
+	          component = _this$props2.component,
+	          dynamicComponent = _this$props2.loadComponent;
 
 	      if (component) {
 	        callback(true, component);
@@ -3461,7 +3465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(Link, _React$Component);
 
 	  function Link() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
 	    _classCallCheck(this, Link);
 
@@ -3469,7 +3473,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Link)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref = Link.__proto__ || Object.getPrototypeOf(Link)).call.apply(_ref, [this].concat(args)));
 
 	    _this.handleClick = function () {
 
@@ -3477,9 +3481,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.props.onClick();
 	      }
 
-	      var _this$props = _this.props;
-	      var to = _this$props.to;
-	      var href = _this$props.href;
+	      var _this$props = _this.props,
+	          to = _this$props.to,
+	          href = _this$props.href;
 
 	      if (!to) {
 	        to = href;
@@ -3510,18 +3514,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Link, [{
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var to = _props.to;
-	      var href = _props.href;
-	      var children = _props.children;
-	      var isActive = _props.isActive;
-	      var activeStyle = _props.activeStyle;
-	      var activeClassName = _props.activeClassName;
-	      var style = _props.style;
-	      var className = _props.className;
-	      var type = _props.type;
-
-	      var props = _objectWithoutProperties(_props, ['to', 'href', 'children', 'isActive', 'activeStyle', 'activeClassName', 'style', 'className', 'type']);
+	      var _props = this.props,
+	          to = _props.to,
+	          href = _props.href,
+	          children = _props.children,
+	          isActive = _props.isActive,
+	          activeStyle = _props.activeStyle,
+	          activeClassName = _props.activeClassName,
+	          style = _props.style,
+	          className = _props.className,
+	          type = _props.type,
+	          props = _objectWithoutProperties(_props, ['to', 'href', 'children', 'isActive', 'activeStyle', 'activeClassName', 'style', 'className', 'type']);
 
 	      if (!type) {
 	        type = 'a';
@@ -3564,12 +3567,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    children: _react2.default.PropTypes.any,
 	    onClick: _react2.default.PropTypes.any
 	  };
-
-	  Link.contextTypes = {
-	    history: _react2.default.PropTypes.any,
-	    routes: _react2.default.PropTypes.array
-	  };
 	}
+
+	Link.contextTypes = {
+	  history: _react2.default.PropTypes.any,
+	  routes: _react2.default.PropTypes.array
+	};
 
 /***/ },
 /* 33 */
@@ -3615,13 +3618,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function CacheLink() {
 	    _classCallCheck(this, CacheLink);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CacheLink).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (CacheLink.__proto__ || Object.getPrototypeOf(CacheLink)).apply(this, arguments));
 	  }
 
 	  _createClass(CacheLink, [{
 	    key: 'render',
 	    value: function render() {
-	      return _get(Object.getPrototypeOf(CacheLink.prototype), 'render', this).call(this);
+	      return _get(CacheLink.prototype.__proto__ || Object.getPrototypeOf(CacheLink.prototype), 'render', this).call(this);
 	    }
 	  }]);
 

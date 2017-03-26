@@ -12,7 +12,9 @@ export default class HashRouter extends React.Component {
   }
 
   createHistory = ()=> {
-    const { basename, hashType, getUserConfirmation }  = this.props
+    let { basename, hashType, getUserConfirmation }  = this.props
+    if(!/^(\.|\/)/.test(basename))
+      basename = resetPath(basename)
     return createHashHistory({ basename, hashType, getUserConfirmation })
   }
 

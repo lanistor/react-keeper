@@ -22,10 +22,6 @@ export default class Router extends React.Component {
     })
   }
 
-  static childContextTypes = {
-    history: React.PropTypes.any
-  }
-
   getChildContext() {
     return {
       history: this.props.history
@@ -50,4 +46,8 @@ export default class Router extends React.Component {
         { ...props } />
     )
   }
+}
+
+Router.childContextTypes = {
+  history: React.PropTypes.any
 }
