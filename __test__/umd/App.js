@@ -1,5 +1,5 @@
 
-const { HashRouter, Route, Link } = ReactKeeper
+const { HashRouter, Route, Link, BrowserRouter, MemoryRouter } = ReactKeeper
 
 var Home = React.createClass({
   render(){
@@ -36,20 +36,20 @@ const User = (props)=> {
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/products">Products</Link></li>
-          <li><Link to="/user">User</Link></li>
-        </ul>
-        <HashRouter>
+      <BrowserRouter basename='../umd'>
+        <div>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/products">Products</Link></li>
+            <li><Link to="/user">User</Link></li>
+          </ul>
           <div>
             <Route path="/" component={ Home }/>
             <Route path="/products" component={ Products }/>
             <Route path="/user" component={ User }/>
           </div>
-        </HashRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     )
   }
 }
