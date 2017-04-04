@@ -13,7 +13,7 @@ export default class BrowserRouter extends React.Component {
 
   createHistory = ()=> {
     let { basename, hashType, getUserConfirmation }  = this.props
-    if(!/^(\.|\/)/.test(basename))
+    if(basename && !/^(\.|\/)/.test(basename))
       basename = resetPath(basename)
     return createBrowserHistory({ basename, hashType, getUserConfirmation })
   }
