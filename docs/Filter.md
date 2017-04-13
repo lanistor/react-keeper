@@ -1,5 +1,11 @@
 # Filter
-## Define a Filter
+
+Filter is a hook when a component enter(or leave). React-Keeper supports two filters: `Enter Filter` and `Leave Filter`.  
+`Enter filters`, filters run before a route mount succeed, such as : login's check.
+`Leave filters`, filters run before a route unmount succeed, such as : unsubmited form data.
+
+## Usage
+### Define a Filter
 * Define a fllter, and run over it or not.
 ```javascript
 // receive 'props' from React-Control
@@ -26,7 +32,7 @@ const loginFilter = (callback, props)=> {
   }
 }
 ```
-## Added to Route Component
+### Added to Route Component
 * Single Filter
 ```javascript
 <HashRouter>
