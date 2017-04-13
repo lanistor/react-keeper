@@ -1,6 +1,6 @@
 # Filter
 
-Filter is a hook when a component enter(or leave). React-Keeper supports two filters: `Enter Filter` and `Leave Filter`.  
+Filter is a hook before a component enters(or leaves). React-Keeper supports two filters: `Enter Filter` and `Leave Filter`.  
 `Enter filters`, filters run before a route mount succeed, such as : login's check.
 `Leave filters`, filters run before a route unmount succeed, such as : unsubmited form data.
 
