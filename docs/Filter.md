@@ -36,12 +36,12 @@ const loginFilter = (callback, props)=> {
 * Single Filter
 ```javascript
 <HashRouter>
-  <Route path='/user' component={User}, enterFilter={ loginFilter } />
+  <Route path='/user' component={User} enterFilter={ loginFilter } leaveFilter={(cb)=>{ alert('will not leave') }} />
 </HashRouter>
 ```
 * Multiple Filters
 ```javascript
 <HashRouter>
-  <Route path='/user' component={User}, enterFilter={[ loginFilter, permitFilter1, permitFilter2 ] } />
+  <Route path='/user' component={User} enterFilter={[ loginFilter, permitFilter1, permitFilter2 ] } />
 </HashRouter>
 ```
