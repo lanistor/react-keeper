@@ -15,7 +15,7 @@
     "precompile": "rimraf npm/__build__/**.js && rimraf npm/__build__/**/**.js",
     "compile": "cross-env NODE_ENV=production babel modules --extensions .js --out-dir npm/__build__",
     "prepublish": "npm run compile",
-    "publish": "npm publish npm/__build__/ --tag latest"
+    "publish": "npm publish npm/__build__/"
   },
   "dependencies": {
     "react-boxer": "",

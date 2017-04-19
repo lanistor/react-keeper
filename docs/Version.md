@@ -2,8 +2,8 @@
 
 ## V2.0
 V2.0 had published at 2017-4-19, Here are what we did.  
-- Add `state` to HashRouter.
-- Add `state` property to **Link** and **CacheLink**, which can be readed by `Control.state`.
+- Add `state` to [HashRouter](Router.md).
+- Add `state` property to [Link](Link.md) and [CacheLink](CacheLink.md), which can be readed by [Control.state](Control.md).
 - Change base library to `vhistory`(`history` before).
 - HashRouter can auto add random key to url when browser doesn't support state API(default no key).
 
