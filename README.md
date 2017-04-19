@@ -4,6 +4,10 @@
   We did a lot to let React-Keeper fit mobile APPs, such as `Pages Cache`, `Scroll Memory`.   
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...
+
+# News
+  <b style="color:#fd5200">[Keeper V2.0](docs/Version.md) had published !!!</b>
+
 ## Docs
   [Route Component](docs/Route.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
     ( How to config the `Route` component )    
