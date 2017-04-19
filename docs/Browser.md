@@ -1,37 +1,12 @@
+# Browser Leaded
+If you use React-Keeper just in browser, you can lead it into html like this:  
+```html
+<script src="/umd/react-keeper.js"></script>
+```
 
+Then use as:  
+```js
 const { HashRouter, Route, Link, BrowserRouter, MemoryRouter } = ReactKeeper
-
-var Home = React.createClass({
-  render(){
-    return (
-      <div>
-        <h3>Page Home</h3>
-      </div>
-    )
-  }
-})
-
-class Products extends React.Component {
-  render() {
-    return (
-      <div>
-        <h3>Page Products</h3>
-        <div>{this.props.children}</div>
-      </div>
-    )
-  }
-}
-
-const User = (props)=> {
-  return (
-    <div>
-      <h3>Page User</h3>
-      <div>
-
-      </div>
-    </div>
-  )
-}
 
 class App extends React.Component {
   render() {
@@ -55,3 +30,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App/>, document.getElementById("root"))
+```

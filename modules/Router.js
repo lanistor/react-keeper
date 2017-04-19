@@ -11,11 +11,18 @@ export default class Router extends React.Component {
   constructor(...args) {
     super(...args)
 
+    Object.defineProperty(this.props.history, 'location', {
+      get: ()=>{
+        return this.props.history.getCurrentLocation()
+      }
+    })
+
     historyControlSet(this.props.history)
-    historyControlListener(this.props.history.location, this.props.history.action)
+    historyControlListener(this.props.history.getCurrentLocation())
 
     /** start history listener */
     this.unlisten = this.props.history.listen((location, action)=>{
+
       historyControlListener(location, action)
       CacheOfLinkControl.onHistoryChanged(location)
       this.forceUpdate()
@@ -41,7 +48,7 @@ export default class Router extends React.Component {
     let { ...props } = this.props
     return (
       <InnerRouter
-        location={ this.props.history.location }
+        location={ this.props.history.getCurrentLocation() }
         action={ this.props.history.action }
         { ...props } />
     )

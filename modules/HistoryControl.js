@@ -20,10 +20,7 @@ export const listener = (location, action)=> {
 }
 
 export function go(pathOrIndex, state) {
-  if(HistoryControl.history.type === 'hash' && (typeof state !== 'undefined')) {
-    Logger.warn('Warning: HashRouter cannot push state; it is ignored.')
-    state = undefined
-  }
+  
   if(typeof pathOrIndex === 'number') {
     if(pathOrIndex === -1) {
       HistoryControl.history.goBack()
@@ -36,12 +33,12 @@ export function go(pathOrIndex, state) {
     if(pathOrIndex === HistoryControl.path)
       return
     if(HistoryControl.history) {
-      HistoryControl.history.push(pathOrIndex, state)
+      HistoryControl.history.push({ pathname: pathOrIndex, state })
       HistoryControl.history.goForward()
     }else {
       setTimeout(()=>{
         if(HistoryControl.history) {
-          HistoryControl.history.push(pathOrIndex, state)
+          HistoryControl.history.push({ pathname: pathOrIndex, state })
           HistoryControl.history.goForward()
         }
       }, 0)

@@ -14,12 +14,12 @@ export default class CacheLink extends Link {
   }
 }
 
-CacheLink.prototype.go = function(to) {
+CacheLink.prototype.go = function(to, state) {
   let route
   if(this.context.routes && this.context.routes.length) {
     route = this.context.routes[this.context.routes.length-1]
   }
   CacheOfLinkControl.add(this.context.routes && this.context.routes.length &&
     this.context.routes[this.context.routes.length-1], to)
-  HistoryControl.go(to)
+  HistoryControl.go(to, state)
 }

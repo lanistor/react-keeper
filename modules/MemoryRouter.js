@@ -1,6 +1,6 @@
 import React from 'react'
 import Router from './Router'
-import createMemoryHistory from 'history/createMemoryHistory'
+import createMemoryHistory from 'vhistory/createMemoryHistory'
 import { objectWithoutProperties } from './Util'
 
 export default class MemoryRouter extends React.Component {

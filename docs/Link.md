@@ -13,6 +13,12 @@
     <Link to={ pathname + '/overview' }>Overview</Link>
     ```
     
+  * state
+    The state of next location, can readed by `Control.state`  
+    ```javascript
+    <Link to='/overview' state={{ id: 123, name: 'John' }}>Overview</Link>
+    ```
+
   * type  
     The tag to render, default 'a'.  
     

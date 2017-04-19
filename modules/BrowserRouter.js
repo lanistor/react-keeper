@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from './Router'
-import createBrowserHistory from 'history/createBrowserHistory'
+import createBrowserHistory from 'vhistory/createBrowserHistory'
+import useBasename from 'vhistory/useBasename'
 import { objectWithoutProperties, resetPath } from './Util'
 
 export default class BrowserRouter extends React.Component {
@@ -15,7 +16,13 @@ export default class BrowserRouter extends React.Component {
     let { basename, hashType, getUserConfirmation }  = this.props
     if(basename && !/^(\.|\/)/.test(basename))
       basename = resetPath(basename)
-    return createBrowserHistory({ basename, hashType, getUserConfirmation })
+    let history
+    if(basename) {
+      history = useBasename(createBrowserHistory)({ basename, getUserConfirmation })
+    }else {
+      history = createBrowserHistory({ getUserConfirmation })
+    }
+    return history
   }
 
   render() {

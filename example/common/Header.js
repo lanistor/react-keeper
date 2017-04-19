@@ -16,18 +16,18 @@ export default class Header extends React.Component {
       <header className='navbar navbar-static-top navbar-inverse bs-docs-nav' id='top' role='banner'>
         <div className='container-fluid'>
           <div className='navbar-header'>
-            <Link to='#/' className='navbar-brand'>react-keeper</Link>
+            <Link to='#/' state={{ id: 'home', time: new Date().toLocaleString() }} className='navbar-brand'>react-keeper</Link>
           </div>
           <nav className='collapse navbar-collapse bs-navbar-collapse' role='navigation'>
             <ul className='nav navbar-nav'>
               <li className={ Control.path === '/'? 'active' : '' }>
-                <Link to='/'>Home</Link>
+                <Link to='/' state={{ id: 'home', time: new Date().toLocaleString() }}>Home</Link>
               </li>
               <li className={ Control.path.indexOf('/products') === 0? 'active' : '' }>
-                <Link to='/products'>Products</Link>
+                <Link to='/products' state={{ id: 'products', time: new Date().toLocaleString() }}>Products</Link>
               </li>
               <li className={ Control.path.indexOf('/aboutus') === 0? 'active' : '' }>
-                <Link to='/aboutus'>AboutUs</Link>
+                <Link to='/aboutus' state={{ id: 'aboutus', time: new Date().toLocaleString() }}>AboutUs</Link>
               </li>
 
               <li><a></a></li>

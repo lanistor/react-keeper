@@ -17,7 +17,7 @@ export default class Link extends React.Component {
       this.props.onClick()
     }
 
-    let { to, href } = this.props
+    let { to, href, state } = this.props
     if(!to) {
       to = href
     }
@@ -34,15 +34,15 @@ export default class Link extends React.Component {
       to = `/${to}`
     }
 
-    if(this.context.history.location.pathname === to) {
+    if(this.context.history.getCurrentLocation().pathname === to) {
       return
     }
 
-    this.go(to)
+    this.go(to, state)
   }
 
   render() {
-    let { to, href, children, isActive, activeStyle, activeClassName, style, className, type, ...props } = this.props
+    let { to, href, state, children, isActive, activeStyle, activeClassName, style, className, type, ...props } = this.props
     if(!type) {
       type = 'a'
     }
@@ -68,13 +68,14 @@ export default class Link extends React.Component {
   }
 }
 
-Link.prototype.go = function(to) {
-  HistoryControl.go(to)
+Link.prototype.go = function(to, state) {
+  HistoryControl.go(to, state)
 }
 
 if(__DEV__) {
 
   Link.propTypes = {
+    state: React.PropTypes.any,
     to: React.PropTypes.string.isRequired,
     href: React.PropTypes.string,
     children: React.PropTypes.any,

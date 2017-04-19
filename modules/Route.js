@@ -53,7 +53,7 @@ export default class Route extends RouteUtil {
    */
   routeCheckEntry = ()=> {
 
-    let matchData = this.checkPath(this.context.history.location || {})
+    let matchData = this.checkPath(this.context.history.getCurrentLocation() || {})
 
     if(!matchData.match) {
       this.checkMiss()

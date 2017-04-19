@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from './Router'
-import createHashHistory from 'history/createHashHistory'
+import createHashHistory from 'vhistory/createHashHistory'
+import useBasename from 'vhistory/useBasename'
 import { objectWithoutProperties, resetPath } from './Util'
 
 export default class HashRouter extends React.Component {
@@ -15,7 +16,11 @@ export default class HashRouter extends React.Component {
     let { basename, hashType, getUserConfirmation }  = this.props
     if(basename && !/^(\.|\/)/.test(basename))
       basename = resetPath(basename)
-    return createHashHistory({ basename, hashType, getUserConfirmation })
+    if(basename) {
+      return useBasename(createHashHistory)({ basename, hashType, getUserConfirmation })
+    }else {
+      return createHashHistory({ hashType, getUserConfirmation })
+    }
   }
 
   render() {
