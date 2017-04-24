@@ -90,11 +90,10 @@ export default class Route extends RouteUtil {
       if(!succeed) {
         return
       }
-      this.component = isStatelessComponent(component)?  functional({ render: component }) : component
+      this.component = component? (isStatelessComponent(component)?  functional({ render: component }) : component) : null
 
       /** Step 2 : check enter filters */
       this.checkFilter(this.props.enterFilter, (passed)=> {
-        // console.log('--enterFilter--', this.props.enterFilter, passed)
         if(!passed) {
           return
         }
