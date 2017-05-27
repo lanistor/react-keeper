@@ -40,8 +40,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      'react-keeper': path.join(__dirname, '..', 'modules/index'),
-      'vhistory': path.join(__dirname, '../../', 'history/modules')
+      'react-keeper': path.join(__dirname, '..', 'modules/index')
     }
   },
 

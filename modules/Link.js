@@ -47,6 +47,10 @@ export default class Link extends React.Component {
       type = 'a'
     }
 
+    if(type==='a') {
+      props['href'] = 'javascript:void(0)'
+    }
+
     if(isActive) {
       if(typeof isActive === 'function') {
         isActive = isActive()
