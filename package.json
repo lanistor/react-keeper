@@ -6,6 +6,7 @@
   "bug": "https://github.com/vifird/react-keeper/issues",
   "email": "vifirde@gmail.com",
   "scripts": {
+    "start": "npm run example",
     "example": "cross-env NODE_ENV=development node example/serve false",
     "test": "cross-env NODE_ENV=test karma start",
     "test-umd": "node __test__/serve",
@@ -50,7 +51,7 @@
     "react-addons-css-transition-group": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^1.3.1",
-    "react-router": "next",
+    "react-router": "^4.1.1",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
