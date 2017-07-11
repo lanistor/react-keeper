@@ -1,7 +1,7 @@
 # Control
 Use Router Control in JavaScript code.  
 - `Control.path` : [readonly]The current path.  
-- `Control.state` : [readonly]The current state (Has no effect in `HashRouter`).  
+- `Control.state` : [readonly]The current state (Also has effect in `HashRouter`).  
 - `Control.go(pathOrIndex[, state])` : Go to a new path.  
   - pathOrIndex  
     * path : such as `/home`  
