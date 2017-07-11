@@ -2,7 +2,7 @@ import { Control } from 'react-keeper'
 
 export default (callback, props)=> {
 
-  let pass = false
+  let pass = true
   if(pass) {
     callback()
   } else {
