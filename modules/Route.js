@@ -21,8 +21,9 @@ export default class Route extends RouteUtil {
     this.matcher = null
     this.component = null
 
-    if(!this.context.routes) {
-      this.initRoutes = [ ]
+    if(!this.context.routes
+        || typeof(this.context.parentRouteIndex)==='undefined') {
+      throw new Error('Route must be used in Router Component ( HashRouter,BrowserRouter or MemoryRouter )!')
     }
   }
 
@@ -35,15 +36,9 @@ export default class Route extends RouteUtil {
   }
 
   getChildContext = ()=> {
-    if(!this.context.routes) {
-      return {
-        routes: this.initRoutes,
-        parentRouteIndex: 0
-      }
-    }else {
-      return {
-        parentRouteIndex: this.context.parentRouteIndex + 1
-      }
+    return {
+      parent: this,
+      parentRouteIndex: this.context.parentRouteIndex + 1
     }
   }
 
@@ -243,10 +238,11 @@ Route.contextTypes = {
   routes: React.PropTypes.array,
   history: React.PropTypes.any,
   subscribe: React.PropTypes.any,
+  parent: React.PropTypes.any,
   parentRouteIndex: React.PropTypes.number
 }
 
 Route.childContextTypes = {
-  routes: React.PropTypes.any,
+  parent: React.PropTypes.any,
   parentRouteIndex: React.PropTypes.number
 }

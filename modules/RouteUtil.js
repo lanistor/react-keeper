@@ -11,9 +11,10 @@ export default class RouteUtil extends React.Component {
   /** reset child context value */
   resetChildContext = (match)=> {
 
-    let routes = this.context.routes || this.initRoutes
-    if(routes.length > (typeof(this.context.parentRouteIndex)==='undefined'? -1 : 0) + 1)
-      routes.length = (typeof(this.context.parentRouteIndex)==='undefined'? -1 : 0) + 1
+    let routes = this.context.routes
+    if(routes.length > this.context.parentRouteIndex
+        && this.context.parentRouteIndex >= 0)
+      routes.length = this.context.parentRouteIndex + 1
 
     if(match) {
       routes.push(this)
@@ -54,10 +55,12 @@ export default class RouteUtil extends React.Component {
   /** get parents' matched path */
   getParentPath = ()=> {
     let paths = []
-    for(let route of (this.context.routes || [])) {
-      if(route.state.cacheMatch
-          && route.state.cacheMatch.matcher) {
-        paths.push(route.state.cacheMatch.matcher.matchStr)
+    let parentRouteIndex = typeof(this.context.parentRouteIndex)==='undefined'? -1 : this.context.parentRouteIndex
+    for(let i=0; i< (this.context.routes || []).length; i++) {
+      if(i <= parentRouteIndex
+          && this.context.routes[i].state.cacheMatch
+          && this.context.routes[i].state.cacheMatch.matcher) {
+        paths.push(this.context.routes[i].state.cacheMatch.matcher.matchStr)
       }
     }
     return paths.join('').replace(/[/]{2,}/g, '/')
@@ -85,6 +88,7 @@ export default class RouteUtil extends React.Component {
       return { match: false }
     }
     pathname = resetPath(pathname)
+    let parentPath = this.getParentPath()
 
     if(!pattern) {
       if(index) {
@@ -96,7 +100,6 @@ export default class RouteUtil extends React.Component {
     }
 
     pattern = resetPath(pattern)
-    let parentPath = this.getParentPath()
 
     let checkPathname = pathname
     if(parentPath) {
@@ -201,6 +204,10 @@ export default class RouteUtil extends React.Component {
 
   /** check if the last matched route is it's parent */
   checkParent = ()=> {
+    if(this.context.parentRouteIndex >= 0
+      && this.context.routes[this.context.parentRouteIndex] !== this.context.parent) {
+      return false
+    }
     if(typeof this.context.parentRouteIndex === 'undefined' || !this.context.routes) {
       return true
     }
