@@ -6,15 +6,12 @@ export default class InnerRouter extends React.Component {
   constructor(...args) {
     super(...args)
     this.subscribers = []
-    this.initRoutes = []
   }
 
   /** get child context */
   getChildContext = ()=> {
     return {
-      subscribe: this.subscribe,
-      routes: this.initRoutes,
-      parentRouteIndex: -1   // 当前路由在routes中的index，由子路由使用
+      subscribe: this.subscribe
     }
   }
 
@@ -57,7 +54,5 @@ export default class InnerRouter extends React.Component {
 }
 
 InnerRouter.childContextTypes = {
-  subscribe: React.PropTypes.any,
-  routes: React.PropTypes.any,
-  parentRouteIndex: React.PropTypes.number
+  subscribe: React.PropTypes.any
 }

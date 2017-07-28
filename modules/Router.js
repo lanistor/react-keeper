@@ -11,11 +11,11 @@ export default class Router extends React.Component {
   constructor(...args) {
     super(...args)
 
-    Object.defineProperty(this.props.history, 'location', {
-      get: ()=>{
-        return this.props.history.getCurrentLocation()
-      }
-    })
+    // Object.defineProperty(this.props.history, 'location', {
+    //   get: ()=>{
+    //     return this.props.history.getCurrentLocation()
+    //   }
+    // })
 
     historyControlSet(this.props.history)
     historyControlListener(this.props.history.getCurrentLocation())

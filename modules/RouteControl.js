@@ -82,24 +82,24 @@ const removeMatch = (instance) => {
  * when no component matched, this one will match if condition
  * the condition is 'when no matched, it's parent is last matched one'
  */
-const checkMissMatch = (child) => {
-  const parent = routeMatch.length>0? routeMatch[0] : ''
-  if(!child) {
-    return
-  }
-  setTimeout(()=> {
-    if(routeMatch.length===0) {
-      if(parent === '') {
-        child.setToMount()
-      }
-      return
-    }
-    if(routeMatch[routeMatch.length-1] === parent) {
-      child.setToMount()
-      return
-    }
-  }, 0)
-}
+// const checkMissMatch = (child) => {
+//   const parent = routeMatch.length>0? routeMatch[0] : ''
+//   if(!child) {
+//     return
+//   }
+//   setTimeout(()=> {
+//     if(routeMatch.length===0) {
+//       if(parent === '') {
+//         child.setToMount()
+//       }
+//       return
+//     }
+//     if(routeMatch[routeMatch.length-1] === parent) {
+//       child.setToMount()
+//       return
+//     }
+//   }, 0)
+// }
 
 /**
  * to judge if a component should match
@@ -123,6 +123,5 @@ export {
   shouldMatch,
   getMatch,
   getMatchedPath,
-  getSelfPathname,
-  checkMissMatch
+  getSelfPathname
 }
