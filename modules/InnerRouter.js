@@ -1,5 +1,6 @@
 import React from 'react'
-import Logger from './Logger'
+import PropTypes from 'prop-types'
+import Logger from './utils/Logger'
 
 export default class InnerRouter extends React.Component {
 
@@ -54,5 +55,5 @@ export default class InnerRouter extends React.Component {
 }
 
 InnerRouter.childContextTypes = {
-  subscribe: React.PropTypes.any
+  subscribe: PropTypes.func
 }

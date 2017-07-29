@@ -1,38 +1,28 @@
 import React from 'react'
 import HistoryControl from '../HistoryControl'
 
-export default function(Route) {
+export default (RouteBase)=> class extends RouteBase {
 
-  Route.prototype = Route.prototype || {}
+  constructor(...args) {
+    super(...args)
+  }
 
-  /** check 'enterFilter' */
-  let _setToMount = Route.prototype.setToMount
-  Route.prototype.setToMount = function(matchData ) {
-
+  setToMount(matchData) {
     this.checkFilter(this.props.enterFilter, (passed)=> {
       if(!passed) {
         return
       }
-
-      /** Step 3 : check 'redirect' props */
-      const { redirect } = this.props
-      if(redirect && typeof redirect === 'string') {
-        HistoryControl.replace(redirect)
-        return
-      }
-
-      _setToMount.call(this, matchData)
+      super.setToMount(matchData)
     })
   }
-  
+
   /** check 'leaveFilter' tag and link */
-  let _setToUnmount = Route.prototype.setToUnmount
-  Route.prototype.setToUnmount = function(matchData ) {
+  setToUnmount (matchData) {
     this.checkFilter(this.props.leaveFilter, (passed)=> {
       if(!passed) {
         return
       }
-      _setToUnmount.call(this, matchData)
+      super.setToUnmount(matchData)
     })
   }
 
@@ -43,7 +33,7 @@ export default function(Route) {
    * @param { Function } callback(passed)
    *   @passed { Boolean } : pass result of filters
    */
-  Route.prototype.checkFilter = (filters, callback)=> {
+  checkFilter(filters, callback) {
     if(!filters) {
       callback(true)
       return
@@ -76,5 +66,4 @@ export default function(Route) {
 
     filters[0](filterCallback, this.props)
   }
-  
 }

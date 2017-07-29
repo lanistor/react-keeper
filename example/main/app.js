@@ -7,7 +7,7 @@ import Home from './pages/Home'
 
 import Products from './pages/products/Products'
 import Enterprise from './pages/products/Enterprise'
-import Mobile from './pages/products/Mobile'
+import Mobile from './pages/products/Mobile/index'
 import Detail from './pages/products/Detail'
 import Ads from './pages/products/Ads'
 
@@ -29,7 +29,7 @@ class App extends React.Component {
 
           <Route component={Products} path='/products'>
             <Route cache='root' component={Enterprise} path='/ep'/>
-            <Route miss index component={Mobile}/>
+            <Route miss index path='mo' component={Mobile}/>
             <Route cache='parent' component={Detail} path='/item/:id' time={new Date().toLocaleString()}/>
             <Route component={Ads} path='/ads' />
           </Route>

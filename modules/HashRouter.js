@@ -2,7 +2,7 @@ import React from 'react'
 import Router from './Router'
 import createHashHistory from 'vhistory/createHashHistory'
 import useBasename from 'vhistory/useBasename'
-import { objectWithoutProperties, resetPath } from './Util'
+import { objectWithoutProperties, resetPath } from './utils/Util'
 
 export default class HashRouter extends React.Component {
 

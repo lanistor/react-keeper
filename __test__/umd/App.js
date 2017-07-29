@@ -1,7 +1,7 @@
 
 const { HashRouter, Route, Link, BrowserRouter, MemoryRouter } = ReactKeeper
 
-var Home = React.createClass({
+class Home extends React.Componnet({
   render(){
     return (
       <div>

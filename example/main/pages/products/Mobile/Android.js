@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default class Mobile extends React.Component {
+export default class Android extends React.Component {
   render() {
     return (
       <div>
-        Mobile
+        <h3>Mobile - Android</h3>
       </div>
     )
   }

@@ -1,15 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Logger from '../Logger'
-import CacheOfTagControl from '../CacheOfTagControl'
-import CacheOfLinkControl from '../CacheOfLinkControl'
+import Logger from '../utils/Logger'
+import CacheOfTagControl from '../utils/CacheOfTagControl'
+import CacheOfLinkControl from '../utils/CacheOfLinkControl'
 
-export default function(Route) {
-
-  Route.prototype = Route.prototype || {}
+export default (RouteBase) => class extends RouteBase {
 
   /** check 'cache' tag and link */
-  Route.prototype.isCached = function() {
+  isCached() {
     if(CacheOfTagControl.isCached(this)) {
       return 1
     }
@@ -20,8 +18,8 @@ export default function(Route) {
   }
 
   /** check `cache` tag, used after route is mounted succeed */
-  Route.prototype.checkCacheTag = function(remove) {
-    console.log('==check cache tag==', remove, this.props.cache, this.props.path)
+  checkCacheTag(remove) {
+
     let cache
     if(remove) {
       cache = null
@@ -41,10 +39,10 @@ export default function(Route) {
   }
 
   /** check cache, link cache & tag cache */
-  let _setToUnmount = Route.prototype.setToUnmount
-  Route.prototype.setToUnmount = function(matchData) {
+  setToUnmount(matchData) {
 
     let cache = this.isCached()
+
     if(cache) {
       this.checkPath(this.cacheLocation)
       if(this.state.mountBy !== cache && this.state.status === 1) {
@@ -53,19 +51,17 @@ export default function(Route) {
       }
       return
     }
-    _setToUnmount.call(this, matchData)
+    super.setToUnmount(matchData)
   }
 
   /** check cache tag after update status  */
-  let _updateMountStatus = Route.prototype.updateMountStatus
-  Route.prototype.updateMountStatus = function({ status, mountBy, matchData }) {
-    console.log('|| updateMountStatus ||', status, this.props.path)
-    _updateMountStatus.call(this, { status, mountBy, matchData })
+  updateMountStatus({ status, mountBy, matchData }) {
+    super.updateMountStatus({ status, mountBy, matchData })
     this.checkCacheTag(status===0)
   }
 
   /** hide or show it's component after it mounted */
-  Route.prototype.hideOrShow = function() {
+  hideOrShow() {
     const display = this.state.mountBy === 0? (this.initDisplay || null) : 'none'
     let dom
     try{
@@ -87,6 +83,16 @@ export default function(Route) {
       }
       dom.style.display = display
     }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount && super.componentWillUnmount()
+    this.checkCacheTag(true)
+  }
+
+  componentDidUpdate() {
+    this.hideOrShow()
+    super.componentDidUpdate && super.componentDidUpdate()
   }
   
 }

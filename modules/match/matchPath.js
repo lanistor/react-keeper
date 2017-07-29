@@ -1,5 +1,5 @@
 import compilePattern from './compilePattern'
-import { resetPath } from '../Util'
+import { resetPath } from '../utils/Util'
 
 /**
  * match path with pattern

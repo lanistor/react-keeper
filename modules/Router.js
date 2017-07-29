@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import InnerRouter from './InnerRouter'
 import HistoryControl, {
   listener as historyControlListener,
   setHistory as historyControlSet
 } from './HistoryControl'
-import CacheOfLinkControl from './CacheOfLinkControl'
-import Logger from './Logger'
+import CacheOfLinkControl from './utils/CacheOfLinkControl'
+import Logger from './utils/Logger'
 
 export default class Router extends React.Component {
   constructor(...args) {
@@ -56,5 +57,5 @@ export default class Router extends React.Component {
 }
 
 Router.childContextTypes = {
-  history: React.PropTypes.any
+  history: PropTypes.object
 }

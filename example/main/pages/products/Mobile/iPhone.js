@@ -1,11 +1,10 @@
 import React from 'react'
 
-export default class Enterprise extends React.Component {
-
+export default class iPhone extends React.Component {
   render() {
     return (
       <div>
-        <h3>Enterprise</h3>
+        <h3>Mobile - iPhone</h3>
       </div>
     )
   }

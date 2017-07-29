@@ -1,13 +1,10 @@
 import React from 'react'
 import HistoryControl from '../HistoryControl'
 
-export default function(Route) {
-
-  Route.prototype = Route.prototype || {}
+export default (RouteBase) => class extends RouteBase {
 
   /** check 'redirect' props */
-  let _updateMountStatus = Route.prototype.updateMountStatus
-  Route.prototype.updateMountStatus = function({ status, mountBy, matchData }) {
+  updateMountStatus({ status, mountBy, matchData }) {
 
     const { redirect } = this.props
     if(redirect && typeof redirect === 'string') {
@@ -15,7 +12,7 @@ export default function(Route) {
       return
     }
 
-    _updateMountStatus.call(this, { status, mountBy, matchData })
+    super.updateMountStatus({ status, mountBy, matchData })
   }
   
 }

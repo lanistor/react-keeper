@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link, CacheLink, Control } from 'react-keeper'
 
 export default class LeftNav extends React.Component {
@@ -29,5 +30,5 @@ export default class LeftNav extends React.Component {
 }
 
 LeftNav.propTypes = {
-  item: React.PropTypes.any
+  item: PropTypes.any
 }

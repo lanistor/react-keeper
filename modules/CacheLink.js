@@ -1,13 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Link from './Link'
-import CacheOfLinkControl from './CacheOfLinkControl'
+import CacheOfLinkControl from './utils/CacheOfLinkControl'
 import HistoryControl from './HistoryControl'
 
 export default class CacheLink extends Link {
 
   static contextTypes = {
-    history: React.PropTypes.any,
-    routes: React.PropTypes.any
+    history: PropTypes.object
   }
   render() {
     return super.render()

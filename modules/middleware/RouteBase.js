@@ -1,15 +1,124 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import functional from 'react-functional'
+import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname } from '../utils/RouteControl'
 import HistoryControl from '../HistoryControl'
 import matchPath from '../match/matchPath'
-import { resetPath, isStatelessComponent } from '../Util'
+import { resetPath, compare, objectWithoutProperties, isStatelessComponent, isMountedComponent } from '../utils/Util'
+import Logger from '../utils/Logger'
 
-export default function(Route) {
+export default class RouteBase extends React.PureComponent {
 
-  Route.prototype = Route.prototype || {}
+  constructor(...args) {
+    super(...args)
 
-  /** get parents' matched path */
-  Route.prototype.getParentPath = function() {
+    this.state = {
+      status: 0,        // 0: unmount, 1: mounted
+      mountBy: 0        // 0: mount by route or none, 1: mount by 'cache', 2: mount by 'CacheLink'
+    }
+    this.unsubscribe = this.context.subscribe(this.locationChanged)
+
+    this.matcher = null
+    this.component = null
+
+    if(!this.context.history) {
+      throw new Error('Route must be used in Router Component ( HashRouter,BrowserRouter or MemoryRouter )!')
+    }
+  }
+
+  /** location change listener */
+  locationChanged = ()=> {
+    this.routeCheckEntry()
+  }
+
+  componentDidMount() {
+    this.locationChanged()
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
+  getChildContext() {
+    return {
+      parent: this
+    }
+  }
+
+  /** dirty check */
+  shouldComponentUpdate(nextProps, nextState) {
+    if(this.props.offDirtyCheck) {
+      return true
+    }
+    if(nextState.status) {
+      return true
+    }
+    return !compare(nextProps, this.props) || !compare(nextState, this.state)
+  }
+
+  /**
+   * entry of check
+   * compute route mount's state
+   */
+  routeCheckEntry () {
+
+    let matchData = this.checkPath(this.context.history.getCurrentLocation() || {})
+
+    if(matchData.match) {
+      this.loadComponent((succeed, component)=> {
+        if(!succeed) {
+          return
+        }
+
+        this.setToMount(matchData)
+
+        // this.updateMountStatus({ status: 1, matchData })
+
+      })
+      this.setToMount(matchData)
+      return
+    }
+
+    this.setToUnmount(matchData)
+  }
+
+  /**
+   * set to mount state
+   * (also invoke by outside)
+   */
+  setToMount (matchData) {
+    this.updateMountStatus({ status: 1, matchData })
+  }
+
+  /**
+   * set to unmount state
+   */
+  setToUnmount(matchData) {
+    this.updateMountStatus({ status: 0 })
+  }
+
+  /** update bind state */
+  updateMountStatus({ status, mountBy, matchData }) {
+    if(typeof mountBy === 'undefined' || mountBy === null) {
+      mountBy = 0
+    }
+    if(!isMountedComponent(this)) {
+      return
+    }
+    if(status === 1) {
+      this.setState({
+        status,
+        mountBy,
+        cacheMatch: matchData,
+        selfPathname: this.getSelfPath(matchData && matchData.matcher)
+      })
+    }else{
+      this.setState({ status, mountBy })
+    }
+  }
+
+  /** get parents' path */
+  getParentPath() {
     let paths = []
     let rou = this
     let path
@@ -29,7 +138,7 @@ export default function(Route) {
   }
 
   /** getSelfPath */
-  Route.prototype.getSelfPath = function(matcher) {
+  getSelfPath(matcher) {
     let paths = [ this.getParentPath() ]
     if(matcher)
       paths.push(matcher.matchStr)
@@ -41,7 +150,7 @@ export default function(Route) {
    * 1. direct match
    * 2. 'index' match
    */
-  Route.prototype.checkPath = function(location) {
+  checkPath(location) {
 
     let { path: pattern, index } = this.props
 
@@ -84,7 +193,7 @@ export default function(Route) {
   }
 
   /** load component, contains dynamic component */
-  Route.prototype.loadComponent = function(callback) {
+  loadComponent(callback) {
     if(this.component) {
       callback(true, this.component)
       return
@@ -104,5 +213,86 @@ export default function(Route) {
     }
     callback(true, null)
   }
+
+  /** render */
+  render() {
+
+    /** 1. unmount state */
+    if(this.state.status === 0) {
+      return null
+    }
+
+    const children = this.props.children
+
+    /** 2. mount state */
+    /** 2.1 check component props */
+    if(this.component) {
+      const props = objectWithoutProperties(this.props, [
+        'children', 'component', 'loadComponent', 'enterFilter', 'leaveFilter', 'path', 'redirect',
+        'cache', 'index', 'miss'
+      ])
+      // add route state to props
+      props.route = { isActive: this.state.mountBy===0 }
+
+      props.ref = 'component'
+
+      // create element
+      return React.createElement(this.component,
+        { pathname: this.state.selfPathname,
+          ...props,
+          params: (this.state.cacheMatch && this.state.cacheMatch.matcher)? (this.state.cacheMatch.matcher.params || {}) : {}
+        }, children)
+    }
+
+    /** 2.2 check children */
+    if(!children) {
+      Logger.error('Route component without children.')
+      return null
+    }
+    if(React.isValidElement(children)) {
+      return React.Children.only(children)
+    }
+    Logger.error('When `Route` component has no component property, it\'s children must be a single tag (not an array), like `div`|`view` .')
+    return null
+  }
   
+}
+
+if(__DEV__) {
+
+  RouteBase.propTypes = {
+    component: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.func
+    ]),
+    loadComponent: PropTypes.func,
+    enterFilter: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func
+    ]),
+    leaveFilter: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func
+    ]),
+    path: PropTypes.string,
+    redirect: PropTypes.string,
+    cache: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool
+    ]),
+    index: PropTypes.bool,
+    miss: PropTypes.bool,
+    offDirtyCheck: PropTypes.bool,
+    children: PropTypes.any
+  }
+}
+
+RouteBase.contextTypes = {
+  history: PropTypes.object,
+  subscribe: PropTypes.func,
+  parent: PropTypes.instanceOf(RouteBase)
+}
+
+RouteBase.childContextTypes = {
+  parent: PropTypes.instanceOf(RouteBase)
 }

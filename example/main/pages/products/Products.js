@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Header from '../../../common/Header'
 import Footer from '../../../common/Footer'
 import LeftNav from './LeftNav'
@@ -23,5 +24,5 @@ export default class Products extends React.Component {
   }
 }
 Products.propTypes = {
-  children: React.PropTypes.any
+  children: PropTypes.any
 }

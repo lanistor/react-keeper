@@ -2,7 +2,7 @@ import React from 'react'
 import Router from './Router'
 import createBrowserHistory from 'vhistory/createBrowserHistory'
 import useBasename from 'vhistory/useBasename'
-import { objectWithoutProperties, resetPath } from './Util'
+import { objectWithoutProperties, resetPath } from './utils/Util'
 
 export default class BrowserRouter extends React.Component {
 

@@ -1,17 +1,15 @@
 import React from 'react'
 
-export default function(Route) {
-
-  Route.prototype = Route.prototype || {}
+export default (RouteBase) => class extends RouteBase {
 
   /** after check miss succeed */
-  Route.prototype.checkMissSucceed = ()=> {
+  checkMissSucceed () {
     this.setToMount()
     this.resetChildContext(true)
   }
 
   /** check 'miss' tag */
-  Route.prototype.checkMiss = ()=> {
+  checkMiss = ()=> {
     let { miss } = this.props
     if(!miss) {
       return
@@ -30,7 +28,7 @@ export default function(Route) {
    * when no component matched, this one will match if condition
    * the condition is 'when no matched, it's parent is last matched one'
    */
-  Route.prototype.checkMissMatch = (child) => {
+  checkMissMatch(child) {
     const parent = routeMatch.length>0? routeMatch[0] : ''
     if(!child) {
       return

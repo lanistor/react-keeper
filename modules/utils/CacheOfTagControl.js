@@ -26,18 +26,22 @@ export const put = (route, rule)=> {
     cachedRoute.push({ route, rule })
 }
 
+let _tempRoute
+let _tempIsEnd
+
 /** check if route is cached */
 export const isCached = (route)=> {
   for(let item of cachedRoute) {
     if(item.route === route) {
       return true
     }
-    if(item.rule === 'root' && item.route.context.routes) {
-      for(let innerItem of item.route.context.routes) {
-        if(innerItem === route) {
-          return true
-        }
+    _tempRoute = item.route.context.parent
+    _tempIsEnd = item.rule === 'parent'
+    while(_tempRoute) {
+      if(_tempRoute === route) {
+        return true
       }
+      _tempRoute = _tempIsEnd? null : _tempRoute.context.parent
     }
   }
   return false

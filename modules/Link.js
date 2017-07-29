@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import HistoryControl from './HistoryControl'
 
 /**
@@ -79,15 +80,14 @@ Link.prototype.go = function(to, state) {
 if(__DEV__) {
 
   Link.propTypes = {
-    state: React.PropTypes.any,
-    to: React.PropTypes.string.isRequired,
-    href: React.PropTypes.string,
-    children: React.PropTypes.any,
-    onClick: React.PropTypes.any
+    state: PropTypes.object,
+    to: PropTypes.string.isRequired,
+    href: PropTypes.string,
+    children: PropTypes.any,
+    onClick: PropTypes.func
   }
 }
 
 Link.contextTypes = {
-  history: React.PropTypes.any,
-  routes: React.PropTypes.array
+  history: PropTypes.object
 }

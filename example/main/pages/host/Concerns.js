@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default class Concerns extends React.Component {
 
@@ -46,5 +47,5 @@ class ConcernItem extends React.Component {
   }
 }
 ConcernItem.propTypes = {
-  concern: React.PropTypes.object.isRequired
+  concern: PropTypes.object.isRequired
 }
