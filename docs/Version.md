@@ -3,7 +3,7 @@
 ## V2.1
 V2.1 had published at 2017-08-09, here are what we did.  
 - Add cache reset( clear or recache) to Route Component. [Cache Reset](PageCache.md)
-- Split modules' code as middlewares, now you can create your own Route Component. [Custom Route](CustomRoute.md)
+- Split modules' code into middlewares, now you can create your own Route Component. [Custom Route](CustomRoute.md)
 
 ## V2.0
 V2.0 had published at 2017-04-19, here are what we did.  
