@@ -23,6 +23,9 @@ export default class LeftNav extends React.Component {
           <li className={ Control.path === '/products/ads'? 'active' : '' }>
             <CacheLink to='/products/ads'>Dynamic Ads</CacheLink>
           </li>
+          <li className={ Control.path === '/products/aaa'? 'active' : '' }>
+            <Link to='/products/aaa'>Miss Check</Link>
+          </li>
         </ul>
       </div>
     )

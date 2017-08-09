@@ -18,13 +18,13 @@ export default (RouteBase) => class extends RouteBase {
   }
 
   /** check `cache` tag, used after route is mounted succeed */
-  checkCacheTag(remove) {
+  checkCacheTag(remove, ) {
 
     let cache
     if(remove) {
       cache = null
     }else {
-      cache = this.props.cache
+      cache = typeof(this.cacheMark) !== 'undefined'? this.cacheMark : this.props.cache
       if(!cache) {
         cache = null
       }
@@ -38,11 +38,30 @@ export default (RouteBase) => class extends RouteBase {
     CacheOfTagControl.put(this, cache)
   }
 
+  componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps && super.componentWillReceiveProps(nextProps)
+    if(nextProps.cache !== this.props.cache) {
+      this.cacheMark = nextProps.cache
+      this.checkCacheTag(false)
+      // if(this.props.path === 'aboutus') {
+      //   alert('will receive props, iscahced1: ' + this.isCached() + 'next cache: ' + nextProps.cache)
+      // }
+      this.routeCheckEntry()
+    }
+  }
+
+  // setToMount(matchData) {
+  //   super.setToMount(matchData)
+  //   if(this.props.path === 'aboutus') {
+  //       alert('set to mount , iscahced1: ' + this.isCached())
+  //     }
+  //   // this.checkCacheTag()
+  // }
+
   /** check cache, link cache & tag cache */
   setToUnmount(matchData) {
 
     let cache = this.isCached()
-
     if(cache) {
       this.checkPath(this.cacheLocation)
       if(this.state.mountBy !== cache && this.state.status === 1) {

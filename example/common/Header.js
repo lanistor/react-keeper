@@ -1,13 +1,23 @@
 import React from 'react'
 import { Link, Control } from 'react-keeper'
 import { Boxer } from 'react-boxer'
+import Actor from 'react-actor'
 import Login from './Login'
 import './com.css'
 
-export default class Header extends React.Component {
+export default class Header extends Actor {
+
+  constructor(...args) {
+    super(...args)
+  }
 
   reLogin() {
     Boxer.add(<Login title='ReLogin'/>, 5)
+  }
+
+  /** supported by 'react-actor' */
+  clearAboutUsCache() {
+    this.act('clearAboutUsCache', { clearData: 1 })
   }
 
   render() {
@@ -35,6 +45,8 @@ export default class Header extends React.Component {
               <li><a onClick={ ()=> Control.go(-1) }>Back -1</a></li>
               <li><a onClick={ ()=> Control.go(-3) }>Back -3</a></li>
               <li><a onClick={ ()=> Control.go(1) }>Forward</a></li>
+
+              <li><a onClick={ ()=> this.clearAboutUsCache() }>Clear AboutUs cache</a></li>
 
               <li><a>{ Control.path } - { JSON.stringify(Control.state) }</a></li>
             </ul>

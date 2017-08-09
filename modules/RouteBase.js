@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import functional from 'react-functional'
-import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname } from '../utils/RouteControl'
-import HistoryControl from '../HistoryControl'
-import matchPath from '../match/matchPath'
-import { resetPath, compare, objectWithoutProperties, isStatelessComponent, isMountedComponent } from '../utils/Util'
-import Logger from '../utils/Logger'
+import InnerRouter from './InnerRouter'
+import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname } from './utils/RouteControl'
+import HistoryControl from './HistoryControl'
+import matchPath from './match/matchPath'
+import { resetPath, compare, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './utils/Util'
+import Logger from './utils/Logger'
 
 export default class RouteBase extends React.PureComponent {
 
@@ -18,7 +19,7 @@ export default class RouteBase extends React.PureComponent {
     }
     this.unsubscribe = this.context.subscribe(this.locationChanged)
 
-    this.matcher = null
+    this.matcher = null   // dont use state to save matcher, for state will change after component is mounted.
     this.component = null
 
     if(!this.context.history) {
@@ -61,9 +62,8 @@ export default class RouteBase extends React.PureComponent {
    * compute route mount's state
    */
   routeCheckEntry () {
-
     let matchData = this.checkPath(this.context.history.getCurrentLocation() || {})
-
+    
     if(matchData.match) {
       this.loadComponent((succeed, component)=> {
         if(!succeed) {
@@ -72,13 +72,9 @@ export default class RouteBase extends React.PureComponent {
 
         this.setToMount(matchData)
 
-        // this.updateMountStatus({ status: 1, matchData })
-
       })
-      this.setToMount(matchData)
       return
     }
-
     this.setToUnmount(matchData)
   }
 
@@ -99,17 +95,20 @@ export default class RouteBase extends React.PureComponent {
 
   /** update bind state */
   updateMountStatus({ status, mountBy, matchData }) {
-    if(typeof mountBy === 'undefined' || mountBy === null) {
-      mountBy = 0
-    }
+
     if(!isMountedComponent(this)) {
       return
     }
+
+    if(typeof mountBy === 'undefined' || mountBy === null) {
+      mountBy = 0
+    }
+
+    this.matcher = matchData
     if(status === 1) {
       this.setState({
         status,
         mountBy,
-        cacheMatch: matchData,
         selfPathname: this.getSelfPath(matchData && matchData.matcher)
       })
     }else{
@@ -123,13 +122,13 @@ export default class RouteBase extends React.PureComponent {
     let rou = this
     let path
     while(rou.context.parent) {
-      if(rou.context.parent.state.cacheMatch
-          && rou.context.parent.state.cacheMatch.matcher) {
-        path = rou.context.parent.state.cacheMatch.matcher.matchStr
+      if(rou.context.parent.matcher
+          && rou.context.parent.matcher.matcher) {
+        path = rou.context.parent.matcher.matcher.matchStr
         if(path && path.indexOf('/')!==0) {
           path = '/' + path
         }
-        paths.push(path)
+        paths.unshift(path)
       }
       rou = rou.context.parent
     }
@@ -145,14 +144,10 @@ export default class RouteBase extends React.PureComponent {
     return paths.join('').replace(/[/]{2,}/g, '/')
   }
 
-  /**
-   * check path match
-   * 1. direct match
-   * 2. 'index' match
-   */
+  /** check path match */
   checkPath(location) {
 
-    let { path: pattern, index } = this.props
+    let { path: pattern } = this.props
 
     let { pathname } = location || {}
     if(typeof pathname === 'undefined') {
@@ -162,11 +157,6 @@ export default class RouteBase extends React.PureComponent {
     let parentPath = this.getParentPath()
 
     if(!pattern) {
-      if(index) {
-        if(pathname === resetPath(parentPath)) {
-          return { match: true, matcher: matcher }
-        }
-      }
       return { match: false }
     }
 
@@ -182,13 +172,6 @@ export default class RouteBase extends React.PureComponent {
     if(matcher.match) {
       return { match: true, matcher: matcher }
     }
-
-    if(index) {
-      if(pathname === resetPath(parentPath)) {
-        return { match: true, matcher: matcher }
-      }
-    }
-
     return { match: false }
   }
 
@@ -240,7 +223,7 @@ export default class RouteBase extends React.PureComponent {
       return React.createElement(this.component,
         { pathname: this.state.selfPathname,
           ...props,
-          params: (this.state.cacheMatch && this.state.cacheMatch.matcher)? (this.state.cacheMatch.matcher.params || {}) : {}
+          params: (this.matcher && this.matcher.matcher)? (this.matcher.matcher.params || {}) : {}
         }, children)
     }
 
@@ -290,7 +273,8 @@ if(__DEV__) {
 RouteBase.contextTypes = {
   history: PropTypes.object,
   subscribe: PropTypes.func,
-  parent: PropTypes.instanceOf(RouteBase)
+  parent: PropTypes.instanceOf(RouteBase),
+  router: PropTypes.any
 }
 
 RouteBase.childContextTypes = {

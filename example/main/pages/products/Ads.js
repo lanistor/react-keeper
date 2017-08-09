@@ -5,7 +5,7 @@ import Ad from './Ad'
 export default class Ads extends React.Component {
 
   componentDidMount() {
-    let timer = setInterval(() => {
+    this.interval = setInterval(() => {
 
       // add one ad to container
       Boxer.add(
@@ -15,10 +15,10 @@ export default class Ads extends React.Component {
 
     }, 1000)
 
-    setTimeout(()=> {
+    this.timer = setTimeout(()=> {
 
       // if(confirm('Stop and remove all?')) {
-      clearInterval(timer)
+      clearInterval(this.interval)
 
       // clear all component in the container
       Boxer.clear(1)
@@ -27,7 +27,11 @@ export default class Ads extends React.Component {
     }, 3000)
   }
 
-
+  componentWillUnmount() {
+    window.clearInterval(this.interval)
+    window.clearTimeout(this.timer)
+  }
+  
   render() {
     return (
       <div>

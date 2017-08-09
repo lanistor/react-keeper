@@ -6,6 +6,7 @@
   "rules": {
     "indent": 1,
     "no-console": 0,
+    "no-debugger": 0,
     "no-unused-vars": 0,
     "jsx-quotes":[1, "prefer-single"],
     "react/prop-types": 0,

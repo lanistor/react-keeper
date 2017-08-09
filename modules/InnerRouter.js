@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Logger from './utils/Logger'
+import RouteBase from './RouteBase'
 
 export default class InnerRouter extends React.Component {
 
@@ -12,7 +13,8 @@ export default class InnerRouter extends React.Component {
   /** get child context */
   getChildContext = ()=> {
     return {
-      subscribe: this.subscribe
+      subscribe: this.subscribe,
+      router: this
     }
   }
 
@@ -45,6 +47,11 @@ export default class InnerRouter extends React.Component {
       return null
     }
 
+    if(this.props.children.length>0) {
+      Logger.error('Router must have only one children.')
+      return null
+    }
+
     if(React.isValidElement(this.props.children)) {
       return React.Children.only(this.props.children)
     }
@@ -55,5 +62,6 @@ export default class InnerRouter extends React.Component {
 }
 
 InnerRouter.childContextTypes = {
-  subscribe: PropTypes.func
+  subscribe: PropTypes.func,
+  router: PropTypes.instanceOf(InnerRouter)   // to support root's Route's 'miss' tag
 }

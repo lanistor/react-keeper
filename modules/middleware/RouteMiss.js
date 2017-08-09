@@ -1,49 +1,88 @@
 import React from 'react'
+import { isMountedComponent } from '../utils/Util'
 
 export default (RouteBase) => class extends RouteBase {
 
-  /** after check miss succeed */
-  checkMissSucceed () {
-    this.setToMount()
-    this.resetChildContext(true)
-  }
-
   /** check 'miss' tag */
-  checkMiss = ()=> {
+  checkMissTag = ()=> {
     let { miss } = this.props
     if(!miss) {
       return
     }
     setTimeout(()=> {
-      if(!this.checkParent()) {
+      this.checkMissMatch()
+    }, 0)
+  }
+
+  /** check 'miss' tag after update status  */
+  updateMountStatus({ status, mountBy, matchData }) {
+    if(status && !mountBy) {
+      this.addToParent()  // not cached Route
+    }else {
+      this.removeFromParent()
+      if(!mountBy)  // cached will not check 'miss' tag
+        this.checkMissTag()
+    }
+    super.updateMountStatus({ status, mountBy, matchData })
+  }
+
+  componentWillUnmount() {
+    this.removeFromParent()
+    super.componentWillUnmount && super.componentWillUnmount()
+  }
+
+  /** add this to parent' cached children list */
+  addToParent() {
+    let parent = this.getParentRoute()
+    if(!parent) return
+    if(!parent.children) {
+      parent.children = []
+    }
+    for(let i=0; i<parent.children.length; i++) {
+      if(parent.children[i] === this) {
         return
       }
-      this.checkMissSucceed()
-    }, 0)
+    }
+    parent.children.push(this)
+  }
 
+  /** remove this from parent' cached children list */
+  removeFromParent() {
+    let parent = this.getParentRoute()
+    if(!parent || !parent.children || !parent.children.length) return
+    for(let i=0; i<parent.children.length; i++) {
+      if(parent.children[i] === this) {
+        parent.children.splice(i, 1)
+        break
+      }
+    }
   }
 
   /**
    * 'miss' property support
    * when no component matched, this one will match if condition
-   * the condition is 'when no matched, it's parent is last matched one'
    */
-  checkMissMatch(child) {
-    const parent = routeMatch.length>0? routeMatch[0] : ''
-    if(!child) {
+  checkMissMatch() {
+    if(!isMountedComponent(this)) {
       return
     }
-    setTimeout(()=> {
-      if(routeMatch.length===0) {
-        if(parent === '') {
-          child.setToMount()
+    let parent = this.getParentRoute()
+    if(!parent) {
+      return
+    }
+    if(!parent.children || !parent.children.length) {
+      this.loadComponent((succeed, component)=> {
+        if(!succeed) {
+          return
         }
-        return
-      }
-      if(routeMatch[routeMatch.length-1] === parent) {
-        child.setToMount()
-        return
-      }
-    }, 0)
+
+        this.setToMount()
+      })
+    }
+  }
+
+  /** get parent */
+  getParentRoute() {
+    return this.context.parent || this.context.router
   }
 }

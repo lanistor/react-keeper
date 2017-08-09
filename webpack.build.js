@@ -1,6 +1,8 @@
 let path = require('path')
 let webpack = require('webpack')
 
+console.log('--------', __dirname)
+
 module.exports = {
   entry: path.join(__dirname, 'modules/index.js'),
   output: {
@@ -24,7 +26,8 @@ module.exports = {
 
   resolve: {
     alias: {
-      'vhistory': path.join(__dirname, '..', 'history/modules')
+      'vhistory': path.join(__dirname, '..', 'history/modules'),
+      'react-actor': path.join(__dirname, '..', 'react-actor/modules')
     }
   },
 
