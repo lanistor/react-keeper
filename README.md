@@ -6,7 +6,7 @@
   And more...
 
 # News
-  <b style="color:#fd5200">[Keeper V2.1](docs/Version.md) had published !!!</b>
+  <b style="color:#fd5200">[Keeper V2.1](docs/Version.md) had published !!!</b>  
   <b style="color:#fd5200">[Keeper V2.0](docs/Version.md) had published !!!</b>
 
 ## Docs

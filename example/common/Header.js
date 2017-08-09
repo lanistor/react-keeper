@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link, Control } from 'react-keeper'
 import { Boxer } from 'react-boxer'
 import Actor from 'react-actor'
 import Login from './Login'
 import './com.css'
 
-export default class Header extends Actor {
+export default class Header extends Component {
 
   constructor(...args) {
     super(...args)

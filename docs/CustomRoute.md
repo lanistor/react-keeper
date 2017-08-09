@@ -1,6 +1,6 @@
 # Custom Route Component
 ## Custom Route
-  Create your own Route component as you need, you can combine any middleware in your own Route Component. 
+  Create your own Route component as you need, you can combine any middlewares in your own Route Component. 
   ```js
   import React from 'react'
 
@@ -16,7 +16,7 @@
   export class MyRoute3 extends RouteMiss(RouteCache(RouteIndex(RouteBase))) { }
   export class MyRoute4 extends RouteIndex(RouteBase) { }
   ```  
-  
+
   Then use like this:  
   ```js
     <MyRoute1 path='/home' componnet={ Home}/>
@@ -27,7 +27,7 @@
   | Middlewares   | Description                  |  
   | ----          | ----                         |  
   | RouteBase     | base code of Route Component |  
-  | RouteCache    | cache middleware of Route Component |  
+  | RouteCache    | cache middleware |  
   | RouteFilter   | enterFilter and leaveFilter middleware |  
   | RouteMiss     | miss tag middleware|  
   | RouteIndex    | index tag middleware |  
