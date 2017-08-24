@@ -37,7 +37,7 @@ class App extends Actor {
   render() {
 
     return (
-      <HashRouter>
+      <HashRouter basename='/main'>
         <div>
           <Route miss cache component={Home} path='/>'/>
 

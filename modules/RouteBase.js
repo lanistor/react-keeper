@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import functional from 'react-functional'
+import functional from './utils/functional'
 import InnerRouter from './InnerRouter'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname } from './utils/RouteControl'
 import HistoryControl from './HistoryControl'
@@ -63,7 +63,7 @@ export default class RouteBase extends React.PureComponent {
    */
   routeCheckEntry () {
     let matchData = this.checkPath(this.context.history.getCurrentLocation() || {})
-    
+
     if(matchData.match) {
       this.loadComponent((succeed, component)=> {
         if(!succeed) {
@@ -95,7 +95,6 @@ export default class RouteBase extends React.PureComponent {
 
   /** update bind state */
   updateMountStatus({ status, mountBy, matchData }) {
-
     if(!isMountedComponent(this)) {
       return
     }
@@ -207,8 +206,7 @@ export default class RouteBase extends React.PureComponent {
 
     const children = this.props.children
 
-    /** 2. mount state */
-    /** 2.1 check component props */
+    /** mount state */
     if(this.component) {
       const props = objectWithoutProperties(this.props, [
         'children', 'component', 'loadComponent', 'enterFilter', 'leaveFilter', 'path', 'redirect',
@@ -226,14 +224,8 @@ export default class RouteBase extends React.PureComponent {
           params: (this.matcher && this.matcher.matcher)? (this.matcher.matcher.params || {}) : {}
         }, children)
     }
-
-    /** 2.2 check children */
-    if(!children) {
-      Logger.error('Route component without children.')
-      return null
-    }
     if(React.isValidElement(children)) {
-      return React.Children.only(children)
+      return React.cloneElement(React.Children.only(children), { ref: 'component' })
     }
     Logger.error('When `Route` component has no component property, it\'s children must be a single tag (not an array), like `div`|`view` .')
     return null

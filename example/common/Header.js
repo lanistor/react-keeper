@@ -5,7 +5,17 @@ import Actor from 'react-actor'
 import Login from './Login'
 import './com.css'
 
-export default class Header extends Component {
+let style = {
+  hrefState: {
+    width: '150px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    color: '#fff',
+    paddingLeft: 0
+  }
+}
+
+export default class Header extends Actor {
 
   constructor(...args) {
     super(...args)
@@ -45,10 +55,11 @@ export default class Header extends Component {
               <li><a onClick={ ()=> Control.go(-1) }>Back -1</a></li>
               <li><a onClick={ ()=> Control.go(-3) }>Back -3</a></li>
               <li><a onClick={ ()=> Control.go(1) }>Forward</a></li>
+              <li><Link to='/aaaa'>Miss</Link></li>
 
               <li><a onClick={ ()=> this.clearAboutUsCache() }>Clear AboutUs cache</a></li>
 
-              <li><a>{ Control.path } - { JSON.stringify(Control.state) }</a></li>
+              <li><a style={ style.hrefState } title={ `${Control.path} - ${JSON.stringify(Control.state)}`}>{ Control.path } - { JSON.stringify(Control.state) }</a></li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import Logger from '../utils/Logger'
 import CacheOfTagControl from '../utils/CacheOfTagControl'
 import CacheOfLinkControl from '../utils/CacheOfLinkControl'
+import { isMountedComponent } from '../utils/Util'
 
 export default (RouteBase) => class extends RouteBase {
 
@@ -18,7 +19,7 @@ export default (RouteBase) => class extends RouteBase {
   }
 
   /** check `cache` tag, used after route is mounted succeed */
-  checkCacheTag(remove, ) {
+  checkCacheTag(remove) {
 
     let cache
     if(remove) {
@@ -43,29 +44,17 @@ export default (RouteBase) => class extends RouteBase {
     if(nextProps.cache !== this.props.cache) {
       this.cacheMark = nextProps.cache
       this.checkCacheTag(false)
-      // if(this.props.path === 'aboutus') {
-      //   alert('will receive props, iscahced1: ' + this.isCached() + 'next cache: ' + nextProps.cache)
-      // }
       this.routeCheckEntry()
     }
   }
 
-  // setToMount(matchData) {
-  //   super.setToMount(matchData)
-  //   if(this.props.path === 'aboutus') {
-  //       alert('set to mount , iscahced1: ' + this.isCached())
-  //     }
-  //   // this.checkCacheTag()
-  // }
-
   /** check cache, link cache & tag cache */
   setToUnmount(matchData) {
-
     let cache = this.isCached()
     if(cache) {
       this.checkPath(this.cacheLocation)
       if(this.state.mountBy !== cache && this.state.status === 1) {
-
+        super.setToUnmount(matchData)
         this.updateMountStatus({ status: 1, mountBy: cache, matchData: this.state.cacheMatch })
       }
       return
@@ -81,18 +70,19 @@ export default (RouteBase) => class extends RouteBase {
 
   /** hide or show it's component after it mounted */
   hideOrShow() {
+    if(!this.state.status)
+      return
     const display = this.state.mountBy === 0? (this.initDisplay || null) : 'none'
     let dom
     try{
       dom = this.refs.component? ReactDOM.findDOMNode(this.refs.component) : null
     }catch(error) {
-      Logger.warning('Cannot find dom.')
+      Logger.warn('Cannot find dom.')
       return
     }
     if(!dom) {
-      if(React.isValidElement(this.props.children)) {
-        dom = this.props.children[0]
-      }
+      Logger.warn('Cannot find dom.', isMountedComponent(this), this.props, this)
+      return
     }
 
     // change display

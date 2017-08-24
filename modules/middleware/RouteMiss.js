@@ -6,6 +6,7 @@ export default (RouteBase) => class extends RouteBase {
   /** check 'miss' tag */
   checkMissTag = ()=> {
     let { miss } = this.props
+
     if(!miss) {
       return
     }
@@ -14,14 +15,17 @@ export default (RouteBase) => class extends RouteBase {
     }, 0)
   }
 
+  setToUnmount( matchData ) {
+    super.setToUnmount()
+    this.checkMissTag()
+  }
+
   /** check 'miss' tag after update status  */
   updateMountStatus({ status, mountBy, matchData }) {
     if(status && !mountBy) {
       this.addToParent()  // not cached Route
     }else {
       this.removeFromParent()
-      if(!mountBy)  // cached will not check 'miss' tag
-        this.checkMissTag()
     }
     super.updateMountStatus({ status, mountBy, matchData })
   }
