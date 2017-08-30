@@ -65,17 +65,22 @@ export default class RouteBase extends React.PureComponent {
     let matchData = this.checkPath(this.context.history.getCurrentLocation() || {})
 
     if(matchData.match) {
-      this.loadComponent((succeed, component)=> {
-        if(!succeed) {
-          return
-        }
-
-        this.setToMount(matchData)
-
-      })
-      return
+      this.setToMatch(matchData)
+    }else {
+      this.setToUnmount(matchData)
     }
-    this.setToUnmount(matchData)
+  }
+
+  /** set state to match */
+  setToMatch (matchData) {
+    this.loadComponent((succeed, component)=> {
+      if(!succeed) {
+        return
+      }
+
+      this.setToMount(matchData)
+
+    })
   }
 
   /**
@@ -137,10 +142,7 @@ export default class RouteBase extends React.PureComponent {
 
   /** getSelfPath */
   getSelfPath(matcher) {
-    let paths = [ this.getParentPath() ]
-    if(matcher)
-      paths.push(matcher.matchStr)
-    return paths.join('').replace(/[/]{2,}/g, '/')
+    return `${this.getParentPath()}${matcher? matcher.matchStr : ''}`.replace(/[/]{2,}/g, '/')
   }
 
   /** check path match */
@@ -158,7 +160,6 @@ export default class RouteBase extends React.PureComponent {
     if(!pattern) {
       return { match: false }
     }
-
     pattern = resetPath(pattern)
 
     let checkPathname = pathname

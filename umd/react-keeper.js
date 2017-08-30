@@ -853,21 +853,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'routeCheckEntry',
 	    value: function routeCheckEntry() {
-	      var _this2 = this;
-
 	      var matchData = this.checkPath(this.context.history.getCurrentLocation() || {});
 
 	      if (matchData.match) {
-	        this.loadComponent(function (succeed, component) {
-	          if (!succeed) {
-	            return;
-	          }
-
-	          _this2.setToMount(matchData);
-	        });
-	        return;
+	        this.setToMatch(matchData);
+	      } else {
+	        this.setToUnmount(matchData);
 	      }
-	      this.setToUnmount(matchData);
+	    }
+
+	    /** set state to match */
+
+	  }, {
+	    key: 'setToMatch',
+	    value: function setToMatch(matchData) {
+	      var _this2 = this;
+
+	      this.loadComponent(function (succeed, component) {
+	        if (!succeed) {
+	          return;
+	        }
+
+	        _this2.setToMount(matchData);
+	      });
 	    }
 
 	    /**
@@ -947,9 +955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getSelfPath',
 	    value: function getSelfPath(matcher) {
-	      var paths = [this.getParentPath()];
-	      if (matcher) paths.push(matcher.matchStr);
-	      return paths.join('').replace(/[/]{2,}/g, '/');
+	      return ('' + this.getParentPath() + (matcher ? matcher.matchStr : '')).replace(/[/]{2,}/g, '/');
 	    }
 
 	    /** check path match */
@@ -971,7 +977,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!pattern) {
 	        return { match: false };
 	      }
-
 	      pattern = (0, _Util.resetPath)(pattern);
 
 	      var checkPathname = pathname;
@@ -5274,27 +5279,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	    _createClass(_class2, [{
+	      key: 'setToMatch',
+	      value: function setToMatch(matchData) {
+	        this.addToParent();
+	        _get(_class2.prototype.__proto__ || Object.getPrototypeOf(_class2.prototype), 'setToMatch', this).call(this, matchData);
+	      }
+	    }, {
 	      key: 'setToUnmount',
 	      value: function setToUnmount(matchData) {
+	        this.removeFromParent();
 	        _get(_class2.prototype.__proto__ || Object.getPrototypeOf(_class2.prototype), 'setToUnmount', this).call(this);
 	        this.checkMissTag();
-	      }
-
-	      /** check 'miss' tag after update status  */
-
-	    }, {
-	      key: 'updateMountStatus',
-	      value: function updateMountStatus(_ref2) {
-	        var status = _ref2.status,
-	            mountBy = _ref2.mountBy,
-	            matchData = _ref2.matchData;
-
-	        if (status && !mountBy) {
-	          this.addToParent(); // not cached Route
-	        } else {
-	          this.removeFromParent();
-	        }
-	        _get(_class2.prototype.__proto__ || Object.getPrototypeOf(_class2.prototype), 'updateMountStatus', this).call(this, { status: status, mountBy: mountBy, matchData: matchData });
 	      }
 	    }, {
 	      key: 'componentWillUnmount',
@@ -5344,8 +5339,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: 'checkMissMatch',
 	      value: function checkMissMatch() {
-	        var _this2 = this;
-
 	        if (!(0, _Util.isMountedComponent)(this)) {
 	          return;
 	        }
@@ -5354,12 +5347,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return;
 	        }
 	        if (!parent.children || !parent.children.length) {
-	          this.loadComponent(function (succeed, component) {
-	            if (!succeed) {
-	              return;
-	            }
+	          var parentPath = this.getParentPath();
 
-	            _this2.setToMount();
+	          var _ref2 = this.context.history.getCurrentLocation() || {},
+	              pathname = _ref2.pathname;
+
+	          this.setToMatch({
+	            match: true,
+	            matcher: {
+	              pattern: null,
+	              match: true,
+	              params: {},
+	              matchStr: pathname && (0, _Util.resetPath)(pathname).substring(parentPath.length),
+	              lastIndex: 0
+	            }
 	          });
 	        }
 	      }

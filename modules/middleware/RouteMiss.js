@@ -1,5 +1,5 @@
 import React from 'react'
-import { isMountedComponent } from '../utils/Util'
+import { resetPath, isMountedComponent } from '../utils/Util'
 
 export default (RouteBase) => class extends RouteBase {
 
@@ -15,19 +15,15 @@ export default (RouteBase) => class extends RouteBase {
     }, 0)
   }
 
-  setToUnmount( matchData ) {
-    super.setToUnmount()
-    this.checkMissTag()
+  setToMatch(matchData) {
+    this.addToParent()
+    super.setToMatch(matchData)
   }
 
-  /** check 'miss' tag after update status  */
-  updateMountStatus({ status, mountBy, matchData }) {
-    if(status && !mountBy) {
-      this.addToParent()  // not cached Route
-    }else {
-      this.removeFromParent()
-    }
-    super.updateMountStatus({ status, mountBy, matchData })
+  setToUnmount( matchData ) {
+    this.removeFromParent()
+    super.setToUnmount()
+    this.checkMissTag()
   }
 
   componentWillUnmount() {
@@ -75,12 +71,18 @@ export default (RouteBase) => class extends RouteBase {
       return
     }
     if(!parent.children || !parent.children.length) {
-      this.loadComponent((succeed, component)=> {
-        if(!succeed) {
-          return
+      let parentPath = this.getParentPath()
+      let { pathname } = this.context.history.getCurrentLocation() || {}
+      
+      this.setToMatch({
+        match: true,
+        matcher: {
+          pattern: null,
+          match: true,
+          params: {},
+          matchStr: pathname && resetPath(pathname).substring(parentPath.length),
+          lastIndex: 0
         }
-
-        this.setToMount()
       })
     }
   }
