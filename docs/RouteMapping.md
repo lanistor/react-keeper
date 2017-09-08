@@ -1,6 +1,6 @@
 # Route Mapping Rules
 ## Normal Rules
-- `/somepath`      - Matches urls that contains `/somepath`
+- `/somepath`      - Matches urls that start with `/somepath`
 - `:paramName`     - Matches urls with params  
 - `(/:paramName)`  - Matches urls with(or without) params  
 - `*`              - Matches all characters without `/`,`?`,`&`  
