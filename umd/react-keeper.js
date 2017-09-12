@@ -777,8 +777,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var RouteBase = function (_React$PureComponent) {
-	  _inherits(RouteBase, _React$PureComponent);
+	var RouteBase = function (_React$Component) {
+	  _inherits(RouteBase, _React$Component);
 
 	  function RouteBase() {
 	    var _ref;
@@ -908,9 +908,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          mountBy = _ref2.mountBy,
 	          matchData = _ref2.matchData;
 
-	      if (!(0, _Util.isMountedComponent)(this)) {
-	        return;
-	      }
 
 	      if (typeof mountBy === 'undefined' || mountBy === null) {
 	        mountBy = 0;
@@ -1058,7 +1055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 
 	  return RouteBase;
-	}(_react2.default.PureComponent);
+	}(_react2.default.Component);
 
 	exports.default = RouteBase;
 
@@ -2406,7 +2403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.isMountedComponent = exports.isStatelessComponent = exports.arrayContains = exports.objectWithoutProperties = exports.compare = undefined;
+	exports.isStatelessComponent = exports.arrayContains = exports.objectWithoutProperties = exports.compare = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -2498,11 +2495,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	/** is stateless component */
 	var isStatelessComponent = exports.isStatelessComponent = function isStatelessComponent(componentClass) {
 	  return !componentClass.prototype || !componentClass.prototype.render;
-	};
-
-	/** is mounted component, will return false when component is umounted */
-	var isMountedComponent = exports.isMountedComponent = function isMountedComponent(component) {
-	  return !!component._reactInternalInstance;
 	};
 
 	/**
@@ -2623,7 +2615,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function replace(path, state) {
-	  HistoryControl.history.replace(path, state);
+	  HistoryControl.history.replace({ pathname: path, state: state });
 	}
 
 	/**
@@ -4775,8 +4767,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _CacheOfLinkControl2 = _interopRequireDefault(_CacheOfLinkControl);
 
-	var _Util = __webpack_require__(20);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4889,7 +4879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return;
 	        }
 	        if (!dom) {
-	          _Logger2.default.warn('Cannot find dom.', (0, _Util.isMountedComponent)(this), this.props, this);
+	          _Logger2.default.warn('Cannot find dom.');
 	          return;
 	        }
 
@@ -5269,7 +5259,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!miss) {
 	          return;
 	        }
-	        setTimeout(function () {
+	        window.clearTimeout(_this.missTimer);
+	        _this.missTimer = setTimeout(function () {
 	          _this.checkMissMatch();
 	        }, 0);
 	      }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -5294,6 +5285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: 'componentWillUnmount',
 	      value: function componentWillUnmount() {
+	        window.clearTimeout(this.missTimer);
 	        this.removeFromParent();
 	        _get(_class2.prototype.__proto__ || Object.getPrototypeOf(_class2.prototype), 'componentWillUnmount', this) && _get(_class2.prototype.__proto__ || Object.getPrototypeOf(_class2.prototype), 'componentWillUnmount', this).call(this);
 	      }
@@ -5339,9 +5331,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: 'checkMissMatch',
 	      value: function checkMissMatch() {
-	        if (!(0, _Util.isMountedComponent)(this)) {
-	          return;
-	        }
 	        var parent = this.getParentRoute();
 	        if (!parent) {
 	          return;
