@@ -1,5 +1,5 @@
 import React from 'react'
-import { resetPath, isMountedComponent } from '../utils/Util'
+import { resetPath } from '../utils/Util'
 
 export default (RouteBase) => class extends RouteBase {
 
@@ -10,7 +10,8 @@ export default (RouteBase) => class extends RouteBase {
     if(!miss) {
       return
     }
-    setTimeout(()=> {
+    window.clearTimeout(this.missTimer)
+    this.missTimer = setTimeout(()=> {
       this.checkMissMatch()
     }, 0)
   }
@@ -27,6 +28,7 @@ export default (RouteBase) => class extends RouteBase {
   }
 
   componentWillUnmount() {
+    window.clearTimeout(this.missTimer)
     this.removeFromParent()
     super.componentWillUnmount && super.componentWillUnmount()
   }
@@ -63,9 +65,6 @@ export default (RouteBase) => class extends RouteBase {
    * when no component matched, this one will match if condition
    */
   checkMissMatch() {
-    if(!isMountedComponent(this)) {
-      return
-    }
     let parent = this.getParentRoute()
     if(!parent) {
       return

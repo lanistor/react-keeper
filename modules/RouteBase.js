@@ -5,10 +5,10 @@ import InnerRouter from './InnerRouter'
 import { shouldMatch, addMatch, removeMatch, getMatchedPath, getSelfPathname } from './utils/RouteControl'
 import HistoryControl from './HistoryControl'
 import matchPath from './match/matchPath'
-import { resetPath, compare, objectWithoutProperties, isStatelessComponent, isMountedComponent } from './utils/Util'
+import { resetPath, compare, objectWithoutProperties, isStatelessComponent } from './utils/Util'
 import Logger from './utils/Logger'
 
-export default class RouteBase extends React.PureComponent {
+export default class RouteBase extends React.Component {
 
   constructor(...args) {
     super(...args)
@@ -21,7 +21,7 @@ export default class RouteBase extends React.PureComponent {
 
     this.matcher = null   // dont use state to save matcher, for state will change after component is mounted.
     this.component = null
-
+    
     if(!this.context.history) {
       throw new Error('Route must be used in Router Component ( HashRouter,BrowserRouter or MemoryRouter )!')
     }
@@ -100,9 +100,6 @@ export default class RouteBase extends React.PureComponent {
 
   /** update bind state */
   updateMountStatus({ status, mountBy, matchData }) {
-    if(!isMountedComponent(this)) {
-      return
-    }
 
     if(typeof mountBy === 'undefined' || mountBy === null) {
       mountBy = 0

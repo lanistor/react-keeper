@@ -47,7 +47,7 @@ export function go(pathOrIndex, state) {
 }
 
 export function replace(path, state) {
-  HistoryControl.history.replace(path, state)
+  HistoryControl.history.replace({ pathname: path, state })
 }
 
 /**

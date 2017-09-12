@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import Logger from '../utils/Logger'
 import CacheOfTagControl from '../utils/CacheOfTagControl'
 import CacheOfLinkControl from '../utils/CacheOfLinkControl'
-import { isMountedComponent } from '../utils/Util'
 
 export default (RouteBase) => class extends RouteBase {
 
@@ -81,7 +80,7 @@ export default (RouteBase) => class extends RouteBase {
       return
     }
     if(!dom) {
-      Logger.warn('Cannot find dom.', isMountedComponent(this), this.props, this)
+      Logger.warn('Cannot find dom.')
       return
     }
 

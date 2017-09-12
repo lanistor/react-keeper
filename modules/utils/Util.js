@@ -81,11 +81,6 @@ export const isStatelessComponent = (componentClass)=> {
   return !componentClass.prototype || !componentClass.prototype.render
 }
 
-/** is mounted component, will return false when component is umounted */
-export const isMountedComponent = (component)=> {
-  return !!component._reactInternalInstance
-}
-
 /**
  * get the size of an object
  *
