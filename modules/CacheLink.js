@@ -6,9 +6,6 @@ import HistoryControl from './HistoryControl'
 
 export default class CacheLink extends Link {
 
-  static contextTypes = {
-    history: PropTypes.object
-  }
   render() {
     return super.render()
   }
@@ -19,7 +16,12 @@ CacheLink.prototype.go = function(to, state) {
   if(this.context.routes && this.context.routes.length) {
     route = this.context.routes[this.context.routes.length-1]
   }
-  CacheOfLinkControl.add(this.context.routes && this.context.routes.length &&
-    this.context.routes[this.context.routes.length-1], to)
+  CacheOfLinkControl.add(this.context.parent || this.context.router, to)
   HistoryControl.go(to, state)
+}
+
+CacheLink.contextTypes = {
+  history: PropTypes.object,
+  parent: PropTypes.any,
+  router: PropTypes.any
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Control } from 'react-keeper'
+import { Link, CacheLink, Control } from 'react-keeper'
 import { Boxer } from 'react-boxer'
 import Actor from 'react-actor'
 import Login from './Login'
@@ -44,7 +44,7 @@ export default class Header extends Actor {
                 <Link to='/' state={{ id: 'home', time: new Date().toLocaleString() }}>Home</Link>
               </li>
               <li className={ Control.path.indexOf('/products') === 0? 'active' : '' }>
-                <Link to='/products' state={{ id: 'products', time: new Date().toLocaleString() }}>Products</Link>
+                <CacheLink to='/products' state={{ id: 'products', time: new Date().toLocaleString() }}>Products</CacheLink>
               </li>
               <li className={ Control.path.indexOf('/aboutus') === 0? 'active' : '' }>
                 <Link to='/aboutus' state={{ id: 'aboutus', time: new Date().toLocaleString() }}>AboutUs</Link>

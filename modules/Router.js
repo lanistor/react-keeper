@@ -19,7 +19,7 @@ export default class Router extends React.Component {
     this.unlisten = this.props.history.listen((location, action)=>{
 
       historyControlListener(location, action)
-      CacheOfLinkControl.onHistoryChanged(location)
+      CacheOfLinkControl && CacheOfLinkControl.onHistoryChanged(location)
       this.forceUpdate()
     })
   }

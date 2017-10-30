@@ -24,7 +24,7 @@ class App extends Actor {
   constructor(...args) {
     super(...args)
     this.state = {
-      cacheAboutUs: 'root'
+      cacheAboutUs: false
     }
 
     /** supported by 'react-actor', action triggered in '../common/Header.js' */
