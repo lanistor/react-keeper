@@ -78,7 +78,7 @@
 
   ```javascript
   <Route loadComponent={ (callback)=>{
-      System.import('../Products.js').then((Products)=>{
+      import('../Products.js').then((Products)=>{
           callback(Products)
         })
     } } path='/products'/>
