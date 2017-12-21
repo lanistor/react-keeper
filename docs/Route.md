@@ -37,7 +37,7 @@
   If we want to load `Products` component dynamicly, we can config like this:
   ```javascript
     <Route loadComponent={ (cb)=>{
-        System.import('../Products.js').then((Products)=>{
+        import('../Products.js').then((Products)=>{
           cb(Products)
         })
       } } path='/user'>
