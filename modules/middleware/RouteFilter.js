@@ -7,22 +7,28 @@ export default (RouteBase)=> class extends RouteBase {
     super(...args)
   }
 
-  setToMount(matchData) {
+  setToMount(matchData, options) {
+    if(!options.matchChange) {
+      return super.setToMount(matchData, options)
+    }
     this.checkFilter(this.props.enterFilter, (passed)=> {
       if(!passed) {
         return
       }
-      super.setToMount(matchData)
+      super.setToMount(matchData, options)
     })
   }
 
   /** check 'leaveFilter' tag and link */
-  setToUnmount (matchData) {
+  setToUnmount (matchData, options) {
+    if(!options.matchChange) {
+      return super.setToUnmount(matchData, options)
+    }
     this.checkFilter(this.props.leaveFilter, (passed)=> {
       if(!passed) {
         return
       }
-      super.setToUnmount(matchData)
+      super.setToUnmount(matchData, options)
     })
   }
 

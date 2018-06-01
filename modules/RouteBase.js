@@ -63,22 +63,38 @@ export default class RouteBase extends React.Component {
    */
   routeCheckEntry () {
     let matchData = this.checkPath(this.context.history.getCurrentLocation() || {})
-
     if(matchData.match) {
-      this.setToMatch(matchData)
+      this.setToMatch(matchData, this.getMatchOptions(matchData.match))
     }else {
-      this.setToUnmount(matchData)
+      this.setToUnmount(matchData, this.getMatchOptions(matchData.match))
     }
   }
 
+  /**
+   * get match(or no-match) options
+   */
+  getMatchOptions (match) {
+    let matchChange = false
+    if(match) {
+      if(!this.matcher || !this.matcher.match) {
+        matchChange = true
+      }
+    }else {
+      if(this.matcher && this.matcher.match) {
+        matchChange = true
+      }
+    }
+    return { matchChange }
+  }
+
   /** set state to match */
-  setToMatch (matchData) {
+  setToMatch (matchData, options) {
     this.loadComponent((succeed, component)=> {
       if(!succeed) {
         return
       }
 
-      this.setToMount(matchData)
+      this.setToMount(matchData, options)
 
     })
   }
@@ -87,14 +103,14 @@ export default class RouteBase extends React.Component {
    * set to mount state
    * (also invoke by outside)
    */
-  setToMount (matchData) {
+  setToMount (matchData, options) {
     this.updateMountStatus({ status: 1, matchData })
   }
 
   /**
    * set to unmount state
    */
-  setToUnmount(matchData) {
+  setToUnmount(matchData, { matchChange }) {
     this.updateMountStatus({ status: 0 })
   }
 
