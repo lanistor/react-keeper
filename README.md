@@ -31,6 +31,7 @@
   ```
   npm install react-keeper
   ```
+  **Don't use cnpm.**
 
 ## Features
 
