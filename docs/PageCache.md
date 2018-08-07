@@ -24,7 +24,7 @@ In the upper code, the page `Home` will bean cached(always), and the page `About
 `cache='parent'` will cache a page temporarily, the page will be cached until it's parent component is unmounted.  
 
 ### clear cache
-Keeper provides an easy way to clear cache, and you can clear `cache` whenever you what:  
+Keeper provides an easy way to clear cache, and you can clear `cache` whenever you want:  
 ```js
 
 constructor() {
