@@ -16,7 +16,7 @@ export default function compilePattern(pattern) {
   }
   pattern = pattern.replace(/\$/g, '\\$')
 
-  let regular = []
+  let regular = [ '^' ]
   let params = {}
   let _ulrPart = '([0-9a-zA-Z-_$%]+)'
   let _rule = new RegExp(`\\(\\/:${_ulrPart}\\)|:${_ulrPart}|(\\*\\*)|(\\*)`, 'g')

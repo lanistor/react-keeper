@@ -3,6 +3,9 @@
   "globals": {
     "__DEV__": false
   },
+  "env": {
+    "jest": true
+  },
   "rules": {
     "indent": 1,
     "no-console": 0,
@@ -16,7 +19,7 @@
     "react/react-in-jsx-scope": 0,
     "react/wrap-multiline": 0,
     "react/no-find-dom-node": 0,
-    "object-curly-spacing": 1
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   },
   "plugins": [ "react", "babel" ],
   "exclude": ["example/serve.js", "webpack.config.js"]
