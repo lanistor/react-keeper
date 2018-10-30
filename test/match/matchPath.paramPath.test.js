@@ -1,6 +1,6 @@
 import matchPath from '../../modules/match/matchPath'
 
-describe('modules/match/matchPath  paramPath', ()=>{
+describe('modules/match/matchPath, test matching: path with params', ()=>{
 
   test(`'/item/123' match '/item/:id`, () => {
     expect(matchPath('/item/123', '/item/:id')).toMatchObject({ match: true, params: { id: '123' }, matchStr: '/item/123' })

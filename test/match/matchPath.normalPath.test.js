@@ -1,6 +1,6 @@
 import matchPath from '../../modules/match/matchPath'
 
-describe('modules/match/matchPath  matchNormalPath', ()=>{
+describe('modules/match/matchPath, test matching: normal path', ()=>{
   test(`'/a(/b)?' match '/a(/b)?'`, () => {
     expect(matchPath('/a', '/a')).toMatchObject({ match: true, matchStr: '/a' })
     expect(matchPath('/a', '/a/b')).toMatchObject({ match: false })
