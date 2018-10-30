@@ -1,7 +1,10 @@
 sudo: false
 language: node_js
 node_js:
-  -stable
+  - stable
+cache:
+  - node_modules
 branches:
   only:
-    -master
+    - master
+script: npm run test
