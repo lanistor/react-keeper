@@ -16,21 +16,20 @@
 - `Control.replace(path, state)` (function) : Replace current path.
 
 ### Reminding
-Use them in components [wrapped by Router Component](https://github.com/vifird/react-keeper/issues/100#event-2050157177), such as:  
-```
+Use them in [children components of Router component](https://github.com/vifird/react-keeper/issues/100#event-2050157177), or after Router component.
+**Right case:**
+```jsx
 <div>
   <HashRouter>
     <div>
-      <Route path='/page1' component={ Page1 } key={'searchresult'} />
-      <Nav/>
-      { console.log("Don't use Control.path, Control.go here. ") }
+      <Com1/>
     </div>
   </HashRouter>
+  <Com2/>
 </div>
-
-
-
-class Nav extends React.Component {
+```
+You can use them in `Com1` and `Com2`:
+```class Com1 extends React.Component {
 
   nextPage() {
     let path = Control.path;
@@ -41,4 +40,21 @@ class Nav extends React.Component {
     ...
   }
 }
+```  
+
+And, don't use them in code embed in Router component, or components before Router.
+**Error cases:**
 ```
+<div>jsx
+  <Com1/>
+  <Com2><div>{ console.log(Control.path) }</div></Com2>
+  <HashRouter>
+    <div>
+      <Com3>
+        <div>{ console.log(Control.path) }</div>
+      </Com3>
+    </div>
+  </HashRouter>
+</div>
+```
+You can't use them in Com1, and the `console.log` will print `undefined`;
