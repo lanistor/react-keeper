@@ -104,5 +104,12 @@
    </Route>
   ```
 
-## Scroll Position Memory
-  Will be in next version.
+## Children
+Write children in Route, you can embed code in Route Component (no `render` function), such as:  
+  ```
+  <Route path='/detail'>
+    <div>
+      Content embed
+    </div>
+  </Route>
+  ```
