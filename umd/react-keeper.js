@@ -2650,7 +2650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  pattern = pattern.replace(/\$/g, '\\$');
 
-	  var regular = [];
+	  var regular = ['^'];
 	  var params = {};
 	  var _ulrPart = '([0-9a-zA-Z-_$%]+)';
 	  var _rule = new RegExp('\\(\\/:' + _ulrPart + '\\)|:' + _ulrPart + '|(\\*\\*)|(\\*)', 'g');
