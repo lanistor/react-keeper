@@ -12,7 +12,8 @@ export default class Link extends React.Component {
     super(...args)
   }
 
-  handleClick= ()=> {
+  handleClick= (event)=> {
+    event.preventDefault()//阻止浏览器默认事件
 
     if(this.props.onClick && (typeof this.props.onClick === 'function')) {
       this.props.onClick()
@@ -49,7 +50,7 @@ export default class Link extends React.Component {
     }
 
     if(type==='a') {
-      props['href'] = 'javascript:void(0)'
+      props['href'] = to //指向实际地址
     }
 
     if(isActive) {
