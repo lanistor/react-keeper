@@ -1,6 +1,6 @@
 {
   "name": "react-keeper",
-  "version": "2.1.12",
+  "version": "2.2.2",
   "description": "A Strong Routing Library of React",
   "homepage": "https://github.com/vifird/react-keeper",
   "bug": "https://github.com/vifird/react-keeper/issues",
@@ -14,7 +14,7 @@
     "build-min": "cross-env NODE_ENV=production webpack --config webpack.build.js -p modules/index.js umd/react-keeper.min.js",
     "precompile": "rimraf npm/__build__/** && npm run copy-file",
     "compile": "cross-env NODE_ENV=production babel modules --extensions .js --out-dir npm/__build__",
-    "copy-file": "cp {modules/index.d.ts,package.json,README.md} npm/__build__",
+    "copy-file": "cp {modules/index.d.ts,npm/package.json,README.md} npm/__build__",
     "prepublish": "npm run compile",
     "publish": "npm publish npm/__build__/"
   },

@@ -1,9 +1,7 @@
 var WebpackDevServer = require("webpack-dev-server")
 var webpack = require('webpack')
-var fs = require('fs')
 var path = require('path')
 var config = require('./webpack.config')
-var rewrite = require('express-urlrewrite')
 
 var publicPath = '/__build__'
 
@@ -19,8 +17,6 @@ for(var key in config.entry){
   )
 }
 config.output.publicPath = publicPath
-
-// console.log('dirname', __dirname)
 
 var server = new WebpackDevServer(webpack(config), {
   contentBase: [__dirname],
@@ -46,10 +42,10 @@ process.on('uncaughtException', function (err) {
   console.error('--uncaughtException--', err);
 });
 
-server.listen(8600, 'localhost', function (error, result) {
+server.listen(port, 'localhost', function (error, result) {
   if(error) {
     console.error(error)
   }else {
-    console.log('Server listening on http://localhost:8600, Ctrl+C to stop')
+    console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
   }
 })

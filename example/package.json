@@ -1,18 +1,17 @@
 {
-  "name": "react-keeper",
-  "version": "2.2.2",
-  "description": "A Strong Routing Library of React",
+  "name": "react-keeper-example",
+  "version": "1.0.0",
   "homepage": "https://github.com/vifird/react-keeper",
   "bug": "https://github.com/vifird/react-keeper/issues",
   "email": "vifirde@gmail.com",
-  "dependencies": {
-    "prop-types": "^15.5.10",
-    "create-react-class": "^15.6.0",
-    "vhistory": "^1.0.0"
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node ./serve false"
   },
-  "peerDependencies": {
-    "react": "^15.0.0 || ^16.0.0 || ^0.14.0",
-    "react-dom": "^15.0.0 || ^16.0.0 || ^0.14.0"
+  "dependencies": {
+    "create-react-class": "^15.6.0",
+    "prop-types": "^15.5.10",
+    "react-keeper": "latest",
+    "vhistory": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -34,14 +33,14 @@
     "eslint-plugin-react": "^6.8.0",
     "express": "^4.14.0",
     "express-urlrewrite": "^1.2.0",
-    "jest": "^23.6.0",
+    "react": "^15.6.2",
     "react-actor": "^1.0.5",
     "react-addons-css-transition-group": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",
     "react-boxer": "^1.0.4",
+    "react-dom": "^15.6.2",
     "react-hot-loader": "^1.3.1",
     "react-router": "^4.1.1",
-    "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",

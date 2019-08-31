@@ -9,9 +9,6 @@
   <b style="color:#fd5200">[Keeper V2.1](https://github.com/vifird/react-keeper/blob/master/docs/Version.md) had published !!!</b>  
   <b style="color:#fd5200">[Keeper V2.0](https://github.com/vifird/react-keeper/blob/master/docs/Version.md) had published !!!</b>
 
-# Ads
-  <a href="https://click.dji.com/AIaJx0jItSv7nF647uwJ?pm=ad_image" target=_blank><img src="https://u.djicdn.com/uploads/ad_image_file/file/493/728x90_copy_3.jpg"></a>
-
 ## Docs
   [Route Component](https://github.com/vifird/react-keeper/blob/master/docs/Route.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
     ( How to config the `Route` component )    
@@ -185,6 +182,11 @@
     }
   }
   ```
+
+## Support React-Keeper and Author
+> With your donation, we can do it better.  
+
+ <img width="300" src="https://raw.githubusercontent.com/vifird/assets/master/imgs/support_react-keeper.png">
 
 ## Contributors
   * ***Clone Project***
