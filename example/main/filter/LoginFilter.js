@@ -7,6 +7,6 @@ export default (callback, props)=> {
     callback()
   } else {
     alert('Not Login.')
-    Control.go('/', null)
+    Control.go(-1, null)
   }
 }

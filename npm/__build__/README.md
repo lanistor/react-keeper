@@ -5,8 +5,27 @@
   We create a lot of flexible ways, so you can config the router more simplely.   
   And more...
 
-# Ads
-  <a href="https://click.dji.com/AIaJx0jItSv7nF647uwJ?pm=ad_image" target=_blank><img src="https://u.djicdn.com/uploads/ad_image_file/file/493/728x90_copy_3.jpg"></a>
+# News
+  <b style="color:#fd5200">[Keeper V2.1](https://github.com/vifird/react-keeper/blob/master/docs/Version.md) had published !!!</b>  
+  <b style="color:#fd5200">[Keeper V2.0](https://github.com/vifird/react-keeper/blob/master/docs/Version.md) had published !!!</b>
+
+## Docs
+  [Route Component](https://github.com/vifird/react-keeper/blob/master/docs/Route.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to config the `Route` component )    
+  [Link Component](https://github.com/vifird/react-keeper/blob/master/docs/Link.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `Link` component)  
+  [CacheLink Component](https://github.com/vifird/react-keeper/blob/master/docs/CacheLink.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `CahceLink` component )  
+  [RouteMapping](https://github.com/vifird/react-keeper/blob/master/docs/RouteMapping.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to config `path` of route )  
+  [Filter](https://github.com/vifird/react-keeper/blob/master/docs/Filter.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `filters` )  
+  [Page Cache](https://github.com/vifird/react-keeper/blob/master/docs/PageCache.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to `cache` pages )  
+  [Control](https://github.com/vifird/react-keeper/blob/master/docs/Control.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( Use Router `Control` in JavaScript code. )  
+  [Browser](https://github.com/vifird/react-keeper/blob/master/docs/Browser.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+  ( Use React-Keeper in browser. )
 
 ## Install
   ```
@@ -163,6 +182,11 @@
     }
   }
   ```
+
+## Support React-Keeper and Author
+> With your donation, we can do it better.  
+
+ <img width="300" src="https://raw.githubusercontent.com/vifird/assets/master/imgs/support_react-keeper.png">
 
 ## Contributors
   * ***Clone Project***

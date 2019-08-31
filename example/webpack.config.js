@@ -12,8 +12,7 @@ module.exports = {
   devtool: 'inline-source-map',
 
   entry: fs.readdirSync(__dirname).reduce(function (entries, dir) {
-      // console.log('--dirname---', __dirname)
-    if(dir === 'common' || dir === 'plugins' || dir === 'react-router'){
+    if(['common', 'plugins', 'node_modules'].indexOf(dir) >= 0){
       return entries
     }
     if (fs.statSync(path.join(__dirname, dir)).isDirectory()){
@@ -40,7 +39,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      'react-keeper': path.join(__dirname, '..', 'modules/index'),
+      // 'react-keeper': path.join(__dirname, '..', 'modules/index'),
       // 'react-actor': path.join(__dirname, '../..', 'react-actor/modules/Actor')
     }
   },

@@ -16,14 +16,14 @@ export default (RouteBase) => class extends RouteBase {
     }, 0)
   }
 
-  setToMatch(matchData) {
+  setToMatch(matchData, options) {
     this.addToParent()
-    super.setToMatch(matchData)
+    super.setToMatch(matchData, options)
   }
 
-  setToUnmount( matchData ) {
+  setToUnmount( matchData, options) {
     this.removeFromParent()
-    super.setToUnmount()
+    super.setToUnmount(matchData, options)
     this.checkMissTag()
   }
 
@@ -82,7 +82,7 @@ export default (RouteBase) => class extends RouteBase {
           matchStr: pathname && resetPath(pathname).substring(parentPath.length),
           lastIndex: 0
         }
-      })
+      }, this.getMatchOptions(true))
     }
   }
 
