@@ -48,17 +48,17 @@ export default (RouteBase) => class extends RouteBase {
   }
 
   /** check cache, link cache & tag cache */
-  setToUnmount(matchData) {
+  setToUnmount(matchData, options) {
     let cache = this.isCached()
     if(cache) {
       this.checkPath(this.cacheLocation)
       if(this.state.mountBy !== cache && this.state.status === 1) {
-        super.setToUnmount(matchData)
+        super.setToUnmount(matchData, options)
         this.updateMountStatus({ status: 1, mountBy: cache, matchData: this.state.cacheMatch })
       }
       return
     }
-    super.setToUnmount(matchData)
+    super.setToUnmount(matchData, options)
   }
 
   /** check cache tag after update status  */
