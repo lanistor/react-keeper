@@ -3,12 +3,34 @@
   React-Router is a great product, we learned a lot from it. But we truely faced many problems that React-Router doesn't resolve in real using, especially in mobile APPs.  
   We did a lot to let React-Keeper fit mobile APPs, such as `Pages Cache`, `Extensible Route`, `Route Filters` and so on.   
   We create a lot of flexible ways, so you can config the router more simplely.   
-  And more...  
+  And more...
+
+# Ads
+  <a href="https://click.dji.com/AIaJx0jItSv7nF647uwJ?pm=ad_image" target=_blank><img src="https://u.djicdn.com/uploads/ad_image_file/file/493/728x90_copy_3.jpg"></a>
+
+## Docs
+  [Route Component](docs/Route.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to config the `Route` component )    
+  [Link Component](docs/Link.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `Link` component)  
+  [CacheLink Component](docs/CacheLink.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `CahceLink` component )  
+  [RouteMapping](docs/RouteMapping.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to config `path` of route )  
+  [Filter](docs/Filter.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to use `filters` )  
+  [Page Cache](docs/PageCache.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( How to `cache` pages )  
+  [Control](docs/Control.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+    ( Use Router `Control` in JavaScript code. )  
+  [Browser](docs/Browser.md) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+  ( Use React-Keeper in browser. )
 
 ## Install
   ```
   npm install react-keeper
   ```
+  *Don't use cnpm.*
 
 ## Features
 
@@ -56,7 +78,7 @@
 
   ```javascript
   <Route loadComponent={ (callback)=>{
-      System.import('../Products.js').then((Products)=>{
+      import('../Products.js').then((Products)=>{
           callback(Products)
         })
     } } path='/products'/>
@@ -172,6 +194,6 @@
 
   * ***Run Example***
   ```
-  npm run example
+  npm run start
   ```
   Then open `http://127.0.0.1:8600`
