@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
 import { HashRouter, BrowserRouter, MemoryRouter, Route, Control } from 'react-keeper'
 import { Box } from 'react-boxer'
 import Actor from 'react-actor'
@@ -28,9 +28,9 @@ class App extends Actor {
     }
 
     /** supported by 'react-actor', action triggered in '../common/Header.js' */
-    this.onAction('clearAboutUsCache', ()=>{
-      alert(`${this.state.cacheAboutUs? 'clear' : 'reset'}AboutUsCache`)
-      this.setState({ cacheAboutUs: this.state.cacheAboutUs? false : 'root' })
+    this.onAction('clearAboutUsCache', () => {
+      alert(`${this.state.cacheAboutUs ? 'clear' : 'reset'}AboutUsCache`)
+      this.setState({ cacheAboutUs: this.state.cacheAboutUs ? false : 'root' })
     })
   }
 
@@ -39,24 +39,24 @@ class App extends Actor {
     return (
       <HashRouter basename='/main'>
         <div>
-          <Route miss cache component={Home} path='/>'/>
+          <Route miss cache component={Home} path='/>' />
 
           <Route component={Products} path='/products'>
-            <Route component={Enterprise} path='/ep'/>
-            <Route index miss path='mo' component={Mobile}/>
-            <Route cache='parent' component={Detail} path='/item/:id' time={ 7 }/>
+            <Route component={Enterprise} path='/ep' />
+            <Route index miss path='mo' component={Mobile} />
+            <Route cache='parent' component={Detail} path='/item/:id' time={7} />
             <Route component={Ads} path='/ads' />
           </Route>
 
-          <Route component={Host} path='/host' enterFilter={[ LoginFilter ]} leaveFilter={ UserLeave }/>
+          <Route component={Host} path='/host' enterFilter={[ LoginFilter ]} leaveFilter={UserLeave} />
 
-          <Route cache={ this.state.cacheAboutUs } path='aboutus' component={AboutUs}/>
+          <Route cache={this.state.cacheAboutUs} path='aboutus' component={AboutUs} />
 
-          <Box index='5'/>
+          <Box index='5' />
         </div>
       </HashRouter>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
