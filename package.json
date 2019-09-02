@@ -15,7 +15,7 @@
     "precompile": "rimraf npm/__build__/** && mkdirp npm/__build__ && npm run copy-file",
     "compile": "cross-env NODE_ENV=production babel modules --extensions .js --out-dir npm/__build__",
     "copy-file": "cp {modules/index.d.ts,npm/package.json,README.md} npm/__build__/",
-    "prepub": "npm run pack",
+    "prepub": "npm run compile",
     "pub": "npm publish npm/__build__/"
   },
   "dependencies": {
