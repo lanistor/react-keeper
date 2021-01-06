@@ -71,7 +71,7 @@ export default (RouteBase) => class extends RouteBase {
   hideOrShow() {
     if(!this.state.status)
       return
-    const display = this.state.mountBy === 0? (this.initDisplay || null) : 'none'
+    const display = this.state.mountBy === 0? (this.initDisplay || '') : 'none'
     let dom
     try{
       dom = this.refs.component? ReactDOM.findDOMNode(this.refs.component) : null
@@ -87,7 +87,7 @@ export default (RouteBase) => class extends RouteBase {
     // change display
     if(dom) {
       if(typeof this.initDisplay === 'undefined') {
-        this.initDisplay = dom? (dom.style.display || null) : null
+        this.initDisplay = dom? (dom.style.display || '') : ''
       }
       dom.style.display = display
     }
