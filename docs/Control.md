@@ -16,7 +16,7 @@
 - `Control.replace(path, state)` (function) : Replace current path.
 
 ### Reminding
-Use them in [children components of Router component](https://github.com/vifird/react-keeper/issues/100#event-2050157177), or after Router component.  
+Use them in [children components of Router component](https://github.com/lanistor/react-keeper/issues/100#event-2050157177), or after Router component.  
 **Right case:**  
 ```jsx
 <div>

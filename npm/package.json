@@ -1,10 +1,10 @@
 {
   "name": "react-keeper",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "A Strong Routing Library of React",
-  "homepage": "https://github.com/vifird/react-keeper",
-  "bug": "https://github.com/vifird/react-keeper/issues",
-  "email": "vifirde@gmail.com",
+  "homepage": "https://github.com/lanistor/react-keeper",
+  "bug": "https://github.com/lanistor/react-keeper/issues",
+  "email": "lajistor@gmail.com",
   "dependencies": {
     "prop-types": "^15.5.10",
     "create-react-class": "^15.6.0",
